@@ -2,6 +2,8 @@
 'use client'
 
 import { useChat } from '@ai-sdk/react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 export default function Chat() {
     const { messages, input, handleInputChange, handleSubmit } = useChat({})
@@ -14,16 +16,18 @@ export default function Chat() {
 
                     {messages.map(message => (
                         <div
-                            className='py-2 max-w-md bg-blue-100 px-2 my-2 rounded-xl'
+                            className='py-2 px-3 max-w-md bg-blue-100  my-2 rounded-xl'
                             key={message.id}>
-                            {message.role === 'user' ? 'User: ' : 'AI: '}
+                            <div className='font-bold text-sm'>
+                                {message.role === 'user' ? 'User' : 'AI'}
+                            </div>
                             {message.content}
                         </div>
                     ))}
 
-                    <form className="flex justify-center" onSubmit={handleSubmit}>
-                        <input className="border py-2 px-6 rounded" name="prompt" value={input} onChange={handleInputChange} />
-                        <button className='border py-2 ml-3 px-6 rounded bg-green-300' type="submit"> Submit</button>
+                    <form className="flex justify-center mt-2" onSubmit={handleSubmit}>
+                        <Input className="mr-2" name="prompt" value={input} onChange={handleInputChange} />
+                        <Button className='' type="submit"> Submit</Button>
                     </form>
 
                 </div>
