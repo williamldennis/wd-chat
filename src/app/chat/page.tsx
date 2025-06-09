@@ -1,40 +1,14 @@
 
-'use client'
-
 import { useChat } from '@ai-sdk/react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 
-export default function Chat() {
-    const { messages, input, handleInputChange, handleSubmit } = useChat({})
 
-    return (
-        <>
-            <div className='flex flex-col items-center'>
-                <div className='pt-30'>
-                    <div className='text-2xl font-bold'>Chats</div>
+//message peristance
+import { redirect } from 'next/navigation'
+import { createChat } from '@/tools/chat-store'
 
-                    {messages.map(message => (
-                        <div
-                            className='py-2 px-3 max-w-md bg-blue-100  my-2 rounded-xl'
-                            key={message.id}>
-                            <div className='font-bold text-sm'>
-                                {message.role === 'user' ? 'User' : 'AI'}
-                            </div>
-                            {message.content}
-                        </div>
-                    ))}
 
-                    <form className="flex justify-center mt-2" onSubmit={handleSubmit}>
-                        <Input className="mr-2" name="prompt" value={input} onChange={handleInputChange} />
-                        <Button className='' type="submit"> Submit</Button>
-                    </form>
-
-                </div>
-
-            </div>
-
-        </>
-    )
+export default async function Page() {
+    const id = await createChat()
+    redirect(`/chat/${id}`)
 
 }
