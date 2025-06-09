@@ -6,7 +6,12 @@ import path from 'path'
 import { type Message } from 'ai'
 
 export async function loadChat(id: string): Promise<Message[]> {
-    return JSON.parse(await readFile(getChatFile(id), 'utf8'))
+    try {
+        return JSON.parse(await readFile(getChatFile(id), 'utf8')) as Message[]
+    } catch {
+        return []
+    }
+
 }
 
 export async function createChat(): Promise<string> {
