@@ -1,6 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { appendResponseMessages, streamText, type UIMessage } from 'ai'
-import { saveChat } from '@/tools/chat-store';
+import { saveChat } from '@/tools/chat-store'
+import { z } from 'zod'
 
 type ChatMessage = {
     role: 'user' | 'assistant' | 'system';
@@ -17,6 +18,28 @@ export async function POST(req: Request) {
         model: openai('gpt-4-turbo'),
         system: 'You are a helpful assistant',
         messages,
+        tools: {
+            getWeatherInformation: {
+                description: 'show the weather in a given city to the user',
+                parameters: z.object({ city: z.string() }),
+                execute: async ({}: { city: string }) => {
+                    const weatherOptions = ['sunny', 'cloudy', 'rainy', 'snowy', 'windy']
+                    return weatherOptions[
+                        Math.floor(Math.random() * weatherOptions.length)
+                    ]
+                }
+            },
+            askForConfirmation: {
+                description: 'Ask the user for confirmation',
+                parameters: z.object({
+                    message: z.string().describe('The message to ask for confirmation.')
+                })
+            },
+            getLocation: {
+                description: 'get the user location. always ask for confirmation before using this tool',
+                parameters: z.object({})
+            }
+        },
         async onFinish({ response }) {
             await saveChat({
                 id,
