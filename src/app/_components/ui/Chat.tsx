@@ -1,8 +1,8 @@
 'use client'
 
 import { type Message, useChat } from '@ai-sdk/react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@/app/_components/ui/button'
+import { Input } from '@/app/_components/ui/input'
 
 export default function Chat({
     id,

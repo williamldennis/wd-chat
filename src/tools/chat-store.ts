@@ -4,11 +4,21 @@ import { existsSync, mkdirSync } from "fs"
 import { writeFile, readFile } from 'fs/promises'
 import path from 'path'
 import { type Message } from 'ai'
+import { db } from "@/server/db"
+import { chats } from "@/server/db/schema"
+import { eq } from "drizzle-orm"
 
 export async function loadChat(id: string): Promise<Message[]> {
     try {
-        return JSON.parse(await readFile(getChatFile(id), 'utf8')) as Message[]
-    } catch {
+        const result = await db
+            .select({ messages: chats.messages })
+            .from(chats)
+            .where(eq(chats.id, id))
+            .limit(1)
+
+        return result[0]?.messages ?? []
+    } catch (error) {
+        console.error('Error loading chat:', error)
         return []
     }
 
@@ -16,14 +26,16 @@ export async function loadChat(id: string): Promise<Message[]> {
 
 export async function createChat(): Promise<string> {
     const id = generateId() //generate unique chat ID
-    await writeFile(getChatFile(id), '[]') // create an empty chat file
-    return id
-}
-
-function getChatFile(id: string): string {
-    const chatDir = path.join(process.cwd(), '.chats')
-    if (!existsSync(chatDir)) mkdirSync(chatDir, { recursive: true })
-    return path.join(chatDir, `${id}.json`)
+    try {
+        await db.insert(chats).values({
+            id,
+            messages: [],
+        })
+        return id
+    } catch (error) {
+        console.error('Error creating chat:', error)
+        throw error
+    }
 }
 
 export async function saveChat({
@@ -33,6 +45,16 @@ export async function saveChat({
     id: string;
     messages: Message[];
 }): Promise<void> {
-    const content = JSON.stringify(messages, null, 2)
-    await writeFile(getChatFile(id), content)
+    try {
+        await db
+            .update(chats)
+            .set({
+                messages,
+                updatedAt: new Date()
+            })
+            .where(eq(chats.id, id))
+    } catch (error) {
+        console.error('Error saving chat', error)
+        throw error
+    }
 }
