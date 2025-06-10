@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { appendResponseMessages, streamText, type UIMessage } from 'ai'
+import { appendResponseMessages, streamText } from 'ai'
 import { saveChat } from '@/tools/chat-store'
 import { z } from 'zod'
 
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
             getWeatherInformation: {
                 description: 'show the weather in a given city to the user',
                 parameters: z.object({ city: z.string() }),
-                execute: async ({}: { city: string }) => {
+                execute: async ({ }: { city: string }) => {
                     const weatherOptions = ['sunny', 'cloudy', 'rainy', 'snowy', 'windy']
                     return weatherOptions[
                         Math.floor(Math.random() * weatherOptions.length)

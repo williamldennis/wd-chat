@@ -3,7 +3,6 @@
 import { type Message, useChat } from '@ai-sdk/react'
 import { Button } from '@/app/_components/ui/button'
 import { Input } from '@/app/_components/ui/input'
-import { type ToolInvocation } from 'ai'
 
 
 export default function Chat({
@@ -54,11 +53,12 @@ export default function Chat({
 
                                         switch (part.toolInvocation.toolName) {
                                             case 'askForConfirmation': {
+                                                const confirmationArgs = part.toolInvocation.args as { message: string }
                                                 switch (part.toolInvocation.state) {
                                                     case 'call':
                                                         return (
                                                             <div key={callId}>
-                                                                {part.toolInvocation.args.message}
+                                                                {confirmationArgs.message}
                                                                 <div>
                                                                     <Button
                                                                         className='bg-green-400'
@@ -109,6 +109,7 @@ export default function Chat({
                                                 break
                                             }
                                             case 'getWeatherInformation': {
+                                                const weatherArgs = part.toolInvocation.args as { city: string }
                                                 switch (part.toolInvocation.state) {
                                                     case 'partial-call':
                                                         return (
@@ -120,13 +121,13 @@ export default function Chat({
                                                         return (
                                                             <div key={callId}>
                                                                 Getting weather information for {' '}
-                                                                {part.toolInvocation.args.city}...
+                                                                {weatherArgs.city}...
                                                             </div>
                                                         )
                                                     case 'result':
                                                         return (
                                                             <div key={callId}>
-                                                                Weather in {part.toolInvocation.args.city}:{' '}
+                                                                Weather in {weatherArgs.city}:{' '}
                                                                 {part.toolInvocation.result}
                                                             </div>
                                                         )

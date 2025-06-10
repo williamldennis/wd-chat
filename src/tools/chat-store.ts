@@ -1,8 +1,5 @@
 
 import { generateId } from "ai"
-import { existsSync, mkdirSync } from "fs"
-import { writeFile, readFile } from 'fs/promises'
-import path from 'path'
 import { type Message } from 'ai'
 import { db } from "@/server/db"
 import { chats } from "@/server/db/schema"
