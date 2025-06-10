@@ -1,6 +1,4 @@
 
-import { useChat } from '@ai-sdk/react'
-
 
 //message peristance
 import { redirect } from 'next/navigation'
