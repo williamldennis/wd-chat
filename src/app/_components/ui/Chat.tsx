@@ -38,10 +38,10 @@ export default function Chat({
 
                 {messages.map(message => (
                     <div
-                        className="py-2 px-3 max-w-md bg-blue-100 my-2 rounded-xl w-full mx-auto"
+                        className="py-2 px-3 max-w-md bg-blue-100 my-2 rounded-xl w-full mx-auto text-xs"
                         key={message.id}
                     >
-                        <div className="font-bold text-sm">
+                        <div className="font-bold ">
                             {message.role === 'user' ? 'User' : 'AI'}
                         </div>
                         {message.parts.map(part => {
@@ -137,18 +137,23 @@ export default function Chat({
             </div>
 
             {/* Input form fixed at bottom */}
+          
             <form
                 onSubmit={handleSubmit}
-                className="flex items-center p-4 border-t bg-white sticky bottom-0"
+                className="flex items-center justify-center p-4 border-t border-blue-950 bg-blue-950 sticky bottom-0"
             >
+                  <div className='flex w-full max-w-md mx-auto'>
                 <Input
-                    className="flex-1 mr-2 bg-white"
+                    className="flex mr-2 bg-white max-w-xs"
                     name="prompt"
                     value={input}
                     onChange={handleInputChange}
                 />
                 <Button type="submit">Submit</Button>
+                  </div>
+
             </form>
+
         </div>
     )
 }
