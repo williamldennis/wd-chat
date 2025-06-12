@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/form"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -36,6 +38,8 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
 
+
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   // 1. Define your form.
@@ -49,6 +53,7 @@ export function LoginForm({
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true)
     const { success, message} = await signIn(values.email, values.password)
     console.log(values)
 
@@ -58,6 +63,7 @@ export function LoginForm({
     } else {
       toast.error(message as string)
     }
+    setIsLoading(false)
   }
   
 
@@ -142,8 +148,8 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? <Loader2 className="animate-spin size-4" /> : "Login"}
                 </Button>
               </div>
               <div className="text-center text-sm">
