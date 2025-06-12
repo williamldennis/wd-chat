@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-import { Pool } from "pg";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../server/db/index"; // your drizzle instance
 import { nextCookies } from "better-auth/next-js";
@@ -14,8 +13,8 @@ export const auth = betterAuth({
   },
   socialProviders: {
         google: { 
-            clientId: process.env.GOOGLE_CLIENT_ID as string, 
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+            clientId: process.env.GOOGLE_CLIENT_ID!, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!, 
         }, 
   },
   plugins: [nextCookies()], // make sure this is the last plugin in the array

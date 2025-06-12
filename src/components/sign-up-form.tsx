@@ -60,10 +60,10 @@ export function SignUpForm({
         console.log(values)
 
         if (success) {
-            toast.success(message as string)
+            toast.success(message)
             router.push("/chat")
         } else {
-            toast.error(message as string)
+            toast.error(message)
         }
         setIsLoading(false)
     }
@@ -83,7 +83,7 @@ export function SignUpForm({
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Welcome back</CardTitle>
                     <CardDescription>
-                        Login with your Google account
+                        Sign Up with your Google account
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -104,7 +104,7 @@ export function SignUpForm({
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        Login with Google
+                                        Sign Up with Google
                                     </Button>
                                 </div>
                             </div>
@@ -171,13 +171,13 @@ export function SignUpForm({
                                         </a>
                                     </div>
                                     <Button type="submit" className="w-full" disabled={isLoading}>
-                                        {isLoading ? <Loader2 className="animate-spin size-4" /> : "Login"}
+                                        {isLoading ? <Loader2 className="animate-spin size-4" /> : "Sign Up"}
                                     </Button>
                                 </div>
                                 <div className="text-center text-sm">
-                                    Don&apos;t have an account?{" "}
+                                    Already have an account?{" "}
                                     <a href="#" className="underline underline-offset-4">
-                                        Sign up
+                                        Log In
                                     </a>
                                 </div>
                             </div>

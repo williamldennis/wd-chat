@@ -1,7 +1,6 @@
 import { openai } from "@ai-sdk/openai";
 import { appendResponseMessages, streamText } from "ai";
 import { saveChat } from "@/tools/chat-store";
-import { z } from "zod";
 import { tools } from "@/ai/tools";
 
 type ChatMessage = {

@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { signIn, signUp } from "@/user-auth-server-actions/users"
+import { signIn } from "@/user-auth-server-actions/users"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import {
@@ -59,10 +59,10 @@ export function LoginForm({
     console.log(values)
 
     if (success) {
-      toast.success(message as string)
+      toast.success(message)
       router.push("/chat")
     } else {
-      toast.error(message as string)
+      toast.error(message)
     }
     setIsLoading(false)
   }
