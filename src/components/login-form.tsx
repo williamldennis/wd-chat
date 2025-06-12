@@ -22,6 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -34,6 +36,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
 
+  const router = useRouter()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,10 +48,18 @@ export function LoginForm({
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    signIn(values.email, values.password)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { success, message} = await signIn(values.email, values.password)
     console.log(values)
+
+    if (success) {
+      toast.success(message as string)
+      router.push("/chat")
+    } else {
+      toast.error(message as string)
+    }
   }
+  
 
 
   return (
