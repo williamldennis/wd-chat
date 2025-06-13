@@ -37,12 +37,9 @@ export default function Chat({
     }, [messages]);
 
     return (
-        <div className="flex h-screen flex-col">
+        <div className="flex h-screen flex-col max-w-full">
             {/* Scrollable message area */}
             <div className="flex-1 overflow-auto p-4">
-                <div className="absolute mb-4 text-2xl font-bold text-blue-200">
-                    WD Chats
-                </div>
 
                 {messages.map((message) => (
                     <div
@@ -149,9 +146,9 @@ export default function Chat({
 
             <form
                 onSubmit={handleSubmit}
-                className="sticky bottom-0 flex items-center justify-center border-t border-blue-950 bg-blue-950 p-4"
+                className="sticky bottom-0 flex items-center justify-center border-t border-blue-950 bg-blue-950 p-4 max-w-full"
             >
-                <div className="mx-auto flex w-full max-w-md">
+                <div className="mx-auto flex w-full">
                     <Input
                         className="mr-2 flex max-w-xs bg-white"
                         name="prompt"

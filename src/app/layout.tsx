@@ -31,8 +31,8 @@ export default function RootLayout({
             <AppSidebar />
             <SidebarTrigger />
             {children}
-
           </SidebarProvider>
+
           <Toaster />
         </TRPCReactProvider>
 

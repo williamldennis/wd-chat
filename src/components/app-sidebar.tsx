@@ -16,35 +16,6 @@ import {
 import Chat from "@/app/_components/ui/Chat"
 
 
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
-
 export function AppSidebar() {
 
   const { data: userChats, isLoading, error } = api.chat.list.useQuery()
@@ -53,7 +24,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Chats</SidebarGroupLabel>
+          <SidebarGroupLabel>WD Chats</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {userChats?.length === 0 ? (
