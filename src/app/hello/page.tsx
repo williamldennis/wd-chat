@@ -1,11 +1,11 @@
 'use client'
 
 import { api } from "@/trpc/react"
+import { user } from "auth-schema"
 
 export default function HelloPage() {
 
-    const name = {text: "Will"}
-    const result = api.post.hello.useQuery(name)
+    const result = api.post.hello.useQuery()
 
 
 
