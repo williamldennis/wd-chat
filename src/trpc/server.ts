@@ -13,6 +13,7 @@ import { createQueryClient } from "./query-client";
  * handling a tRPC call from a React Server Component.
  */
 const createContext = cache(async () => {
+  console.log("CONTEXT IS BEING CREATED")
   const heads = new Headers(await headers());
   heads.set("x-trpc-source", "rsc");
 
@@ -28,3 +29,4 @@ export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
   caller,
   getQueryClient,
 );
+

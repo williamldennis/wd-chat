@@ -1,3 +1,10 @@
+#TO DO 
+[] Associate chats with a given userID
+    [] Add userID to chat table
+[] Finish writing function for grabbing all chats by userID [text](src/server/api/routers/chat.ts)
+
+
+----
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.

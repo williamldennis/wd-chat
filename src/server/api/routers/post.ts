@@ -3,7 +3,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "@/server/api/trpc";
 import { posts } from "@/server/db/schema";
 import { env } from "@/env";
-import { CarTaxiFront } from "lucide-react";
 
 export const postRouter = createTRPCRouter({
   hello: protectedProcedure

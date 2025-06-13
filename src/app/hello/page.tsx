@@ -1,7 +1,6 @@
 'use client'
 
 import { api } from "@/trpc/react"
-import { user } from "auth-schema"
 
 export default function HelloPage() {
 

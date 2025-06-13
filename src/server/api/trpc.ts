@@ -29,6 +29,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   const authSession = await auth.api.getSession({
     headers: opts.headers
   })
+  console.log("IN CREATE TRPC CONTEXT", authSession)
 
   return {
     db,
@@ -117,7 +118,7 @@ export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
     if (!ctx.user?.id) {
-      throw new TRPCError({ code: 'UNAUTHORIZED'})
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
     }
     return next({
       ctx: {
