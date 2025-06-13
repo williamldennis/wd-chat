@@ -3,8 +3,8 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
-
 import { TRPCReactProvider } from "@/trpc/react";
+import Sidebar from '@/components/ui/Sidebar'
 
 export const metadata: Metadata = {
   title: "WD Chat",
@@ -24,9 +24,11 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`}>
       <body>
         <TRPCReactProvider>
+          <Sidebar />
           {children}
           <Toaster />
-          </TRPCReactProvider>
+
+        </TRPCReactProvider>
       </body>
     </html>
   );

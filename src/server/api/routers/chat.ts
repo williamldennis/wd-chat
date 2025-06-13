@@ -8,4 +8,13 @@ export const chatRouter = createTRPCRouter({
             return await createChat(ctx.user.id)
         }),
 
+    list: protectedProcedure.query(async ({ ctx }) => {
+        const chatList = await ctx.db.query.chats.findMany({
+            where: (chats, { eq }) => eq(chats.userId, ctx.user.id)
+        })
+        return chatList
+
+    }),
+    //create a list to grab all chats for a given user
+
 });
