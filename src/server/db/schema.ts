@@ -37,6 +37,10 @@ export const chats = createTable(
   "chat",
   (d) => ({
     id: d.text().primaryKey(),
+    userId: d
+      .text("user_id")
+      .notNull()
+      .references(() => user.id, {onDelete: "cascade"}),
     messages: d
       .json()
       .$type<Message[]>()

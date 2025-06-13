@@ -1,8 +1,8 @@
-//message peristance
 import { redirect } from "next/navigation";
-import { createChat } from "@/tools/chat-store";
+import { api } from "@/trpc/server";
 
-export default async function Page() {
-  const id = await createChat();
-  redirect(`/chat/${id}`);
+export default async function ChatPage() {
+  // does TRPC already have the request context if I make a server side request?
+  const chatId = await api.chat.create()
+  redirect(`/chat/${chatId}`);
 }

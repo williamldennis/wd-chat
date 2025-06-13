@@ -19,11 +19,12 @@ export async function loadChat(id: string): Promise<Message[]> {
   }
 }
 
-export async function createChat(): Promise<string> {
+export async function createChat(userId: string): Promise<string> {
   const id = generateId(); //generate unique chat ID
   try {
     await db.insert(chats).values({
       id,
+      userId,
       messages: [],
     });
     return id;
