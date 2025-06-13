@@ -20,6 +20,7 @@
         "clsx": "^2.1.1",
         "drizzle-orm": "^0.44.2",
         "fs": "^0.0.1-security",
+        "lightningcss": "^1.30.1",
         "lucide-react": "^0.513.0",
         "next": "^15.2.3",
         "next-themes": "^0.4.6",
