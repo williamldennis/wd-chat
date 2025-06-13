@@ -10,19 +10,21 @@ export default function Sidebar() {
     const { data: userChats, isLoading, error } = api.chat.list.useQuery()
     return (
         <>
-            <div className="bg-red-600 text-white">Chat List</div>
-            <div className="text-white">
-                {userChats?.length === 0 ? (
-                    <p> Start a chat </p>
-                ) : (
-                    <ul className="space-y-2">
-                        {userChats?.map((chat) => (
-                            <li key={chat.id} className="bg-red-800 p-2 rounded">
-                                ChatID: {chat.id}
-                            </li>
-                        ))}
-                    </ul>
-                )}
+            <div>
+                <div className="bg-red-600 text-white">Chat List</div>
+                <div className="text-white">
+                    {userChats?.length === 0 ? (
+                        <p> Start a chat </p>
+                    ) : (
+                        <ul className="space-y-2">
+                            {userChats?.map((chat) => (
+                                <li key={chat.id} className="bg-red-800 p-2 rounded">
+                                    ChatID: {chat.id}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
         </>
 
