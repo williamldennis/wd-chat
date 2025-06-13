@@ -3,6 +3,11 @@
  * for Docker builds.
  */
 import "./src/env.js";
+module.exports = {
+    experimental: {
+        optimizeCss: false, // disables LightningCSS for CSS
+    },
+}
 
 /** @type {import("next").NextConfig} */
 const config = {};
