@@ -4,7 +4,9 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import { TRPCReactProvider } from "@/trpc/react";
-import Sidebar from '@/components/ui/Sidebar'
+import SidebarWD from "@/components/ui/SidebarWD";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
 
 export const metadata: Metadata = {
   title: "WD Chat",
@@ -23,12 +25,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <TRPCReactProvider>
-          <Sidebar />
-          {children}
-          <Toaster />
 
+        <TRPCReactProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarTrigger />
+            {children}
+          </SidebarProvider>
+
+          <Toaster />
         </TRPCReactProvider>
+
+
       </body>
     </html>
   );
