@@ -6,6 +6,7 @@
 [] turn chats into daily workout sessions
 [] have sessions contain exercises
 [] add exercises to db
+[] fix deploy
 [] vector index the exercises
 [] create tool for chat to grab exercises based on vector similarity to user request
 [] make those exercises have GenUI components
