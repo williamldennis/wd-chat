@@ -19,8 +19,24 @@ import Chat from "@/components/ui/Chat"
 import { user } from "auth-schema 2"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { log } from "console"
 
 export function AppSidebar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    async function checkAuth() {
+      const session = await authClient.getSession()
+      console.log(`user session: ${session.data?.user}`)
+      setIsLoggedIn(!!session.data?.user)
+    }
+
+    checkAuth()
+
+
+  })
+  if (isLoggedIn === false) return null
 
   const { data: userChats, isLoading, error } = api.chat.list.useQuery()
   const { data: user } = api.chat.userInfo.useQuery()
@@ -35,6 +51,8 @@ export function AppSidebar() {
       },
     });
   }
+
+
 
   return (
     <Sidebar>
