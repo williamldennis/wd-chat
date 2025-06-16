@@ -30,8 +30,11 @@ export default function RootLayout({
         <TRPCReactProvider>
           <SidebarProvider>
             <AppSidebar />
-            <SidebarTrigger />
+            {/* <SidebarTrigger
+              className="z-0" /> */}
+
             {children}
+
           </SidebarProvider>
 
           <Toaster />

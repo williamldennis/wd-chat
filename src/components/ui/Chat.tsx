@@ -37,10 +37,10 @@ export default function Chat({
     }, [messages]);
 
     return (
-        <div>
+        <div className="w-full">
             <div className="flex h-screen flex-col max-w-full">
                 {/* Scrollable message area */}
-                <div className="flex-1 overflow-auto p-4">
+                <div className="">
 
                     {messages.map((message) => (
                         <div
