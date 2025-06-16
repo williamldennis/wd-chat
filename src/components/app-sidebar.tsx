@@ -15,7 +15,7 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import Chat from "@/components/ui/Chat"
+import Chat from "@/components/Chat"
 import { user } from "auth-schema 2"
 import { authClient } from "@/lib/auth-client"
 import { usePathname, useRouter } from "next/navigation"

@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef } from "react";
-import { Exercise } from "./exercise";
+import { Exercise } from "./ui/exercise";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function Chat({
     id,
@@ -39,7 +40,8 @@ export default function Chat({
 
     return (
         <div className="w-full">
-            <div className="flex h-screen flex-col max-w-full">
+            <ScrollArea className="rounded-md p-4">
+
                 {/* Scrollable message area */}
                 <div className="">
 
@@ -162,10 +164,10 @@ export default function Chat({
                 {/* Input form fixed at bottom */}
 
 
-            </div>
+            </ScrollArea>
             <form
                 onSubmit={handleSubmit}
-                className="sticky bottom-0 flex bg-blue-950 p-8 w-full"
+                className="sticky bottom-0 flex p-8 w-full"
             >
                 <div className="flex w-full">
                     <Input
