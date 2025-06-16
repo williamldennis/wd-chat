@@ -28,11 +28,12 @@ export default function RootLayout({
       <body>
 
         <TRPCReactProvider>
-          {children}
-            <SidebarProvider>
-              <AppSidebar />
-              <SidebarTrigger />
-            </SidebarProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarTrigger />
+            {children}
+          </SidebarProvider>
+
           <Toaster />
         </TRPCReactProvider>
 

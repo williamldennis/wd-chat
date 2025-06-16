@@ -37,120 +37,123 @@ export default function Chat({
     }, [messages]);
 
     return (
-        <div className="flex h-screen flex-col max-w-full">
-            {/* Scrollable message area */}
-            <div className="flex-1 overflow-auto p-4">
+        <div>
+            <div className="flex h-screen flex-col max-w-full">
+                {/* Scrollable message area */}
+                <div className="flex-1 overflow-auto p-4">
 
-                {messages.map((message) => (
-                    <div
-                        className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 px-3 py-2 text-xs"
-                        key={message.id}
-                    >
-                        <div className="font-bold">
-                            {message.role === "user" ? "User" : "AI"}
-                        </div>
-                        {message.parts.map((part) => {
-                            switch (part.type) {
-                                case "text":
-                                    return <div key={part.text}>{part.text}</div>;
+                    {messages.map((message) => (
+                        <div
+                            className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 px-3 py-2 text-xs"
+                            key={message.id}
+                        >
+                            <div className="font-bold">
+                                {message.role === "user" ? "User" : "AI"}
+                            </div>
+                            {message.parts.map((part) => {
+                                switch (part.type) {
+                                    case "text":
+                                        return <div key={part.text}>{part.text}</div>;
 
-                                case "tool-invocation": {
-                                    const callId = part.toolInvocation.toolCallId;
+                                    case "tool-invocation": {
+                                        const callId = part.toolInvocation.toolCallId;
 
-                                    switch (part.toolInvocation.toolName) {
-                                        case "askForConfirmation": {
-                                            const args = part.toolInvocation.args as {
-                                                message: string;
-                                            };
-                                            switch (part.toolInvocation.state) {
-                                                case "call":
-                                                    return (
-                                                        <div key={callId}>
-                                                            {args.message}
-                                                            <div className="mt-2">
-                                                                <Button
-                                                                    className="mr-2 bg-green-400"
-                                                                    onClick={() =>
-                                                                        addToolResult({
-                                                                            toolCallId: callId,
-                                                                            result: "Yes, confirmed",
-                                                                        })
-                                                                    }
-                                                                >
-                                                                    Yes
-                                                                </Button>
-                                                                <Button
-                                                                    className="bg-gray-400"
-                                                                    onClick={() =>
-                                                                        addToolResult({
-                                                                            toolCallId: callId,
-                                                                            result: "No, denied",
-                                                                        })
-                                                                    }
-                                                                >
-                                                                    No
-                                                                </Button>
+                                        switch (part.toolInvocation.toolName) {
+                                            case "askForConfirmation": {
+                                                const args = part.toolInvocation.args as {
+                                                    message: string;
+                                                };
+                                                switch (part.toolInvocation.state) {
+                                                    case "call":
+                                                        return (
+                                                            <div key={callId}>
+                                                                {args.message}
+                                                                <div className="mt-2">
+                                                                    <Button
+                                                                        className="mr-2 bg-green-400"
+                                                                        onClick={() =>
+                                                                            addToolResult({
+                                                                                toolCallId: callId,
+                                                                                result: "Yes, confirmed",
+                                                                            })
+                                                                        }
+                                                                    >
+                                                                        Yes
+                                                                    </Button>
+                                                                    <Button
+                                                                        className="bg-gray-400"
+                                                                        onClick={() =>
+                                                                            addToolResult({
+                                                                                toolCallId: callId,
+                                                                                result: "No, denied",
+                                                                            })
+                                                                        }
+                                                                    >
+                                                                        No
+                                                                    </Button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    );
-                                                case "result":
-                                                    return (
-                                                        <div key={callId}>
-                                                            Location access allowed:{" "}
-                                                            {part.toolInvocation.result}
-                                                        </div>
-                                                    );
+                                                        );
+                                                    case "result":
+                                                        return (
+                                                            <div key={callId}>
+                                                                Location access allowed:{" "}
+                                                                {part.toolInvocation.result}
+                                                            </div>
+                                                        );
+                                                }
+                                                break;
                                             }
-                                            break;
-                                        }
 
-                                        case "getLocation": {
-                                            switch (part.toolInvocation.state) {
-                                                case "call":
-                                                    return <div key={callId}>Getting location...</div>;
-                                                case "result":
-                                                    return (
-                                                        <div key={callId}>
-                                                            Location: {part.toolInvocation.result}
-                                                        </div>
-                                                    );
+                                            case "getLocation": {
+                                                switch (part.toolInvocation.state) {
+                                                    case "call":
+                                                        return <div key={callId}>Getting location...</div>;
+                                                    case "result":
+                                                        return (
+                                                            <div key={callId}>
+                                                                Location: {part.toolInvocation.result}
+                                                            </div>
+                                                        );
+                                                }
+                                                break;
                                             }
-                                            break;
-                                        }
 
-                                        case "displayWeather": {
-                                            switch (part.toolInvocation.state) {
-                                                case "call":
-                                                    return <div key={callId}>Loading weather...</div>;
-                                                case "result":
-                                                    return (
-                                                        <div key={callId}>
-                                                            <Weather {...part.toolInvocation.result} />
-                                                        </div>
-                                                    );
+                                            case "displayWeather": {
+                                                switch (part.toolInvocation.state) {
+                                                    case "call":
+                                                        return <div key={callId}>Loading weather...</div>;
+                                                    case "result":
+                                                        return (
+                                                            <div key={callId}>
+                                                                <Weather {...part.toolInvocation.result} />
+                                                            </div>
+                                                        );
+                                                }
+                                                break;
                                             }
-                                            break;
                                         }
                                     }
                                 }
-                            }
-                        })}
-                    </div>
-                ))}
+                            })}
+                        </div>
+                    ))}
 
-                {/* Invisible ref to scroll to */}
-                <div ref={bottomRef} />
+                    {/* Invisible ref to scroll to */}
+                    <div ref={bottomRef} />
+                </div>
+
+                {/* Input form fixed at bottom */}
+
+
             </div>
-
-            {/* Input form fixed at bottom */}
-
             <form
                 onSubmit={handleSubmit}
-                className="sticky bottom-0 flex items-center justify-center border-t border-blue-950 bg-blue-950 p-4 max-w-full"
+                className="sticky bottom-0 flex bg-blue-950 p-8 w-full"
             >
-                <div className="mx-auto flex w-full">
+                <div className="flex w-full">
                     <Input
-                        className="mr-2 flex max-w-xs bg-white"
+                        className="mr-2 flex-1 bg-white"
                         name="prompt"
                         value={input}
                         onChange={handleInputChange}
@@ -158,6 +161,7 @@ export default function Chat({
                     <Button type="submit">Submit</Button>
                 </div>
             </form>
+
         </div>
     );
 }
