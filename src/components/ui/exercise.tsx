@@ -4,20 +4,105 @@ type ExerciseProps = {
     muscle_group: string;
 };
 
-export const Exercise = ({ name, youtube_short, muscle_group }: ExerciseProps) => {
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export function Exercise({ name, youtube_short, muscle_group }: ExerciseProps) {
     return (
-        <div className="my-4 rounded-xl border-1 border-blue-300 bg-amber-50 p-4">
-            <h2 className="mb-1 font-bold">Exercise: {name}</h2>
-            <div className="flex gap-4">
-            </div>
-            <div>
+        <Card className="w-full max-w-sm">
+            <CardHeader>
                 <iframe
                     className="w-full h-full"
                     src={youtube_short}
                     title=""
                 >
                 </iframe>
-            </div>
-        </div>
-    );
-};
+                <CardTitle>{name}</CardTitle>
+                <CardDescription>
+                    A description of the exercise
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form>
+                    <div className="flex flex-col gap-6">
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Reps & Weight</Label>
+                            <div className="flex gap-2">
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Reps"
+                                    required
+                                />
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Weight"
+                                    required
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Reps"
+                                    required
+                                />
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Weight"
+                                    required
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Reps"
+                                    required
+                                />
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Weight"
+                                    required
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Reps"
+                                    required
+                                />
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Weight"
+                                    required
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </CardContent>
+            <CardFooter className="flex-col gap-2">
+                <Button type="submit" className="w-full">
+                    Log Set
+                </Button>
+            </CardFooter>
+        </Card>
+    )
+}
