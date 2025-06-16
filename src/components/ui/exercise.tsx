@@ -22,7 +22,7 @@ export function Exercise({ name, youtube_short, muscle_group }: ExerciseProps) {
         <Card className="w-full max-w-sm">
             <CardHeader>
                 <iframe
-                    className="w-full h-full"
+                    className="w-full h-full pb-4 rounded-md"
                     src={youtube_short}
                     title=""
                 >
@@ -36,59 +36,59 @@ export function Exercise({ name, youtube_short, muscle_group }: ExerciseProps) {
                 <form>
                     <div className="flex flex-col gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Reps & Weight</Label>
+                            <Label htmlFor="">Reps & Weight</Label>
                             <div className="flex gap-2">
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Reps"
                                     required
                                 />
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Weight"
                                     required
                                 />
                             </div>
                             <div className="flex gap-2">
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Reps"
                                     required
                                 />
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Weight"
                                     required
                                 />
                             </div>
                             <div className="flex gap-2">
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Reps"
                                     required
                                 />
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Weight"
                                     required
                                 />
                             </div>
                             <div className="flex gap-2">
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Reps"
                                     required
                                 />
                                 <Input
-                                    id="email"
-                                    type="email"
+                                    id=""
+                                    type=""
                                     placeholder="Weight"
                                     required
                                 />

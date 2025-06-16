@@ -2,6 +2,7 @@
 [X] add log out button
 [X] remove chat list for logged out users
 [X] on log in, load chat list
+[] make the list of exercises live outside the chat
 [] style the log in and sign up pages
 [] turn chats into daily workout sessions
 [] have sessions contain exercises

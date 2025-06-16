@@ -47,11 +47,11 @@ export default function Chat({
 
                     {messages.map((message) => (
                         <div
-                            className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 px-3 py-2 text-xs"
+                            className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4 text-sm"
                             key={message.id}
                         >
-                            <div className="font-bold">
-                                {message.role === "user" ? "User" : "AI"}
+                            <div className="font-bold pb-4">
+                                {message.role === "user" ? "User" : "BodyBot"}
                             </div>
                             {message.parts.map((part) => {
                                 switch (part.type) {
@@ -142,7 +142,9 @@ export default function Chat({
                                                         return <div key={callId}>Loading workout...</div>;
                                                     case "result":
                                                         return (
-                                                            <div key={callId}>
+                                                            <div 
+                                                            className="pb-6 flex justify-center"
+                                                            key={callId}>
                                                                 <Exercise {...part.toolInvocation.result} />
                                                             </div>
                                                         );
