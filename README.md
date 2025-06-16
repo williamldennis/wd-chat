@@ -1,6 +1,6 @@
 #TO DO 
 [X] add log out button
-[] remove chat list for logged out users
+[X] remove chat list for logged out users
 [] on log in, load chat list
 [] style the log in and sign up pages
 [] turn chats into daily workout sessions

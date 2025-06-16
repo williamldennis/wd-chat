@@ -18,12 +18,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Chat from "@/components/ui/Chat"
 import { user } from "auth-schema 2"
 import { authClient } from "@/lib/auth-client"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { log } from "console"
 
 export function AppSidebar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const pathname = usePathname();
 
   useEffect(() => {
     async function checkAuth() {
@@ -35,7 +36,7 @@ export function AppSidebar() {
     checkAuth()
 
 
-  }, [])
+  }, [pathname])
 
 
   const { data: userChats, isLoading, error } = api.chat.list.useQuery(undefined, { enabled: isLoggedIn })
@@ -46,6 +47,7 @@ export function AppSidebar() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          setIsLoggedIn(false)
           router.push("/login"); // redirect to login page
         },
       },
