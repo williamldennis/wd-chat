@@ -1,7 +1,7 @@
 'use client'
 import { api } from "@/trpc/react"
 
-import { Calendar, ChevronUp, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Search, Settings } from "lucide-react"
 
 import {
   Sidebar,
@@ -21,6 +21,7 @@ import { authClient } from "@/lib/auth-client"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { log } from "console"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 
 export function AppSidebar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -63,27 +64,44 @@ export function AppSidebar() {
     >
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>WD Chats</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {userChats?.length === 0 ? (
-                <p> Start a chat </p>
-              ) : (
-                <ul className="space-y-2">
-                  {userChats?.map((chat) => (
-                    <SidebarMenuItem key={chat.id}>
-                      <SidebarMenuButton asChild>
+            <SidebarGroupLabel>Today's Workout
 
-                        <span>{chat.id}</span>
+            </SidebarGroupLabel>
 
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </ul>
-              )}
-            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <Collapsible className="group/collapsible">
+
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger>
+                History<ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {userChats?.length === 0 ? (
+                    <p> Start a chat </p>
+                  ) : (
+                    <ul className="space-y-2">
+                      {userChats?.map((chat) => (
+                        <SidebarMenuItem key={chat.id}>
+                          <SidebarMenuButton asChild>
+
+                            <span>{chat.id}</span>
+
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </ul>
+                  )}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
