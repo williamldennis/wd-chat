@@ -58,7 +58,11 @@ export default function Chat({
     return (
         <div className="w-full">
             <div className="flex h-[calc(100vh)] w-full">
-                <ScrollArea className="w-1/2 grid grid-flow-col bg-red-400 overflow-y-auto ">
+                {/* Exercises message area */}
+                <ScrollArea className="w-1/2 bg-green-100 overflow-y-auto ">
+                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
+                        <h2>Exercises for Today</h2>
+                    </div>
                     <div className="justify-items-center">
 
                         {exercises.map((exercise) => (
@@ -68,12 +72,14 @@ export default function Chat({
                             </div>
                         ))}
                     </div>
-
                 </ScrollArea>
-                <ScrollArea className="w-1/2 rounded-md p-4 overflow-y-auto ">
-
+                {/* Messages message area */}
+                <ScrollArea className="w-1/2 rounded-md overflow-y-auto ">
+                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
+                        <h2>Your Personal BodyBot</h2>
+                    </div>
                     {/* Scrollable message area */}
-                    <div className="">
+                    <div className="p-2">
 
                         {messages.map((message) => (
                             <div
