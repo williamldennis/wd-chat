@@ -1,7 +1,8 @@
 type ExerciseProps = {
+    id: string;
     name: number;
-    youtube_short: string;
-    muscle_group: string;
+    youtubeShort: string;
+    muscleGroup: string;
 };
 
 import { Button } from "@/components/ui/button"
@@ -17,13 +18,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export function Exercise({ name, youtube_short, muscle_group }: ExerciseProps) {
+export function Exercise({ name, youtubeShort, muscleGroup, id }: ExerciseProps) {
     return (
         <Card className="w-full max-w-sm">
             <CardHeader>
                 <iframe
                     className="w-full h-full pb-4 rounded-md"
-                    src={youtube_short}
+                    src={youtubeShort}
                     title=""
                 >
                 </iframe>

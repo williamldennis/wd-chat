@@ -41,7 +41,7 @@ export const exerciseTool = createTool({
   parameters: z.object({}),
   execute: async function ({ }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return { name: "Leg Press", youtube_short: "https://www.youtube.com/embed/5jDEulwWs04", muscle_group: "Chest" };
+    return { id: "exampleId", name: "Leg Press", youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04", muscleGroup: "Chest" };
   },
 });
 
