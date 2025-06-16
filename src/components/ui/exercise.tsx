@@ -9,14 +9,13 @@ export const Exercise = ({ name, youtube_short, muscle_group }: ExerciseProps) =
         <div className="my-4 rounded-xl border-1 border-blue-300 bg-amber-50 p-4">
             <h2 className="mb-1 font-bold">Exercise: {name}</h2>
             <div className="flex gap-4">
-                <p className="text-sm">MUSCLE GROUP</p>
             </div>
             <div>
                 <iframe
                     className="w-full h-full"
                     src={youtube_short}
+                    title=""
                 >
-
                 </iframe>
             </div>
         </div>
