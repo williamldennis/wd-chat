@@ -1,7 +1,7 @@
 'use client'
 import { api } from "@/trpc/react"
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, ChevronUp, Home, Inbox, Search, Settings } from "lucide-react"
 
 import {
   Sidebar,
@@ -12,13 +12,29 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import Chat from "@/components/ui/Chat"
-
+import { user } from "auth-schema 2"
+import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
 
 export function AppSidebar() {
 
   const { data: userChats, isLoading, error } = api.chat.list.useQuery()
+  const { data: user } = api.chat.userInfo.useQuery()
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login"); // redirect to login page
+        },
+      },
+    });
+  }
 
   return (
     <Sidebar>
@@ -46,6 +62,38 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+
+                  <div>{user?.name}</div>
+
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                className="w-[--radix-popper-anchor-width]"
+              >
+                <DropdownMenuItem>
+                  <span>Account</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Billing</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                >
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }

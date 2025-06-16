@@ -7,6 +7,7 @@ export const chatRouter = createTRPCRouter({
             console.log("INSIDE CREATE CHAT ROUTE")
             return await createChat(ctx.user.id)
         }),
+    //create a list to grab all chats for a given user
 
     list: protectedProcedure.query(async ({ ctx }) => {
         const chatList = await ctx.db.query.chats.findMany({
@@ -15,6 +16,14 @@ export const chatRouter = createTRPCRouter({
         return chatList
 
     }),
-    //create a list to grab all chats for a given user
+    
+    //user info
+    userInfo: protectedProcedure.query(async ({ ctx }) => {
+        const foundUser = await ctx.db.query.user.findFirst({
+            where: (user, { eq }) => eq(user.id, ctx.user.id)
+        })
+        return foundUser
 
+    }),
+    
 });
