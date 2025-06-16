@@ -35,11 +35,11 @@ export function AppSidebar() {
     checkAuth()
 
 
-  })
-  if (isLoggedIn === false) return null
+  }, [])
 
-  const { data: userChats, isLoading, error } = api.chat.list.useQuery()
-  const { data: user } = api.chat.userInfo.useQuery()
+
+  const { data: userChats, isLoading, error } = api.chat.list.useQuery(undefined, { enabled: isLoggedIn })
+  const { data: user } = api.chat.userInfo.useQuery(undefined, { enabled: isLoggedIn })
   const router = useRouter()
 
   const handleSignOut = async () => {
@@ -51,6 +51,7 @@ export function AppSidebar() {
       },
     });
   }
+  if (isLoggedIn === false) return null
 
 
 
