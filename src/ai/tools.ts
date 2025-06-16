@@ -36,9 +36,21 @@ export const getLocation = createTool({
   parameters: z.object({}),
 });
 
+export const exerciseTool = createTool({
+  description: "Give the user exercises",
+  parameters: z.object({}),
+  execute: async function ({ }) {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return { name: "Bench Press", youtube_short: "https://youtu.be/5jDEulwWs04", muscle_group: "Chest" };
+  },
+});
+
+
 export const tools = {
   displayWeather: weatherTool,
   getLocation: getLocation,
   askForConfirmation: askForConfirmation,
+  giveWorkout: exerciseTool
   // getWeatherInformation: getWeatherInformation
 };
+

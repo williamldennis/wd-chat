@@ -1,7 +1,7 @@
 'use client'
 import { api } from "@/trpc/react"
 
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, ChevronUp, Home, Inbox, Search, Settings } from "lucide-react"
 
 import {
   Sidebar,
@@ -12,16 +12,55 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar"
-import Chat from "@/app/_components/ui/Chat"
-
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
+import Chat from "@/components/ui/Chat"
+import { user } from "auth-schema 2"
+import { authClient } from "@/lib/auth-client"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { log } from "console"
 
 export function AppSidebar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const pathname = usePathname();
 
-  const { data: userChats, isLoading, error } = api.chat.list.useQuery()
+  useEffect(() => {
+    async function checkAuth() {
+      const session = await authClient.getSession()
+      console.log(`user session: ${session.data?.user}`)
+      setIsLoggedIn(!!session.data?.user)
+    }
+
+    checkAuth()
+
+
+  }, [pathname])
+
+
+  const { data: userChats, isLoading, error } = api.chat.list.useQuery(undefined, { enabled: isLoggedIn })
+  const { data: user } = api.chat.userInfo.useQuery(undefined, { enabled: isLoggedIn })
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          setIsLoggedIn(false)
+          router.push("/login"); // redirect to login page
+        },
+      },
+    });
+  }
+  if (isLoggedIn === false) return null
+
+
 
   return (
-    <Sidebar>
+    <Sidebar
+      variant="floating"
+    >
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>WD Chats</SidebarGroupLabel>
@@ -46,6 +85,38 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+
+                  <div>{user?.name}</div>
+
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                side="top"
+                className="w-[--radix-popper-anchor-width]"
+              >
+                <DropdownMenuItem>
+                  <span>Account</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span>Billing</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                >
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }
