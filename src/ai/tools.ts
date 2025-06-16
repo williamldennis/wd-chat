@@ -37,11 +37,11 @@ export const getLocation = createTool({
 });
 
 export const exerciseTool = createTool({
-  description: "Give the user exercises",
+  description: "Give the user exercises. Don't include the URL in your description.",
   parameters: z.object({}),
   execute: async function ({ }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return { name: "Bench Press", youtube_short: "https://youtu.be/5jDEulwWs04", muscle_group: "Chest" };
+    return { id: "exampleId", name: "Leg Press", youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04", muscleGroup: "Chest" };
   },
 });
 

@@ -4,9 +4,6 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import { TRPCReactProvider } from "@/trpc/react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Bod by Bot",
@@ -25,17 +22,14 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
+      <body className="bg-background text-foreground font-sans antialiased">
 
         <TRPCReactProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            {/* <SidebarTrigger
+          {/* <SidebarTrigger
               className="z-0" /> */}
 
-            {children}
+          {children}
 
-          </SidebarProvider>
 
           <Toaster />
         </TRPCReactProvider>
