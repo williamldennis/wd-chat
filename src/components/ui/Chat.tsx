@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef } from "react";
+import { Exercise } from "./exercise";
 
 export default function Chat({
     id,
@@ -132,6 +133,21 @@ export default function Chat({
                                                 }
                                                 break;
                                             }
+
+                                            case "giveWorkout": {
+                                                switch (part.toolInvocation.state) {
+                                                    case "call":
+                                                        return <div key={callId}>Loading workout...</div>;
+                                                    case "result":
+                                                        return (
+                                                            <div key={callId}>
+                                                                <Exercise {...part.toolInvocation.result} />
+                                                            </div>
+                                                        );
+                                                }
+                                                break;
+                                            }
+
                                         }
                                     }
                                 }
