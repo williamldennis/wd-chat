@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import Chat from "@/app/_components/ui/Chat"
+import Chat from "@/components/ui/Chat"
 
 
 export function AppSidebar() {

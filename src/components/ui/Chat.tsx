@@ -1,9 +1,9 @@
 "use client";
 
 import { type Message, useChat } from "@ai-sdk/react";
-import { Button } from "@/app/_components/ui/button";
-import { Input } from "@/app/_components/ui/input";
-import { Weather } from "./weather";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef } from "react";
 
 export default function Chat({
