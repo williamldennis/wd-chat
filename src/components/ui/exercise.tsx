@@ -1,6 +1,6 @@
 type ExerciseProps = {
     id: string;
-    name: number;
+    name: string;
     youtubeShort: string;
     muscleGroup: string;
 };

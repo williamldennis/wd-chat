@@ -57,17 +57,20 @@ export default function Chat({
 
     return (
         <div className="w-full">
-            <div className="flex">
-                <ScrollArea className="bg-red-400">
-                    <div className="grid grid-cols-1 gap-4">
+            <div className="flex h-[calc(100vh)] w-full">
+                <ScrollArea className="w-1/2 grid grid-flow-col bg-red-400 overflow-y-auto ">
+                    <div className="justify-items-center">
 
                         {exercises.map((exercise) => (
-                            <Exercise key={exercise.id} {...exercise} />
+                            <div className="p-4">
+                                <Exercise
+                                    key={exercise.id} {...exercise} />
+                            </div>
                         ))}
                     </div>
 
                 </ScrollArea>
-                <ScrollArea className="rounded-md p-4">
+                <ScrollArea className="w-1/2 rounded-md p-4 overflow-y-auto ">
 
                     {/* Scrollable message area */}
                     <div className="">
@@ -184,31 +187,29 @@ export default function Chat({
 
                         {/* Invisible ref to scroll to */}
                         <div ref={bottomRef} />
+                        <form
+                            onSubmit={handleSubmit}
+                            className="sticky bottom-0 flex p-8 w-full"
+                        >
+                            <div className="flex w-full">
+                                <Input
+                                    className="mr-2 flex-1 bg-white"
+                                    name="prompt"
+                                    value={input}
+                                    onChange={handleInputChange}
+                                />
+                                <Button type="submit">Submit</Button>
+                            </div>
+                        </form>
                     </div>
 
                     {/* Input form fixed at bottom */}
 
 
                 </ScrollArea>
-
-
-
             </div>
 
-            <form
-                onSubmit={handleSubmit}
-                className="sticky bottom-0 flex p-8 w-full"
-            >
-                <div className="flex w-full">
-                    <Input
-                        className="mr-2 flex-1 bg-white"
-                        name="prompt"
-                        value={input}
-                        onChange={handleInputChange}
-                    />
-                    <Button type="submit">Submit</Button>
-                </div>
-            </form>
+
 
         </div>
     );
