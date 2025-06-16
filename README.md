@@ -9,6 +9,7 @@
 [] add exercises to db
 [] fix deploy
 [] vector index the exercises
+[] fix chevron on history
 [] create tool for chat to grab exercises based on vector similarity to user request
 [] make those exercises have GenUI components
 [] track exercise completion to history 

@@ -9,6 +9,8 @@ import { Exercise } from "./ui/exercise";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/app/hooks/useWorkoutStore";
 import { exerciseTool, tools } from "@/ai/tools";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
+import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export default function Chat({
     id,
@@ -64,13 +66,45 @@ export default function Chat({
                         <h2>Exercises for Today</h2>
                     </div>
                     <div className="justify-items-center">
+                        <Accordion 
+                            type="single" collapsible
+                            className="mt-4"
+                            >
 
-                        {exercises.map((exercise) => (
-                            <div className="p-4">
-                                <Exercise
-                                    key={exercise.id} {...exercise} />
-                            </div>
-                        ))}
+                            {exercises.map((exercise, index) => (
+                                <AccordionItem 
+                                    value={`item-${index}`}
+                                    className="mt-2"
+                                    >
+
+                                    <Card className="">
+                                        <AccordionTrigger
+                                            className="w-110">
+                                            <CardHeader
+                                            className=""
+                                            >
+                                                <CardTitle
+                                                className="text-lg"
+                                                >{exercise.name}</CardTitle>
+                                                <CardDescription
+                                                    className="w-100"
+                                                >
+                                                    Leg Press is great for getting those sweet sweet toned thighs.
+                                                </CardDescription>
+                                            </CardHeader>
+                                        </AccordionTrigger>
+                                        <AccordionContent>
+                                            <div className=" justify-items-center">
+                                                <Exercise
+                                                    key={exercise.id} {...exercise} />
+                                            </div>
+                                        </AccordionContent>
+                                    </Card>
+                                </AccordionItem>
+
+                            ))}
+                        </Accordion>
+
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
@@ -213,10 +247,10 @@ export default function Chat({
 
 
                 </ScrollArea>
-            </div>
+            </div >
 
 
 
-        </div>
+        </div >
     );
 }

@@ -28,9 +28,8 @@ export function Exercise({ name, youtubeShort, muscleGroup, id }: ExerciseProps)
                     title=""
                 >
                 </iframe>
-                <CardTitle>{name}</CardTitle>
                 <CardDescription>
-                    A description of the exercise
+                    This is how you do the exercise. A nice description and some tips. 
                 </CardDescription>
             </CardHeader>
             <CardContent>
