@@ -136,7 +136,6 @@ export default function Chat({
                                                 <ReactMarkdown>
                                                     {part.text}
                                                 </ReactMarkdown>
-
                                             </div>;
 
                                         case "tool-invocation": {
