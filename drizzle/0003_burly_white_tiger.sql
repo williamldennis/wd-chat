@@ -1,0 +1,1 @@
+ALTER TABLE "exercise" ADD COLUMN "embedding" vector(1536);
