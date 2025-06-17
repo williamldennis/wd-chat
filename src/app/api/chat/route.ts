@@ -20,10 +20,10 @@ export async function POST(req: Request) {
 
     const result = streamText({
       model: openai("gpt-4-turbo"),
-      system: "You are a helpful assistant",
+      system: "You are a helpful assistant. Always use the 'giveWorkout' tool to generate exercises for the user when they mention working out or muscles.",
       messages,
       maxSteps: 5,
-      // tools,
+      tools,
       async onFinish({ response }) {
         await saveChat({
           id,

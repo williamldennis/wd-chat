@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Exercise } from "./ui/exercise";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
-// import { exerciseTool, tools } from "@/ai/tools";
+import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
@@ -36,17 +36,17 @@ export default function Chat({
                     ];
                     return cities[Math.floor(Math.random() * cities.length)];
                 }
-                // if (toolCall.toolName === "giveWorkout") {
-                //     console.log(`chattsx tool call`)
-                //     const result = await exerciseTool.execute({}, {
-                //         toolCallId: toolCall.toolCallId,
-                //         messages: messages as any, // or transform them later
-                //     });
-                //     if (result !== undefined) {
-                //         addExercise(result);
-                //     }
-                //     return result;
-                // }
+                if (toolCall.toolName === "giveWorkout") {
+                    console.log(`chattsx tool call`)
+                    const result = await exerciseTool.execute({}, {
+                        toolCallId: toolCall.toolCallId,
+                        messages: messages as any, // or transform them later
+                    });
+                    if (result !== undefined) {
+                        addExercise(result);
+                    }
+                    return result;
+                }
             },
         });
 
@@ -209,17 +209,17 @@ export default function Chat({
                                                     break;
                                                 }
 
-                                                // case "giveWorkout": {
-                                                //     switch (part.toolInvocation.state) {
-                                                //         case "call":
-                                                //             return <div key={callId}>Loading workout...</div>;
-                                                //         case "result":
-                                                //             return <div key={callId}>Exercise Added!</div>;
+                                                case "giveWorkout": {
+                                                    switch (part.toolInvocation.state) {
+                                                        case "call":
+                                                            return <div key={callId}>Loading workout...</div>;
+                                                        case "result":
+                                                            return <div key={callId}>Exercise Added!</div>;
 
 
-                                                //     }
-                                                //     break;
-                                                // }
+                                                    }
+                                                    break;
+                                                }
 
                                             }
                                         }

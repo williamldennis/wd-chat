@@ -31,37 +31,37 @@ export const getLocation = createTool({
   parameters: z.object({}),
 });
 
-// export const exerciseTool = createTool({
-//   description: "Give the user exercises. Don't include the URL in your description.",
-//   parameters: z.object({}),
-//   execute: async function ({ }) {
-//     await new Promise((resolve) => setTimeout(resolve, 2000));
-//     return {
-//       id: "exampleId",
-//       name: "Leg Press",
-//       youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04",
-//       muscleGroup: "Chest"
-//     };
-//   },
-// });
-
-
 export const exerciseTool = createTool({
-  description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
+  description: "Give the user exercises. Don't include the URL in your description.",
   parameters: z.object({}),
   execute: async function ({ }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const exerciseList = await blockingClient.chat.exerciseList.query()
-    console.log(`exercise TOOL CALL`, exerciseList)
-    const result = exerciseList?.map((exercise) => ({
-      id: exercise.id,
-      name: exercise.exerciseName,
-      youtubeShort: exercise.youtubeDemoShortUrl,
-      muscleGroup: exercise.targetMuscleGroup
-    }))
-    return result
+    return {
+      id: "exampleId",
+      name: "Leg Press",
+      youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04",
+      muscleGroup: "Chest"
+    };
   },
 });
+
+
+// export const exerciseTool = createTool({
+//   description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
+//   parameters: z.object({}),
+//   execute: async function ({ }) {
+//     await new Promise((resolve) => setTimeout(resolve, 2000));
+//     const exerciseList = await blockingClient.chat.exerciseList.query()
+//     console.log(`exercise TOOL CALL`, exerciseList)
+//     const result = exerciseList?.map((exercise) => ({
+//       id: exercise.id,
+//       name: exercise.exerciseName,
+//       youtubeShort: exercise.youtubeDemoShortUrl,
+//       muscleGroup: exercise.targetMuscleGroup
+//     }))
+//     return result
+//   },
+// });
 
 
 export const tools = {
