@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
-import { Exercise } from "./ui/exercise";
+import { Exercise } from "./exerciseCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { exerciseTool, tools } from "@/ai/tools";
@@ -42,10 +42,8 @@ export default function Chat({
                         toolCallId: toolCall.toolCallId,
                         messages: messages as any, // or transform them later
                     });
-                    if (result !== undefined) {
-                        addExercise(result);
-                    }
-                    return result;
+                    addExercise(result)
+                    return result
                 }
             },
         });
@@ -76,6 +74,7 @@ export default function Chat({
 
                             {exercises.map((exercise, index) => (
                                 <AccordionItem
+                                    key={exercise.id}
                                     value={`item-${index}`}
                                     className="mt-2"
                                 >
