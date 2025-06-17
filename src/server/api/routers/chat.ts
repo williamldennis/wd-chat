@@ -31,7 +31,7 @@ export const chatRouter = createTRPCRouter({
     exerciseList: protectedProcedure.query(async () => {
         console.log("exercise list tRPC")
         const retrievedExercises = await db.query.exercises.findMany({
-            limit: 1,
+            limit: 3,
         });
         return retrievedExercises
 

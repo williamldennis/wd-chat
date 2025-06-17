@@ -11,6 +11,7 @@ import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import ReactMarkdown from "react-markdown"
 
 export default function Chat({
     id,
@@ -128,7 +129,15 @@ export default function Chat({
                                 {message.parts.map((part) => {
                                     switch (part.type) {
                                         case "text":
-                                            return <div key={part.text}>{part.text}</div>;
+                                            return <div
+                                                className="text-sm/7"
+                                                key={part.text}
+                                            >
+                                                <ReactMarkdown>
+                                                    {part.text}
+                                                </ReactMarkdown>
+
+                                            </div>;
 
                                         case "tool-invocation": {
                                             const callId = part.toolInvocation.toolCallId;
