@@ -1,5 +1,11 @@
+
 import { tool as createTool } from "ai";
 import { z } from "zod";
+import { api, blockingClient } from "@/trpc/react"
+import { createTRPCClient } from "@trpc/client";
+import type { AppRouter } from "@/server/api/root";
+
+const trpc = createTRPCClient<AppRouter>
 
 export const weatherTool = createTool({
   description: "Display the weather for a location",
@@ -11,17 +17,6 @@ export const weatherTool = createTool({
     return { weather: "Sunny", temperature: 75, location };
   },
 });
-
-// export const getWeatherInformation = createTool({
-//     description: 'show the weather in a given city to the user',
-//     parameters: z.object({ city: z.string() }),
-//     execute: async ({ }: { city: string }) => {
-//         const weatherOptions = ['sunny', 'cloudy', 'rainy', 'snowy', 'windy']
-//         return weatherOptions[
-//             Math.floor(Math.random() * weatherOptions.length)
-//         ]
-//     }
-// })
 
 export const askForConfirmation = createTool({
   description: "Ask the user for confirmation",
@@ -41,9 +36,32 @@ export const exerciseTool = createTool({
   parameters: z.object({}),
   execute: async function ({ }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    return { id: "exampleId", name: "Leg Press", youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04", muscleGroup: "Chest" };
+    return {
+      id: "exampleId",
+      name: "Leg Press",
+      youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04",
+      muscleGroup: "Chest"
+    };
   },
 });
+
+
+// export const exerciseTool = createTool({
+//   description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
+//   parameters: z.object({}),
+//   execute: async function ({ }) {
+//     await new Promise((resolve) => setTimeout(resolve, 2000));
+//     const exerciseList = await blockingClient.chat.exerciseList.query()
+//     console.log(`exercise TOOL CALL`, exerciseList)
+//     const result = exerciseList?.map((exercise) => ({
+//       id: exercise.id,
+//       name: exercise.exerciseName,
+//       youtubeShort: exercise.youtubeDemoShortUrl,
+//       muscleGroup: exercise.targetMuscleGroup
+//     }))
+//     return result
+//   },
+// });
 
 
 export const tools = {
@@ -51,6 +69,5 @@ export const tools = {
   getLocation: getLocation,
   askForConfirmation: askForConfirmation,
   giveWorkout: exerciseTool
-  // getWeatherInformation: getWeatherInformation
 };
 

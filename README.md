@@ -3,10 +3,11 @@
 [X] remove chat list for logged out users
 [X] on log in, load chat list
 [X] make the list of exercises live outside the chat
+[X] add exercises to db
+[] return exercises in UI
 [] style the log in and sign up pages
 [] turn chats into daily workout sessions
 [] have sessions contain exercises
-[] add exercises to db
 [] fix deploy
 [] vector index the exercises
 [] fix chevron on history

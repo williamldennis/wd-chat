@@ -1,5 +1,7 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { createChat } from "@/tools/chat-store";
+import { db } from "@/server/db";
+import { log } from "console";
 
 export const chatRouter = createTRPCRouter({
     create: protectedProcedure
@@ -16,7 +18,7 @@ export const chatRouter = createTRPCRouter({
         return chatList
 
     }),
-    
+
     //user info
     userInfo: protectedProcedure.query(async ({ ctx }) => {
         const foundUser = await ctx.db.query.user.findFirst({
@@ -25,5 +27,14 @@ export const chatRouter = createTRPCRouter({
         return foundUser
 
     }),
-    
+
+    exerciseList: protectedProcedure.query(async () => {
+        console.log("exercise list tRPC")
+        const retrievedExercises = await db.query.exercises.findMany({
+            limit: 1,
+        });
+        return retrievedExercises
+
+    }),
+
 });

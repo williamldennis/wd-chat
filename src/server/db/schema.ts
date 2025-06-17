@@ -121,3 +121,46 @@ export const verification = pgTable("verification", {
     () => /* @__PURE__ */ new Date(),
   ),
 });
+
+//exercise table
+export const exercises = pgTable("exercise", (d) => ({
+  id: d.uuid("id").primaryKey().defaultRandom(),
+
+  exerciseName: d.text("exercise_name"),
+  youtubeDemoShortUrl: d.text("youtube_demo_short_url"),
+  youtubeDemoInDepthUrl: d.text("youtube_demo_in_depth_url"),
+  difficulty: d.text("difficulty"),
+
+  targetMuscleGroup: d.text("target_muscle_group"),
+  primeMoverMuscle: d.text("prime_mover_muscle"),
+  secondaryMuscle: d.text("secondary_muscle"),
+  tertiaryMuscle: d.text("tertiary_muscle"),
+
+  primaryEquipment: d.text("primary_equipment"),
+  primaryEquipmentQt: d.integer("primary_equipment_qt"),
+  secondaryEquipment: d.text("secondary_equipment"),
+  secondaryEquipmentQt: d.integer("secondary_equipment_qt"),
+
+  posture: d.text("posture"),
+  singleOrDoubleArm: d.text("single_or_double_arm"),
+  continuousOrAlternatingArms: d.text("continuous_or_alternating_arms"),
+  grip: d.text("grip"),
+  loadPositionEnding: d.text("load_position_ending"),
+  continuousOrAlternatingLegs: d.text("continuous_or_alternating_legs"),
+  footElevation: d.text("foot_elevation"),
+  combinationExercises: d.text("combination_exercises"),
+
+  movementPattern1: d.text("movement_pattern_1"),
+  movementPattern2: d.text("movement_pattern_2"),
+  movementPattern3: d.text("movement_pattern_3"),
+
+  planeOfMotion1: d.text("plane_of_motion_1"),
+  planeOfMotion2: d.text("plane_of_motion_2"),
+  planeOfMotion3: d.text("plane_of_motion_3"),
+
+  bodyRegion: d.text("body_region"),
+  forceType: d.text("force_type"),
+  mechanics: d.text("mechanics"),
+  laterality: d.text("laterality"),
+  primaryExerciseClassification: d.text("primary_exercise_classification"),
+}));
