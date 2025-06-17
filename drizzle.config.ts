@@ -6,7 +6,7 @@ export default {
   schema: "./src/server/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: env.DATABASE_URL,
+    url: env.NEXT_PUBLIC_SUPABASE_URL,
   },
   tablesFilter: ["wd-chat_*"],
 } satisfies Config;
