@@ -7,7 +7,7 @@ import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
 import { Exercise } from "./ui/exercise";
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { useWorkoutStore } from "@/app/hooks/useWorkoutStore";
+import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
