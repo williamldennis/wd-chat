@@ -63,7 +63,7 @@ export default function Chat({
         <div className="w-full">
             <div className="flex h-[calc(100vh)] w-full">
                 {/* Exercises message area */}
-                <ScrollArea className="w-1/2 bg-green-100 overflow-y-auto ">
+                <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto ">
                     <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
                         <h2>Exercises for Today</h2>
                     </div>
@@ -111,7 +111,7 @@ export default function Chat({
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
-                <ScrollArea className="w-1/2 rounded-md overflow-y-auto ">
+                <ScrollArea className="w-1/3 rounded-md overflow-y-auto ">
                     <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
                         <h2>Your Personal BodyBot</h2>
                     </div>
@@ -120,7 +120,7 @@ export default function Chat({
 
                         {messages.map((message) => (
                             <div
-                                className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4 text-sm"
+                                className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4"
                                 key={message.id}
                             >
                                 <div className="font-bold pb-4">
@@ -130,7 +130,7 @@ export default function Chat({
                                     switch (part.type) {
                                         case "text":
                                             return <div
-                                                className="text-sm/7"
+                                                className="text-lg/8"
                                                 key={part.text}
                                             >
                                                 <ReactMarkdown>
