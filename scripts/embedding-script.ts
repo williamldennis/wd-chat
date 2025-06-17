@@ -1,6 +1,6 @@
-import { db } from "."
+import { db } from "../src/server/db"
 import OpenAI from "openai"
-import { exercises } from "./schema";
+import { exercises } from "../src/server/db/schema";
 import { eq } from "drizzle-orm";
 
 const openai = new OpenAI();
@@ -68,6 +68,11 @@ Mechanics: ${exercise?.mechanics}
                 embedding,
             })
             .where(eq(exercises.id, exercise.id))
+
+        console.log(`✅ Updated: ${exercise.exerciseName} (${exercise.id})`);
+
+        await new Promise((res) => setTimeout(res, 1000));
+
 
     } catch (err) {
         console.error(`❌ Failed to process exercise ${exercise.id}:`, err);

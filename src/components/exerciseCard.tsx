@@ -3,6 +3,7 @@ type ExerciseProps = {
     name: string | null;
     youtubeShort: string | null;
     muscleGroup: string | null;
+    description: string | null;
 };
 
 import { Button } from "@/components/ui/button"
@@ -19,7 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toEmbedUrl } from "@/lib/utils";
 
-export function Exercise({ name, youtubeShort, muscleGroup, id }: ExerciseProps) {
+export function Exercise({ name, youtubeShort, muscleGroup, description, id }: ExerciseProps) {
     return (
         < Card className="w-full max-w-sm" >
             <CardHeader>
@@ -31,6 +32,7 @@ export function Exercise({ name, youtubeShort, muscleGroup, id }: ExerciseProps)
                 />
                 <CardDescription>
                     {name}: {muscleGroup}
+                    {description}
                 </CardDescription>
             </CardHeader>
             <CardContent>

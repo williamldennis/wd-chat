@@ -26,27 +26,26 @@ export default function Chat({
             initialMessages,
             sendExtraMessageFields: true,
             maxSteps: 5,
-
-            async onToolCall({ toolCall }) {
-                if (toolCall.toolName === "getLocation") {
-                    const cities = [
-                        "New York",
-                        "Los Angeles",
-                        "Chicago",
-                        "San Francisco",
-                    ];
-                    return cities[Math.floor(Math.random() * cities.length)];
-                }
-                if (toolCall.toolName === "giveWorkout") {
-                    console.log(`chattsx tool call`)
-                    const result = await exerciseTool.execute({}, {
-                        toolCallId: toolCall.toolCallId,
-                        messages: messages as any, // or transform them later
-                    });
-                    addExercise(result)
-                    return result
-                }
-            },
+            // async onToolCall({ toolCall }) {
+            //     if (toolCall.toolName === "getLocation") {
+            //         const cities = [
+            //             "New York",
+            //             "Los Angeles",
+            //             "Chicago",
+            //             "San Francisco",
+            //         ];
+            //         return cities[Math.floor(Math.random() * cities.length)];
+            //     }
+            //     if (toolCall.toolName === "giveWorkout") {
+            //         console.log(`chattsx tool call`)
+            //         const result = await exerciseTool.execute({}, {
+            //             toolCallId: toolCall.toolCallId,
+            //             messages: messages as any, // or transform them later
+            //         });
+            //         addExercise(result)
+            //         return result
+            //     }
+            // },
         });
 
     const bottomRef = useRef<HTMLDivElement | null>(null);
