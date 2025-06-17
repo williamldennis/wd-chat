@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Exercise } from "./ui/exercise";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
-import { exerciseTool, tools } from "@/ai/tools";
+// import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
@@ -36,14 +36,17 @@ export default function Chat({
                     ];
                     return cities[Math.floor(Math.random() * cities.length)];
                 }
-                if (toolCall.toolName === "giveWorkout") {
-                    const result = await exerciseTool.execute({}, {
-                        toolCallId: toolCall.toolCallId,
-                        messages: messages as any, // or transform them later
-                    });
-                    addExercise(result)
-                    return result;
-                }
+                // if (toolCall.toolName === "giveWorkout") {
+                //     console.log(`chattsx tool call`)
+                //     const result = await exerciseTool.execute({}, {
+                //         toolCallId: toolCall.toolCallId,
+                //         messages: messages as any, // or transform them later
+                //     });
+                //     if (result !== undefined) {
+                //         addExercise(result);
+                //     }
+                //     return result;
+                // }
             },
         });
 
@@ -66,25 +69,25 @@ export default function Chat({
                         <h2>Exercises for Today</h2>
                     </div>
                     <div className="justify-items-center">
-                        <Accordion 
+                        <Accordion
                             type="single" collapsible
                             className="mt-4"
-                            >
+                        >
 
                             {exercises.map((exercise, index) => (
-                                <AccordionItem 
+                                <AccordionItem
                                     value={`item-${index}`}
                                     className="mt-2"
-                                    >
+                                >
 
                                     <Card className="">
                                         <AccordionTrigger
                                             className="w-110">
                                             <CardHeader
-                                            className=""
+                                                className=""
                                             >
                                                 <CardTitle
-                                                className="text-lg"
+                                                    className="text-lg"
                                                 >{exercise.name}</CardTitle>
                                                 <CardDescription
                                                     className="w-100"
@@ -206,17 +209,17 @@ export default function Chat({
                                                     break;
                                                 }
 
-                                                case "giveWorkout": {
-                                                    switch (part.toolInvocation.state) {
-                                                        case "call":
-                                                            return <div key={callId}>Loading workout...</div>;
-                                                        case "result":
-                                                            return <div key={callId}>Exercise Added!</div>;
+                                                // case "giveWorkout": {
+                                                //     switch (part.toolInvocation.state) {
+                                                //         case "call":
+                                                //             return <div key={callId}>Loading workout...</div>;
+                                                //         case "result":
+                                                //             return <div key={callId}>Exercise Added!</div>;
 
 
-                                                    }
-                                                    break;
-                                                }
+                                                //     }
+                                                //     break;
+                                                // }
 
                                             }
                                         }

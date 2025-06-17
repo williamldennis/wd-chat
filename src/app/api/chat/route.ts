@@ -12,27 +12,40 @@ type ChatMessage = {
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages, id } = (await req.json()) as {
-    messages: ChatMessage[];
-    id: string;
-  };
+  try {
+    const { messages, id } = (await req.json()) as {
+      messages: ChatMessage[];
+      id: string;
+    };
 
-  const result = streamText({
-    model: openai("gpt-4-turbo"),
-    system: "You are a helpful assistant",
-    messages,
-    maxSteps: 5,
-    tools,
-    async onFinish({ response }) {
-      await saveChat({
-        id,
-        messages: appendResponseMessages({
-          messages,
-          responseMessages: response.messages,
-        }),
-      });
-    },
-  });
+    const result = streamText({
+      model: openai("gpt-4-turbo"),
+      system: "You are a helpful assistant",
+      messages,
+      maxSteps: 5,
+      // tools,
+      async onFinish({ response }) {
+        await saveChat({
+          id,
+          messages: appendResponseMessages({
+            messages,
+            responseMessages: response.messages,
+          }),
+        });
+      },
+    });
 
-  return result.toDataStreamResponse();
+    return result.toDataStreamResponse();
+  } catch (err: unknown) {
+    const error = err as Error
+
+    console.error("🔥 /api/chat POST error:", {
+      message: error?.message,
+      stack: error?.stack,
+      cause: error?.cause,
+      full: err,
+    });
+
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }

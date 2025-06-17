@@ -2,9 +2,9 @@ import { useState } from "react";
 
 export type Exercise = {
     id: string;
-    name: string;
-    youtubeShort: string;
-    muscleGroup: string;
+    name: string | null;
+    youtubeShort: string | null;
+    muscleGroup: string | null;
 }
 
 export function useWorkoutStore() {
