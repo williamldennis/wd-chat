@@ -48,7 +48,9 @@ export const getLocation = createTool({
 
 export const exerciseTool = createTool({
   description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
-  parameters: z.object({}),
+  parameters: z.object({
+    //give the model variables that it can use to define the db schema
+  }),
   execute: async function ({ }) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const exerciseList = await blockingClient.chat.exerciseList.query()
