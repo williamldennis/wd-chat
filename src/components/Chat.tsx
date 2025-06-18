@@ -13,7 +13,7 @@ import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
-import { ExerciseCard } from "./ExerciseCard";
+import { ExerciseCard } from "@/components/ExerciseCard";
 
 
 
