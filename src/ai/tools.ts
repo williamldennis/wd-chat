@@ -1,11 +1,12 @@
 
 import { tool as createTool } from "ai";
 import { z } from "zod";
-import { api, blockingClient } from "@/trpc/react"
-import { createTRPCClient } from "@trpc/client";
-import type { AppRouter } from "@/server/api/root";
+import { blockingClient } from "@/trpc/react"
 
-const trpc = createTRPCClient<AppRouter>
+type GetExercisesInput = {
+  query: string;
+  limit?: number
+}
 
 export const weatherTool = createTool({
   description: "Display the weather for a location",
@@ -31,25 +32,14 @@ export const getLocation = createTool({
   parameters: z.object({}),
 });
 
-export const exerciseTool = createTool({
-  description: "Give the user exercises. Don't include the URL in your description.",
-  parameters: z.object({}),
-  execute: async function ({ }) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-      id: "exampleId",
-      name: "Leg Press",
-      youtubeShort: "https://www.youtube.com/embed/5jDEulwWs04",
-      muscleGroup: "Chest"
-    };
-  },
-});
-
 
 // export const exerciseTool = createTool({
 //   description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
-//   parameters: z.object({}),
+//   parameters: z.object({
+//     //give the model variables that it can use to define the db schema
+//   }),
 //   execute: async function ({ }) {
+//     console.log('TOOL EXECUTING (non vector exercise)')
 //     await new Promise((resolve) => setTimeout(resolve, 2000));
 //     const exerciseList = await blockingClient.chat.exerciseList.query()
 //     console.log(`exercise TOOL CALL`, exerciseList)
@@ -63,6 +53,31 @@ export const exerciseTool = createTool({
 //   },
 // });
 
+export const exerciseTool = createTool({
+  description: "Retrieve exercises semantically based on a natural language query from the user.",
+  parameters: z.object({
+    query: z.string(),
+    limit: z.number().optional().default(5)
+  }),
+  execute: async ({ query, limit }: GetExercisesInput) => {
+    console.log("🧠 TOOL CALLED with:", query, limit);
+    console.log("🧱 client methods:", Object.keys(blockingClient.chat));
+    const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
+      query,
+      limit: limit ?? 5
+    })
+    console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
+    const result = vectorQueryResult?.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.exerciseName,
+      youtubeShort: exercise.youtubeDemoShortUrl,
+      muscleGroup: exercise.targetMuscleGroup,
+      description: exercise.description
+    }))
+    console.log("✅ TOOL RETURNING results:", result);
+    return result
+  }
+})
 
 export const tools = {
   displayWeather: weatherTool,

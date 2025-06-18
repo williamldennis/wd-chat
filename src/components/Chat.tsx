@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
-import { Exercise } from "./ui/exercise";
+import { Exercise } from "./exerciseCard";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import ReactMarkdown from "react-markdown"
 
 export default function Chat({
     id,
@@ -25,35 +26,33 @@ export default function Chat({
             initialMessages,
             sendExtraMessageFields: true,
             maxSteps: 5,
-
-            async onToolCall({ toolCall }) {
-                if (toolCall.toolName === "getLocation") {
-                    const cities = [
-                        "New York",
-                        "Los Angeles",
-                        "Chicago",
-                        "San Francisco",
-                    ];
-                    return cities[Math.floor(Math.random() * cities.length)];
-                }
-                if (toolCall.toolName === "giveWorkout") {
-                    console.log(`chattsx tool call`)
-                    const result = await exerciseTool.execute({}, {
-                        toolCallId: toolCall.toolCallId,
-                        messages: messages as any, // or transform them later
-                    });
-                    if (result !== undefined) {
-                        addExercise(result);
-                    }
-                    return result;
-                }
-            },
+            // async onToolCall({ toolCall }) {
+            //     if (toolCall.toolName === "getLocation") {
+            //         const cities = [
+            //             "New York",
+            //             "Los Angeles",
+            //             "Chicago",
+            //             "San Francisco",
+            //         ];
+            //         return cities[Math.floor(Math.random() * cities.length)];
+            //     }
+            //     if (toolCall.toolName === "giveWorkout") {
+            //         console.log(`chattsx tool call`)
+            //         const result = await exerciseTool.execute({}, {
+            //             toolCallId: toolCall.toolCallId,
+            //             messages: messages as any, // or transform them later
+            //         });
+            //         addExercise(result)
+            //         return result
+            //     }
+            // },
         });
 
     const bottomRef = useRef<HTMLDivElement | null>(null);
 
 
     useEffect(() => {
+        console.log("📩 Messages updated:", messages);
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
@@ -64,7 +63,7 @@ export default function Chat({
         <div className="w-full">
             <div className="flex h-[calc(100vh)] w-full">
                 {/* Exercises message area */}
-                <ScrollArea className="w-1/2 bg-green-100 overflow-y-auto ">
+                <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto ">
                     <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
                         <h2>Exercises for Today</h2>
                     </div>
@@ -76,6 +75,7 @@ export default function Chat({
 
                             {exercises.map((exercise, index) => (
                                 <AccordionItem
+                                    key={exercise.id}
                                     value={`item-${index}`}
                                     className="mt-2"
                                 >
@@ -111,7 +111,7 @@ export default function Chat({
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
-                <ScrollArea className="w-1/2 rounded-md overflow-y-auto ">
+                <ScrollArea className="w-1/3 rounded-md overflow-y-auto ">
                     <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
                         <h2>Your Personal BodyBot</h2>
                     </div>
@@ -120,7 +120,7 @@ export default function Chat({
 
                         {messages.map((message) => (
                             <div
-                                className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4 text-sm"
+                                className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4"
                                 key={message.id}
                             >
                                 <div className="font-bold pb-4">
@@ -129,7 +129,14 @@ export default function Chat({
                                 {message.parts.map((part) => {
                                     switch (part.type) {
                                         case "text":
-                                            return <div key={part.text}>{part.text}</div>;
+                                            return <div
+                                                className="text-lg/8"
+                                                key={part.text}
+                                            >
+                                                <ReactMarkdown>
+                                                    {part.text}
+                                                </ReactMarkdown>
+                                            </div>;
 
                                         case "tool-invocation": {
                                             const callId = part.toolInvocation.toolCallId;
@@ -214,13 +221,14 @@ export default function Chat({
                                                         case "call":
                                                             return <div key={callId}>Loading workout...</div>;
                                                         case "result":
+                                                            console.log("🎯 Tool result received on client:", part.toolInvocation.result);
+                                                            addExercise(part.toolInvocation.result)
                                                             return <div key={callId}>Exercise Added!</div>;
 
 
                                                     }
                                                     break;
                                                 }
-
                                             }
                                         }
                                     }

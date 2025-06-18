@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       id: string;
     };
 
-    const result = streamText({
+    const result = streamText<typeof tools>({
       model: openai("gpt-4-turbo"),
       system: "You are a helpful assistant. Always use the 'giveWorkout' tool to generate exercises for the user when they mention working out or muscles.",
       messages,
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
         });
       },
     });
-
+    console.log("🔧 Tool being handled server-side on api/chat/route");
     return result.toDataStreamResponse();
   } catch (err: unknown) {
     const error = err as Error

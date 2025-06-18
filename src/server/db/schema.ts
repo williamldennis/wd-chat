@@ -163,4 +163,7 @@ export const exercises = pgTable("exercise", (d) => ({
   mechanics: d.text("mechanics"),
   laterality: d.text("laterality"),
   primaryExerciseClassification: d.text("primary_exercise_classification"),
+  
+  description: d.text("description"),
+  embedding: d.vector("embedding", {dimensions: 1536})
 }));

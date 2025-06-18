@@ -15,6 +15,20 @@
       "when": 1750165770331,
       "tag": "0001_jazzy_talos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1750191426716,
+      "tag": "0002_yielding_sue_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1750191696645,
+      "tag": "0003_burly_white_tiger",
+      "breakpoints": true
     }
   ]
 }

@@ -5,6 +5,7 @@ export type Exercise = {
     name: string | null;
     youtubeShort: string | null;
     muscleGroup: string | null;
+    description: string | null;
 }
 
 export function useWorkoutStore() {
