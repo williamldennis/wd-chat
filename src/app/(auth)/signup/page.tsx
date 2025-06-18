@@ -24,7 +24,7 @@ export default function SignUpPage() {
                             SuperBod
                         </div>
                         <div className="text-white">
-                            Exercise like you're a superhero with an AI personal trainer.
+                            Exercise like you're a superhero.
                         </div>
                         <SignUpForm />
                     </div>

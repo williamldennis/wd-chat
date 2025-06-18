@@ -14,7 +14,7 @@ import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
 import { ExerciseCard } from "./ExerciseCard";
-
+import { MenuBarNav } from "./MenuBarNav";
 
 
 export default function Chat({
@@ -67,7 +67,11 @@ export default function Chat({
 
 
     return (
+
         <div className="w-full">
+            <div className=" absolute z-100">
+                <MenuBarNav />
+            </div>
             <div className="flex h-[calc(100vh)] w-full">
                 {/* Exercises message area */}
                 <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto ">
