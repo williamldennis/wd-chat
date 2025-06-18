@@ -21,7 +21,7 @@ import type { Exercise } from "@/types/exercise";
 
 
 
-export function ExerciseCard({ name, youtubeDemoShortUrl, description }: Exercise) {
+export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
     const [isOpen, setIsOpen] = useState(true)
 
     return (
@@ -29,7 +29,7 @@ export function ExerciseCard({ name, youtubeDemoShortUrl, description }: Exercis
             <CardHeader>
                 <iframe
                     className="w-full pb-4 rounded-md"
-                    src={youtubeDemoShortUrl ? toEmbedUrl(youtubeDemoShortUrl) : ""}
+                    src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
                     title={`Exercise video for ${name}`}
                     allowFullScreen
                 />

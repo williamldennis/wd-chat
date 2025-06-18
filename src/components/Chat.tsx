@@ -13,7 +13,7 @@ import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
-import { ExerciseCard } from "./exerciseCard";
+import { ExerciseCard } from "./ExerciseCard";
 
 
 
@@ -55,13 +55,13 @@ export default function Chat({
                     if (!handledResultsRef.current.has(callId)) {
                         handledResultsRef.current.add(callId)
                         console.log("toll result in useEffect:", part.toolInvocation.result)
-                        addExercise(part.toolInvocation.result)
+                        addExercise(part.toolInvocation.result as Exercise | Exercise[])
                     }
 
                 }
             }
         }
-    }, [messages])
+    }, [messages, addExercise])
     console.log("Exercises:", exercises);
 
 
@@ -96,9 +96,11 @@ export default function Chat({
                                                         {/*image here */}
                                                         <div className="w-30 h-60 overflow-hidden mr-6">
                                                             <Image
-                                                                src={getMuscleGroupImage(exercise.targetMuscleGroup ?? "default")}
+                                                                src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                 alt="Image of muscle group"
                                                                 className="w-full h-full object-cover"
+                                                                width="500"
+                                                                height="500"
                                                             />
                                                         </div>
                                                         <div className="">
@@ -110,7 +112,7 @@ export default function Chat({
                                                             <CardDescription
                                                                 className="w-100"
                                                             >
-                                                                Target: {exercise.targetMuscleGroup}
+                                                                Target: {exercise.muscleGroup}
                                                             </CardDescription>
                                                         </div>
                                                     </div>

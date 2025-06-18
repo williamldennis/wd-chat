@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import type { Exercise } from "@/types/exercise";
 
 export function useWorkoutStore() {
