@@ -79,10 +79,10 @@ export function SignUpForm({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card>
+            <Card className="bg-white/30 backdrop-blur-md">
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Welcome</CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-gray-900">
                         Sign Up with your Google account
                     </CardDescription>
                 </CardHeader>
@@ -109,7 +109,7 @@ export function SignUpForm({
                                 </div>
                             </div>
                             <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                                <span className="bg-card text-muted-foreground relative z-10 px-2">
+                                <span className="bg-card text-muted-foreground relative z-10 px-3 rounded-xl">
                                     Or continue with
                                 </span>
                             </div>

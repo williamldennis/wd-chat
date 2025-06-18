@@ -13,20 +13,18 @@ export default function SignUpPage() {
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover z-0"
                 >
-                    <source src="/splash/color-spin-2.mp4" type="video/mp4" />
+                    <source src="/splash/color-spin-2-smooth.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
 
                 {/* sign up card */}
                 <div className="absolute inset-0 flex min-h-svh flex-col justify-center gap-6 p-14 md:p-10 z-10">
-                    <div className="flex w-full max-w-sm flex-col gap-6">
-                        <a href="#" className="flex items-center gap-2 self-center font-medium text-white text-2xl">
-                            <div className="text-8xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                SuperBod
-                            </div>
-                        </a>
-                        <div>
-                            Exercise like you're a superhero
+                    <div className="flex w-full max-w-sm flex-col gap-4 items-center">
+                        <div className="text-8xl/12 text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                            SuperBod
+                        </div>
+                        <div className="text-white">
+                            Exercise like you're a superhero with an AI personal trainer.
                         </div>
                         <SignUpForm />
                     </div>
