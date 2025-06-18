@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "deploy": "vercel build && vercel deploy --prebuilt",
+    "deploy:prod": "vercel build && vercel deploy --prebuilt --production",
     "build": "next build",
     "check": "next lint && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
