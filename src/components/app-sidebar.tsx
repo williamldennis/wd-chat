@@ -27,13 +27,12 @@ export function AppSidebar() {
   useEffect(() => {
     async function checkAuth() {
       const session = await authClient.getSession()
-      console.log(`user session: ${session.data?.user}`)
+      console.log("user session:", session.data?.user)
       setIsLoggedIn(!!session.data?.user)
     }
-
-    checkAuth()
-
-
+    checkAuth().catch((err) => {
+      console.error("Failed to check auth:", err);
+    });
   }, [pathname])
 
 
