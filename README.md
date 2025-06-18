@@ -4,14 +4,14 @@
 [X] on log in, load chat list
 [X] make the list of exercises live outside the chat
 [X] add exercises to db
+[X] vector index the exercises
+[X] create tool for chat to grab exercises based on vector similarity to user request
 [] return exercises in UI
+[] fix chevron on history
 [] style the log in and sign up pages
 [] turn chats into daily workout sessions
 [] have sessions contain exercises
 [] fix deploy
-[] vector index the exercises
-[] fix chevron on history
-[] create tool for chat to grab exercises based on vector similarity to user request
 [] make those exercises have GenUI components
 [] track exercise completion to history 
 [] have a calendar / dashboard for progress
