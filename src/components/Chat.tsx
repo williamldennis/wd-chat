@@ -15,6 +15,14 @@ import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
 import { ExerciseCard } from "./ExerciseCard";
 import { MenuBarNav } from "./MenuBarNav";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 
 export default function Chat({
@@ -76,67 +84,71 @@ export default function Chat({
                 {/* Exercises message area */}
                 <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto">
                     <div className="sticky top- p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                        <h2>Exercises for Today</h2>
+                        <h2>{exercises?.length} Exercises for Today</h2>
                     </div>
                     <div className="justify-items-center">
-                        <Accordion
-                            type="single" collapsible
-                            className="mt-4"
+                        <Carousel
+                            className="w-5/6"
+                        // plugins={[
+                        //     Autoplay({
+                        //         delay: 2000,
+                        //     }),
+                        // ]}
                         >
+                            <CarouselContent className="">
 
-                            {exercises.map((exercise, index) => (
-                                <AccordionItem
-                                    key={exercise.id}
-                                    value={`item-${index}`}
-                                    className="mt-2"
-                                >
-
-                                    <Card className="">
+                                {exercises.map((exercise, index) => (
+                                    <CarouselItem
+                                        key={exercise.id}
+                                        className="mt-2 basis-1/3"
+                                    >
                                         <div className="">
-                                            <AccordionTrigger
-                                                className="w-210">
-                                                <CardHeader>
-                                                    <div className="flex flex-row items-center">
-                                                        {/*image here */}
-                                                        <div className="w-30 h-60 overflow-hidden mr-6">
-                                                            <Image
-                                                                src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
-                                                                alt="Image of muscle group"
-                                                                className="w-full h-full object-cover"
-                                                                width="500"
-                                                                height="500"
-                                                            />
-                                                        </div>
-                                                        <div className="">
+                                            <CardHeader>
+                                                <div className="items-center">
+                                                    {/*image here */}
+                                                    <div className="w-70 h-140 overflow-hidden mr-6 items-center">
+                                                        <Image
+                                                            src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
+                                                            alt="Image of muscle group"
+                                                            className="w-full h-full object-cover"
+                                                            width="500"
+                                                            height="500"
+                                                        />
+                                                    </div>
+                                                    <div className="flex flex-col items-center pr-5">
+                                                        <div>
                                                             <CardTitle
                                                                 className="text-lg w-full"
                                                             >
                                                                 {exercise.name}
                                                             </CardTitle>
-                                                            <CardDescription
-                                                                className="w-100"
-                                                            >
-                                                                Target: {exercise.muscleGroup}
-                                                            </CardDescription>
                                                         </div>
+
+                                                        <CardDescription
+                                                            className=""
+                                                        >
+                                                            Target: {exercise.muscleGroup}
+                                                        </CardDescription>
+                                                        <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                            Start Exercise
+                                                        </Button>
                                                     </div>
-                                                </CardHeader>
-                                            </AccordionTrigger>
+                                                </div>
+                                            </CardHeader>
 
                                         </div>
 
-                                        <AccordionContent>
-                                            <div className=" justify-items-center">
-                                                <ExerciseCard
-                                                    key={exercise.id} {...exercise} />
-                                            </div>
-                                        </AccordionContent>
-                                    </Card>
-                                </AccordionItem>
+                                        {/* <div className=" justify-items-center">
+                                                    <ExerciseCard
+                                                        key={exercise.id} {...exercise} />
+                                                </div> */}
+                                    </CarouselItem>
 
-                            ))}
-                        </Accordion>
-
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
