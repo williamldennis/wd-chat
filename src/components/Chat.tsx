@@ -12,6 +12,7 @@ import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import ReactMarkdown from "react-markdown"
+import { getMuscleGroupImage } from "@/lib/dictionary";
 
 export default function Chat({
     id,
@@ -26,26 +27,6 @@ export default function Chat({
             initialMessages,
             sendExtraMessageFields: true,
             maxSteps: 5,
-            // async onToolCall({ toolCall }) {
-            //     if (toolCall.toolName === "getLocation") {
-            //         const cities = [
-            //             "New York",
-            //             "Los Angeles",
-            //             "Chicago",
-            //             "San Francisco",
-            //         ];
-            //         return cities[Math.floor(Math.random() * cities.length)];
-            //     }
-            //     if (toolCall.toolName === "giveWorkout") {
-            //         console.log(`chattsx tool call`)
-            //         const result = await exerciseTool.execute({}, {
-            //             toolCallId: toolCall.toolCallId,
-            //             messages: messages as any, // or transform them later
-            //         });
-            //         addExercise(result)
-            //         return result
-            //     }
-            // },
         });
 
     const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -81,6 +62,7 @@ export default function Chat({
     console.log("Exercises:", exercises);
 
 
+
     return (
         <div className="w-full">
             <div className="flex h-[calc(100vh)] w-full">
@@ -103,21 +85,37 @@ export default function Chat({
                                 >
 
                                     <Card className="">
-                                        <AccordionTrigger
-                                            className="w-210">
-                                            <CardHeader
-                                                className=""
-                                            >
-                                                <CardTitle
-                                                    className="text-lg"
-                                                >{exercise.name}</CardTitle>
-                                                <CardDescription
-                                                    className="w-100"
-                                                >
-                                                   Target: {exercise.muscleGroup}
-                                                </CardDescription>
-                                            </CardHeader>
-                                        </AccordionTrigger>
+                                        <div className="">
+                                            <AccordionTrigger
+                                                className="w-210">
+                                                <CardHeader>
+                                                    <div className="flex flex-row items-center">
+                                                        {/*image here */}
+                                                        <div className="w-30 h-60 overflow-hidden mr-6">
+                                                            <img
+                                                                src={getMuscleGroupImage(exercise.muscleGroup)}
+                                                                alt="Image of muscle group"
+                                                                className="w-full h-full object-cover"
+                                                            />
+                                                        </div>
+                                                        <div className="">
+                                                            <CardTitle
+                                                                className="text-lg w-full"
+                                                            >
+                                                                {exercise.name}
+                                                            </CardTitle>
+                                                            <CardDescription
+                                                                className="w-100"
+                                                            >
+                                                                Target: {exercise.muscleGroup}
+                                                            </CardDescription>
+                                                        </div>
+                                                    </div>
+                                                </CardHeader>
+                                            </AccordionTrigger>
+
+                                        </div>
+
                                         <AccordionContent>
                                             <div className=" justify-items-center">
                                                 <Exercise
