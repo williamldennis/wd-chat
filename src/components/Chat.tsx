@@ -69,13 +69,13 @@ export default function Chat({
     return (
 
         <div className="w-full">
-            <div className=" absolute z-100">
+            <div className="absolute z-100 py-8 px-5">
                 <MenuBarNav />
             </div>
             <div className="flex h-[calc(100vh)] w-full">
                 {/* Exercises message area */}
-                <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto ">
-                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
+                <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto">
+                    <div className="sticky top- p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                         <h2>Exercises for Today</h2>
                     </div>
                     <div className="justify-items-center">
@@ -140,8 +140,8 @@ export default function Chat({
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
-                <ScrollArea className="w-1/3 rounded-md overflow-y-auto ">
-                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
+                <ScrollArea className="w-1/3 rounded-md overflow-y-auto">
+                    <div className="sticky top-0 bg-white p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                         <h2>Your Personal BodyBot</h2>
                     </div>
                     {/* Scrollable message area */}
