@@ -31,7 +31,6 @@ export function Exercise({ name, youtubeShort, muscleGroup, description, id }: E
                     allowFullScreen
                 />
                 <CardDescription>
-                    {name}: {muscleGroup}
                     {description}
                 </CardDescription>
             </CardHeader>

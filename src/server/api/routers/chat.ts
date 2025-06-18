@@ -45,26 +45,26 @@ export const chatRouter = createTRPCRouter({
 
     }),
 
-    exerciseListFromVector: protectedProcedure
-        .input(z.object({
-            query: z.string(),
-            limit: z.number().optional().default(5)
-        }))
-        .query(async ({ input, ctx }) => {
-            console.log("exercise vector query in tRPC")
-            const queryEmbedding = await openai.embeddings.create({
-                model: "text-embedding-3-small",
-                input: input.query
-            })
+    // exerciseListFromVector: protectedProcedure
+    //     .input(z.object({
+    //         query: z.string(),
+    //         limit: z.number().optional().default(5)
+    //     }))
+    //     .query(async ({ input, ctx }) => {
+    //         console.log("exercise vector query in tRPC")
+    //         const queryEmbedding = await openai.embeddings.create({
+    //             model: "text-embedding-3-small",
+    //             input: input.query
+    //         })
 
-            const queryVector = queryEmbedding.data[0]?.embedding
+    //         const queryVector = queryEmbedding.data[0]?.embedding
 
-            const retrievedExercises = await db.execute(sql`
-            SELECT ${exercises.id}, ${exercises.exerciseName}, ${exercises.description}, ${exercises.targetMuscleGroup}, ${exercises.youtubeDemoShortUrl}
-            FROM ${exercises}
-            ORDER BY ${exercises.embedding} <-> ${sql`${queryVector}`}
-            LIMIT ${input.limit} 
-            `)
-            return retrievedExercises
-        })
+    //         const retrievedExercises = await db.execute(sql`
+    //         SELECT ${exercises.id}, ${exercises.exerciseName}, ${exercises.description}, ${exercises.targetMuscleGroup}, ${exercises.youtubeDemoShortUrl}
+    //         FROM ${exercises}
+    //         ORDER BY ${exercises.embedding} <-> ${sql`${queryVector}`}
+    //         LIMIT ${input.limit} 
+    //         `)
+    //         return retrievedExercises
+    //     })
 })

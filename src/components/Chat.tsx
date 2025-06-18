@@ -56,6 +56,28 @@ export default function Chat({
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    const handledResultsRef = useRef(new Set<string>());
+
+    useEffect(() => {
+        for (const message of messages) {
+            for (const part of message.parts) {
+                if (
+                    part.type === "tool-invocation" &&
+                    part.toolInvocation.toolName === "giveWorkout" &&
+                    part.toolInvocation.state === "result"
+                ) {
+                    const callId = part.toolInvocation.toolCallId
+
+                    if (!handledResultsRef.current.has(callId)) {
+                        handledResultsRef.current.add(callId)
+                        console.log("toll result in useEffect:", part.toolInvocation.result)
+                        addExercise(part.toolInvocation.result)
+                    }
+
+                }
+            }
+        }
+    }, [messages])
     console.log("Exercises:", exercises);
 
 
@@ -92,7 +114,7 @@ export default function Chat({
                                                 <CardDescription
                                                     className="w-100"
                                                 >
-                                                    Leg Press is great for getting those sweet sweet toned thighs.
+                                                    {exercise.muscleGroup}
                                                 </CardDescription>
                                             </CardHeader>
                                         </AccordionTrigger>
@@ -221,8 +243,6 @@ export default function Chat({
                                                         case "call":
                                                             return <div key={callId}>Loading workout...</div>;
                                                         case "result":
-                                                            console.log("🎯 Tool result received on client:", part.toolInvocation.result);
-                                                            addExercise(part.toolInvocation.result)
                                                             return <div key={callId}>Exercise Added!</div>;
 
 

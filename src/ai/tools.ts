@@ -2,11 +2,17 @@
 import { tool as createTool } from "ai";
 import { z } from "zod";
 import { blockingClient } from "@/trpc/react"
+import OpenAI from "openai";
+import { exercises } from "@/server/db/schema";
+import { sql } from "drizzle-orm";
+import { db } from "@/server/db";
 
 type GetExercisesInput = {
   query: string;
   limit?: number
 }
+
+const openai = new OpenAI();
 
 export const weatherTool = createTool({
   description: "Display the weather for a location",
@@ -53,6 +59,33 @@ export const getLocation = createTool({
 //   },
 // });
 
+// export const exerciseTool = createTool({
+//   description: "Retrieve exercises semantically based on a natural language query from the user.",
+//   parameters: z.object({
+//     query: z.string(),
+//     limit: z.number().optional().default(5)
+//   }),
+//   execute: async ({ query, limit }: GetExercisesInput) => {
+//     console.log("🧠 TOOL CALLED with:", query, limit);
+//     console.log("🧱 client methods:", Object.keys(blockingClient.chat));
+//     const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
+//       query,
+//       limit: limit ?? 5
+//     })
+//     console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
+//     const result = vectorQueryResult?.map((exercise) => ({
+//       id: exercise.id,
+//       name: exercise.exerciseName,
+//       youtubeShort: exercise.youtubeDemoShortUrl,
+//       muscleGroup: exercise.targetMuscleGroup,
+//       description: exercise.description
+//     }))
+//     console.log("✅ TOOL RETURNING results:", result);
+//     return result
+//   }
+// })
+
+
 export const exerciseTool = createTool({
   description: "Retrieve exercises semantically based on a natural language query from the user.",
   parameters: z.object({
@@ -61,21 +94,49 @@ export const exerciseTool = createTool({
   }),
   execute: async ({ query, limit }: GetExercisesInput) => {
     console.log("🧠 TOOL CALLED with:", query, limit);
-    console.log("🧱 client methods:", Object.keys(blockingClient.chat));
-    const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
-      query,
-      limit: limit ?? 5
+    const queryEmbedding = await openai.embeddings.create({
+      model: "text-embedding-3-small",
+      input: query
     })
-    console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
-    const result = vectorQueryResult?.map((exercise) => ({
-      id: exercise.id,
-      name: exercise.exerciseName,
-      youtubeShort: exercise.youtubeDemoShortUrl,
-      muscleGroup: exercise.targetMuscleGroup,
-      description: exercise.description
-    }))
-    console.log("✅ TOOL RETURNING results:", result);
-    return result
+
+    console.log(`user query embedding created. Result:`, queryEmbedding)
+
+    const queryVector = queryEmbedding.data[0]?.embedding
+    console.log(`Query Vector:`, queryVector)
+    if (!queryVector || queryVector.length === 0) {
+      throw new Error("No embedding generated.");
+    }
+    // Format queryVector as a SQL array
+    const vectorArray = `ARRAY[${queryVector.join(",")}]::vector`
+
+    try {
+      console.log(`Vector Array Slice:`, vectorArray.slice(0, 5), vectorArray.length)
+
+      const retrievedExercises = await db.execute(sql`
+            SELECT 
+              ${exercises.id}, 
+              ${exercises.exerciseName}, 
+              ${exercises.description}, 
+              ${exercises.targetMuscleGroup}, 
+              ${exercises.youtubeDemoShortUrl}
+            FROM ${exercises}
+            ORDER BY ${exercises.embedding} <-> ${sql.raw(vectorArray)}
+            LIMIT ${limit} 
+            `)
+      console.log(`Retrieved exercises:`, retrievedExercises)
+
+      const result = retrievedExercises?.map((exercise) => ({
+        id: exercise.id,
+        name: exercise.exercise_name,
+        youtubeShort: exercise.youtube_demo_short_url,
+        muscleGroup: exercise.target_muscle_group,
+        description: exercise.description
+      }))
+      console.log("✅ TOOL RETURNING results:", result);
+      return result
+    } catch (err) {
+      console.error("Failed to retrieve exercises", err)
+    }
   }
 })
 
