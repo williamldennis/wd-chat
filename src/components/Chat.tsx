@@ -104,7 +104,7 @@ export default function Chat({
 
                                     <Card className="">
                                         <AccordionTrigger
-                                            className="w-110">
+                                            className="w-210">
                                             <CardHeader
                                                 className=""
                                             >
@@ -114,7 +114,7 @@ export default function Chat({
                                                 <CardDescription
                                                     className="w-100"
                                                 >
-                                                    {exercise.muscleGroup}
+                                                   Target: {exercise.muscleGroup}
                                                 </CardDescription>
                                             </CardHeader>
                                         </AccordionTrigger>
