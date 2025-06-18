@@ -19,20 +19,48 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toEmbedUrl } from "@/lib/utils";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { useState } from "react";
+import { ChevronsUpDown } from "lucide-react";
+
 
 export function Exercise({ name, youtubeShort, muscleGroup, description, id }: ExerciseProps) {
+    const [isOpen, setIsOpen] = useState(true)
+
     return (
-        < Card className="w-full max-w-sm" >
+        < Card className="w-full max-w-xl" >
             <CardHeader>
                 <iframe
-                    className="w-full h-[200px] pb-4 rounded-md"
+                    className="w-full pb-4 rounded-md"
                     src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
                     title={`Exercise video for ${name}`}
                     allowFullScreen
                 />
-                <CardDescription>
-                    {description}
-                </CardDescription>
+                <Collapsible
+                    open={isOpen}
+                    onOpenChange={setIsOpen}
+                    className="flex flex-col gap-2">
+                    <div>
+                        <CollapsibleTrigger className="flex justify-between gap-4">
+                            <Label className="">
+                                Exercise Description
+                            </Label>
+                            <Button variant="ghost" size="icon" className="size-8">
+                                <ChevronsUpDown />
+                                <span className="sr-only">Toggle</span>
+                            </Button>
+                        </CollapsibleTrigger>
+                    </div>
+                    <CollapsibleContent>
+                        <CardDescription className="max-w-full">
+                            {description}
+                        </CardDescription>
+                    </CollapsibleContent>
+                </Collapsible>
             </CardHeader>
             <CardContent>
                 <form>

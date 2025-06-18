@@ -4,7 +4,7 @@ export type Exercise = {
     id: string;
     name: string | null;
     youtubeShort: string | null;
-    muscleGroup: string | null;
+    muscleGroup: string;
     description: string | null;
 }
 
