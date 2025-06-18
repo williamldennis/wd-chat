@@ -1,7 +1,6 @@
 
 import { tool as createTool } from "ai";
 import { z } from "zod";
-import { blockingClient } from "@/trpc/react"
 import OpenAI from "openai";
 import { exercises } from "@/server/db/schema";
 import { sql } from "drizzle-orm";

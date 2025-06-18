@@ -1,7 +1,7 @@
 'use client'
 import { api } from "@/trpc/react"
 
-import { Calendar, ChevronDown, ChevronUp, Home, Inbox, Search, Settings } from "lucide-react"
+import { ChevronDown, ChevronUp } from "lucide-react"
 
 import {
   Sidebar,
@@ -37,7 +37,7 @@ export function AppSidebar() {
   }, [pathname])
 
 
-  const { data: userChats, isLoading, error } = api.chat.list.useQuery(undefined, { enabled: isLoggedIn })
+  const { data: userChats } = api.chat.list.useQuery(undefined, { enabled: isLoggedIn })
   const { data: user } = api.chat.userInfo.useQuery(undefined, { enabled: isLoggedIn })
   const router = useRouter()
 
@@ -62,7 +62,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarGroupLabel>Today's Workout
+            <SidebarGroupLabel>Today`&apos`s Workout
 
             </SidebarGroupLabel>
 
