@@ -23,7 +23,14 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default function Chat({
     id,
@@ -129,19 +136,26 @@ export default function Chat({
                                                         >
                                                             Target: {exercise.muscleGroup}
                                                         </CardDescription>
-                                                        <Button className="m-4 bg-black/60 backdrop-blur-md">
-                                                            Start Exercise
-                                                        </Button>
+                                                        <Dialog>
+                                                            <DialogTrigger>
+                                                                <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                    Start Exercise
+                                                                </Button>
+                                                            </DialogTrigger>
+                                                            <DialogContent className="max-w-[calc(100%-50rem)]">
+                                                                <div className=" justify-items-center">
+                                                                    <ExerciseCard
+                                                                        key={exercise.id} {...exercise} />
+                                                                </div>
+                                                            </DialogContent>
+                                                        </Dialog>
                                                     </div>
                                                 </div>
                                             </CardHeader>
 
                                         </div>
 
-                                        {/* <div className=" justify-items-center">
-                                                    <ExerciseCard
-                                                        key={exercise.id} {...exercise} />
-                                                </div> */}
+
                                     </CarouselItem>
 
                                 ))}
