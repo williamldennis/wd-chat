@@ -39,6 +39,7 @@ export const getLocation = createTool({
 //     //give the model variables that it can use to define the db schema
 //   }),
 //   execute: async function ({ }) {
+//     console.log('TOOL EXECUTING (non vector exercise)')
 //     await new Promise((resolve) => setTimeout(resolve, 2000));
 //     const exerciseList = await blockingClient.chat.exerciseList.query()
 //     console.log(`exercise TOOL CALL`, exerciseList)
@@ -57,23 +58,26 @@ export const exerciseTool = createTool({
   parameters: z.object({
     query: z.string(),
     limit: z.number().optional().default(5)
-  })
+  }),
+  execute: async ({ query, limit }: GetExercisesInput) => {
+    console.log("🧠 TOOL CALLED with:", query, limit);
+    console.log("🧱 client methods:", Object.keys(blockingClient.chat));
+    const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
+      query,
+      limit: limit ?? 5
+    })
+    console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
+    const result = vectorQueryResult?.map((exercise) => ({
+      id: exercise.id,
+      name: exercise.exerciseName,
+      youtubeShort: exercise.youtubeDemoShortUrl,
+      muscleGroup: exercise.targetMuscleGroup,
+      description: exercise.description
+    }))
+    console.log("✅ TOOL RETURNING results:", result);
+    return result
+  }
 })
-execute: async ({ query, limit }: GetExercisesInput) => {
-  const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
-    query,
-    limit: limit ?? 5
-  })
-  console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
-  const result = vectorQueryResult?.map((exercise) => ({
-    id: exercise.id,
-    name: exercise.exerciseName,
-    youtubeShort: exercise.youtubeDemoShortUrl,
-    muscleGroup: exercise.targetMuscleGroup,
-    description: exercise.description
-  }))
-  return result
-}
 
 export const tools = {
   displayWeather: weatherTool,

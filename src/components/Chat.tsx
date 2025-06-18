@@ -52,6 +52,7 @@ export default function Chat({
 
 
     useEffect(() => {
+        console.log("📩 Messages updated:", messages);
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
@@ -220,13 +221,14 @@ export default function Chat({
                                                         case "call":
                                                             return <div key={callId}>Loading workout...</div>;
                                                         case "result":
+                                                            console.log("🎯 Tool result received on client:", part.toolInvocation.result);
+                                                            addExercise(part.toolInvocation.result)
                                                             return <div key={callId}>Exercise Added!</div>;
 
 
                                                     }
                                                     break;
                                                 }
-
                                             }
                                         }
                                     }
