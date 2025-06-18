@@ -1,20 +1,11 @@
-type ExerciseProps = {
-    id: string;
-    name: string | null;
-    youtubeShort: string | null;
-    muscleGroup: string | null;
-    description: string | null;
-};
 
 import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
     CardFooter,
     CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -26,9 +17,11 @@ import {
 } from "@/components/ui/collapsible"
 import { useState } from "react";
 import { ChevronsUpDown } from "lucide-react";
+import type { Exercise } from "@/types/exercise";
 
 
-export function Exercise({ name, youtubeShort, muscleGroup, description, id }: ExerciseProps) {
+
+export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
     const [isOpen, setIsOpen] = useState(true)
 
     return (

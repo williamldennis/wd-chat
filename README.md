@@ -1,4 +1,7 @@
 #TO DO 
+[X] Associate chats with a given userID
+[X] Add userID to chat table
+[X] Finish writing function for grabbing all chats by userID [text](src/server/api/routers/chat.ts)
 [X] add log out button
 [X] remove chat list for logged out users
 [X] on log in, load chat list
@@ -8,21 +11,22 @@
 [X] create tool for chat to grab exercises based on vector similarity to user request
 [X] return exercises in UI
 [X] make those exercises have GenUI components
-[] "give me some abs and back exercises" gave me just abs exercises
+[X] style the log in and sign up pages
+[] fix deploy
 [] create intro message
-[] create summary message
+[] style workout page
+
+NOT REQUIRED FOR PORTFOLIO
+[] "give me some abs and back exercises" gave me just abs exercises
+[] create summary message for a given workout
 [] fix chevron on history
-[] style the log in and sign up pages
 [] turn chats into daily workout sessions
 [] have sessions contain exercises
-[] fix deploy
 [] track exercise completion to history 
 [] have a calendar / dashboard for progress
 [] fatigue by muscle group
 [] in take session 
- [X] Associate chats with a given userID
-    [X] Add userID to chat table
-[X] Finish writing function for grabbing all chats by userID [text](src/server/api/routers/chat.ts)
+
 
 
 ----

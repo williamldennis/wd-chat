@@ -1,12 +1,5 @@
 import { useState } from "react";
-
-export type Exercise = {
-    id: string;
-    name: string | null;
-    youtubeShort: string | null;
-    muscleGroup: string;
-    description: string | null;
-}
+import type { Exercise } from "@/types/exercise";
 
 export function useWorkoutStore() {
     const [exercises, setExercises] = useState<Exercise[]>([])

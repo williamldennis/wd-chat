@@ -4,15 +4,18 @@ import { type Message, useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
-import React, { useEffect, useRef, useState } from "react";
-import { Exercise } from "./exerciseCard";
+import React, { useEffect, useRef } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
-import { exerciseTool, tools } from "@/ai/tools";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
+import Image from 'next/image'
+import type { Exercise } from "@/types/exercise";
+import { ExerciseCard } from "./ExerciseCard";
+
+
 
 export default function Chat({
     id,
@@ -52,13 +55,13 @@ export default function Chat({
                     if (!handledResultsRef.current.has(callId)) {
                         handledResultsRef.current.add(callId)
                         console.log("toll result in useEffect:", part.toolInvocation.result)
-                        addExercise(part.toolInvocation.result)
+                        addExercise(part.toolInvocation.result as Exercise | Exercise[])
                     }
 
                 }
             }
         }
-    }, [messages])
+    }, [messages, addExercise])
     console.log("Exercises:", exercises);
 
 
@@ -92,10 +95,12 @@ export default function Chat({
                                                     <div className="flex flex-row items-center">
                                                         {/*image here */}
                                                         <div className="w-30 h-60 overflow-hidden mr-6">
-                                                            <img
-                                                                src={getMuscleGroupImage(exercise.muscleGroup)}
+                                                            <Image
+                                                                src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                 alt="Image of muscle group"
                                                                 className="w-full h-full object-cover"
+                                                                width="500"
+                                                                height="500"
                                                             />
                                                         </div>
                                                         <div className="">
@@ -118,7 +123,7 @@ export default function Chat({
 
                                         <AccordionContent>
                                             <div className=" justify-items-center">
-                                                <Exercise
+                                                <ExerciseCard
                                                     key={exercise.id} {...exercise} />
                                             </div>
                                         </AccordionContent>

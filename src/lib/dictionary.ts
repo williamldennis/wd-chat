@@ -17,6 +17,9 @@ export const muscleGroupToImageMap: Record<string, string> = {
     "Hip Flexors": "/body-images/hip-flexors.png",
 };
 
-export function getMuscleGroupImage(muscleGroup: string): string {
-    return muscleGroupToImageMap[muscleGroup] || "/body-images/default.png";
+export function getMuscleGroupImage(targetMuscleGroup: string): string {
+    if (muscleGroupToImageMap[targetMuscleGroup]) {
+        return muscleGroupToImageMap[targetMuscleGroup]
+    } else
+        return "/body-images/default.png"
 }
