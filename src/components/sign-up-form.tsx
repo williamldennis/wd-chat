@@ -79,7 +79,7 @@ export function SignUpForm({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="bg-white/30 backdrop-blur-md">
+            <Card className="bg-white/35 backdrop-blur-md ">
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Welcome</CardTitle>
                     <CardDescription className="text-gray-900">
