@@ -114,7 +114,7 @@ export default function Chat({
                                                 <CardDescription
                                                     className="w-100"
                                                 >
-                                                    Leg Press is great for getting those sweet sweet toned thighs.
+                                                    {exercise.muscleGroup}
                                                 </CardDescription>
                                             </CardHeader>
                                         </AccordionTrigger>

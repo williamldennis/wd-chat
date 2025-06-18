@@ -127,9 +127,9 @@ export const exerciseTool = createTool({
 
       const result = retrievedExercises?.map((exercise) => ({
         id: exercise.id,
-        name: exercise.exerciseName,
-        youtubeShort: exercise.youtubeDemoShortUrl,
-        muscleGroup: exercise.targetMuscleGroup,
+        name: exercise.exercise_name,
+        youtubeShort: exercise.youtube_demo_short_url,
+        muscleGroup: exercise.target_muscle_group,
         description: exercise.description
       }))
       console.log("✅ TOOL RETURNING results:", result);
