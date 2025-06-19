@@ -35,7 +35,7 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
 
     return (
         <>
-            < Card className="w-full mt-5 z-200" >
+            < Card className="max-w-lg mt-5" >
 
                 <CardHeader>
                     <iframe

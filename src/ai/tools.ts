@@ -38,55 +38,9 @@ export const getLocation = createTool({
 });
 
 
-// export const exerciseTool = createTool({
-//   description: "Give the user exercises from the DB based on their messages. Don't include the URL in your description.",
-//   parameters: z.object({
-//     //give the model variables that it can use to define the db schema
-//   }),
-//   execute: async function ({ }) {
-//     console.log('TOOL EXECUTING (non vector exercise)')
-//     await new Promise((resolve) => setTimeout(resolve, 2000));
-//     const exerciseList = await blockingClient.chat.exerciseList.query()
-//     console.log(`exercise TOOL CALL`, exerciseList)
-//     const result = exerciseList?.map((exercise) => ({
-//       id: exercise.id,
-//       name: exercise.exerciseName,
-//       youtubeShort: exercise.youtubeDemoShortUrl,
-//       muscleGroup: exercise.targetMuscleGroup
-//     }))
-//     return result
-//   },
-// });
-
-// export const exerciseTool = createTool({
-//   description: "Retrieve exercises semantically based on a natural language query from the user.",
-//   parameters: z.object({
-//     query: z.string(),
-//     limit: z.number().optional().default(5)
-//   }),
-//   execute: async ({ query, limit }: GetExercisesInput) => {
-//     console.log("🧠 TOOL CALLED with:", query, limit);
-//     console.log("🧱 client methods:", Object.keys(blockingClient.chat));
-//     const vectorQueryResult = await blockingClient.chat.exerciseListFromVector.query({
-//       query,
-//       limit: limit ?? 5
-//     })
-//     console.log(`exercise VECTOR TOOL CALL. Result:`, vectorQueryResult)
-//     const result = vectorQueryResult?.map((exercise) => ({
-//       id: exercise.id,
-//       name: exercise.exerciseName,
-//       youtubeShort: exercise.youtubeDemoShortUrl,
-//       muscleGroup: exercise.targetMuscleGroup,
-//       description: exercise.description
-//     }))
-//     console.log("✅ TOOL RETURNING results:", result);
-//     return result
-//   }
-// })
-
 
 export const exerciseTool = createTool({
-  description: "Retrieve exercises semantically based on a natural language query from the user.",
+  description: "Retrieve exercises based on a natural language query from the user. Give a 1-sentence summary of the workout in your message.",
   parameters: z.object({
     query: z.string(),
     limit: z.number().optional().default(5)
