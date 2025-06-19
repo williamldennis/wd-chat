@@ -92,16 +92,17 @@ export default function Chat({
     return (
 
         <div className="w-full">
-            <div className="absolute z-110 py-8 px-5">
-                <MenuBarNav />
-            </div>
-            <div className="flex h-[calc(100vh)] w-full">
+
+            <div className="flex flex-col items-center h-[calc(100vh)] w-full">
+                <div className="max-w-xs z-110 py-8 px-5">
+                    <MenuBarNav />
+                </div>
                 {/* Exercises area */}
-                <div className="w-full">
+                <div className="w-full flex flex-col">
                     <div className="">
                         {exercises.length != 0 && (
                             <>
-                                <div className="sticky text-white z-50 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                     <h2>{exercises?.length} Exercises for Today</h2>
                                 </div>
                                 <div className="w-screen h-screen overflow-hidden absolute inset-0">
@@ -163,28 +164,28 @@ export default function Chat({
                     </div>
 
 
-                    <div className="justify-items-center">
+                    <div className="justify-center flex w-full relative">
                         {exercises.length != 0 && (
                             <Carousel
-                                className="w-5/6 z-10 mt-10"
-                                plugins={[
-                                    Autoplay({
-                                        delay: 2000,
-                                    }),
-                                ]}
+                                className="w-3/4 z-10 mt-20"
+                                // plugins={[
+                                //     Autoplay({
+                                //         delay: 2000,
+                                //     }),
+                                // ]}
                             >
                                 <CarouselContent className="">
 
                                     {exercises.map((exercise, index) => (
                                         <CarouselItem
                                             key={exercise.id}
-                                            className="mt-2 basis-1/3"
+                                            className="mt-2 basis-1/1"
                                         >
                                             <div className="">
                                                 <CardHeader>
-                                                    <div className="items-center">
+                                                    <div className="justify-items-center">
                                                         {/*image here */}
-                                                        <div className="w-70 h-140 overflow-hidden mr-6 items-center">
+                                                        <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
                                                             <Image
                                                                 src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                 alt="Image of muscle group"
@@ -255,8 +256,9 @@ export default function Chat({
                 <div className="z-1000">
                     <Drawer>
                         <DrawerContent>
-                            <div className="sticky top-0 bg-white p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                <h2>Your Personal BodyBot</h2>
+                            <div className="sticky top-0 bg-white justify-items-center p-3" >
+                                <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
+                                <div>Chat with me about your workout goals</div>
                             </div>
                             <ScrollArea className="rounded-md overflow-y-auto pb-[90px]">
 
@@ -268,14 +270,14 @@ export default function Chat({
                                             className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4"
                                             key={message.id}
                                         >
-                                            <div className="font-bold pb-4">
+                                            <div className="font-bold">
                                                 {message.role === "user" ? "User" : "BodyBot"}
                                             </div>
                                             {message.parts.map((part) => {
                                                 switch (part.type) {
                                                     case "text":
                                                         return <div
-                                                            className="text-lg/8"
+                                                            className=""
                                                             key={part.text}
                                                         >
                                                             <ReactMarkdown>
@@ -399,8 +401,9 @@ export default function Chat({
                                             name="prompt"
                                             value={input}
                                             onChange={handleInputChange}
+                                            placeholder="Tap here to chat or see messages"
                                         />
-                                        <Button type="submit">Submit</Button>
+                                        <Button type="submit">Send</Button>
                                     </div>
                                 </form>
                             </DrawerTrigger>
