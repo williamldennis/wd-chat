@@ -92,7 +92,6 @@ export default function Chat({
                 <ScrollArea className="w-2/3 bg-green-100 overflow-hidden">
                     <div className="">
                         {exercises.length != 0 && (
-
                             <div className="sticky text-white z-100 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                 <h2>{exercises?.length} Exercises for Today</h2>
                             </div>
@@ -113,16 +112,11 @@ export default function Chat({
                                             <li>"Help me improve my posture"</li>
                                             <li>"I want to get stronger for tennis"</li>
                                             <li>"Make me look better naked"</li>
-
                                         </ul>
-
                                     </div>
                                 </>
-
                             )}
-
                         </div>
-
                     </div>
                     <div className="w-screen h-screen overflow-hidden absolute inset-0">
                         <div className="relative w-full h-full">
