@@ -13,7 +13,7 @@ import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
-import { ExerciseCard } from "./ExerciseCard";
+import { ExerciseCard } from "./Exercise-Card";
 import { MenuBarNav } from "./MenuBarNav";
 import {
     Carousel,
@@ -41,6 +41,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
+import { user } from "auth-schema";
 
 export default function Chat({
     id,
@@ -92,6 +93,9 @@ export default function Chat({
 
     //drawer logic for messages
     const [open, setOpen] = useState(false)
+
+    //drawer logic for exercise drawer being open
+    const [exerciseDrawerIsOpen, setExerciseDrawerIsOpen] = useState(false)
 
     return (
 
@@ -218,13 +222,15 @@ export default function Chat({
                                                             >
                                                                 Target: {exercise.muscleGroup}
                                                             </CardDescription>
-                                                            <Drawer>
+                                                            <Drawer
+                                                                onOpenChange={(isOpen) => setExerciseDrawerIsOpen(isOpen)}
+                                                            >
                                                                 <DrawerTrigger>
                                                                     <Button className="m-4 bg-black/60 backdrop-blur-md">
                                                                         Start Exercise
                                                                     </Button>
                                                                 </DrawerTrigger>
-                                                                <DrawerContent className="p-3 mb-30 bg-black/60 backdrop-blur-md">
+                                                                <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md">
                                                                     <ExerciseCard
                                                                         key={exercise.id} {...exercise}
                                                                     />
@@ -387,23 +393,24 @@ export default function Chat({
                     </Drawer>
                 </div>
                 <div className="">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
-                    >
-                        <div className="flex w-full z-800">
-                            <Input
-                                autoFocus
-                                onFocus={() => setOpen(true)}
-                                className="mr-2 flex-1 bg-white"
-                                name="prompt"
-                                value={input}
-                                onChange={handleInputChange}
-                                placeholder="Tap here to chat or see messages"
-                            />
-                            <Button onClick={() => setOpen(true)}>Send</Button>
-                        </div>
-                    </form>
+                    {!exerciseDrawerIsOpen && (
+                        <form
+                            onSubmit={handleSubmit}
+                            className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
+                        >
+                            <div className="flex w-full z-800">
+                                <Input
+                                    onFocus={() => setOpen(true)}
+                                    className="mr-2 flex-1 bg-white"
+                                    name="prompt"
+                                    value={input}
+                                    onChange={handleInputChange}
+                                    placeholder="Tap here to chat or see messages"
+                                />
+                                <Button onClick={() => setOpen(true)}>Send</Button>
+                            </div>
+                        </form>
+                    )}
                 </div>
 
             </div >

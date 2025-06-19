@@ -16,14 +16,16 @@
 [X] create intro message
 [X] style workout page
 [X] fix appostrophes and quotes lol
+[X] hide form when exercise card is open
 [] make the chat less verbose
 [X] make it look good on mobile (drawer for chat?)
-[x] fix sign out
+[] fix sign out button hover
 [] get auth working in prod
 [] improve input handling for chat submission
 [] make target muscle tag bg match muscle image color
 
 NOT REQUIRED FOR PORTFOLIO
+[] add a 'workout progress' tracker - exercises completed / exercises remaining b
 [] add reps and weight for exercises
 [] "give me some abs and back exercises" gave me just abs exercises
 [] create summary message for a given workout
