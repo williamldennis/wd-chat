@@ -40,7 +40,7 @@ export const getLocation = createTool({
 
 
 export const exerciseTool = createTool({
-  description: "Retrieve exercises based on a natural language query from the user. Give a 1-sentence summary of the workout in your message.",
+  description: "Retrieve exercises based on a natural language query from the user. Provide the query results only.",
   parameters: z.object({
     query: z.string(),
     limit: z.number().optional().default(5)

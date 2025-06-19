@@ -1,16 +1,8 @@
 import {
     Menubar,
-    MenubarCheckboxItem,
     MenubarContent,
     MenubarItem,
     MenubarMenu,
-    MenubarRadioGroup,
-    MenubarRadioItem,
-    MenubarSeparator,
-    MenubarShortcut,
-    MenubarSub,
-    MenubarSubContent,
-    MenubarSubTrigger,
     MenubarTrigger,
 } from "@/components/ui/menubar"
 import { useEffect, useState } from "react"

@@ -7,8 +7,7 @@ import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { CardDescription, CardHeader, CardTitle } from "./ui/card";
 import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
@@ -24,24 +23,10 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import {
     Drawer,
-    DrawerClose,
     DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { user } from "auth-schema";
 
 export default function Chat({
     id,
@@ -150,7 +135,7 @@ export default function Chat({
                                     <div className="relative w-full flex items-center justify-center">
 
 
-                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-50">
+                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-40">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -194,7 +179,7 @@ export default function Chat({
                                     {exercises.map((exercise, index) => (
                                         <CarouselItem
                                             key={exercise.id}
-                                            className="mt-2 basis-1/1"
+                                            className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
                                         >
                                             <div className="">
                                                 <CardHeader>
@@ -260,10 +245,10 @@ export default function Chat({
                 {/* Chat bot message area */}
                 <div className="pointer-events-none">
                     <Drawer open={open} onOpenChange={setOpen}>
-                        <DrawerContent className="pointer-events-auto z-50">
-                            <div className="sticky top-0 bg-white justify-items-center p-3" >
-                                <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
-                                <div>Chat with me about your workout goals</div>
+                        <DrawerContent className="pointer-events-auto z-50 bg-white/30 backdrop-blur-2xl">
+                            <div className="sticky top-0 justify-items-center p-3 my-5 z-10">
+                                <div className="text-5xl text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
+                                <div className="text-white">Chat with me about your workout goals</div>
                             </div>
                             <ScrollArea className="rounded-md overflow-y-auto pb-[90px]">
 
@@ -375,11 +360,11 @@ export default function Chat({
                                                                     case "result":
                                                                         return <div key={callId} className="flex flex-col justify-between">
                                                                             <div className="mt-4 self-end">
-                                                                                <Button
+                                                                                {/* <Button
                                                                                     onClick={() => setOpen(false)}
                                                                                     className="w-100"
                                                                                 >
-                                                                                    Show me the exercises</Button>
+                                                                                    Show me the exercises</Button> */}
                                                                             </div>
                                                                         </div>;
 
