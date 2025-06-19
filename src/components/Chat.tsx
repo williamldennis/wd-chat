@@ -178,11 +178,11 @@ export default function Chat({
                         {exercises.length != 0 && (
                             <Carousel
                                 className="w-3/4 z-10 mt-20"
-                            // plugins={[
-                            //     Autoplay({
-                            //         delay: 2000,
-                            //     }),
-                            // ]}
+                                plugins={[
+                                    Autoplay({
+                                        delay: 2000,
+                                    }),
+                                ]}
                             >
                                 <CarouselContent className="">
 
