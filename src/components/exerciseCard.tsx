@@ -37,12 +37,14 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
         <>
             <div className="flex p-4 pb-6">
                 <div className="flex flex-col">
-                    <iframe
-                        className="w-120 h-full pb-4 rounded-lg aspect-video"
-                        src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
-                        title={`Exercise video for ${name}`}
-                        allowFullScreen
-                    />
+                    {youtubeShort &&
+                        <iframe
+                            className="w-120 h-full pb-4 rounded-lg aspect-video"
+                            src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
+                            title={`Exercise video for ${name}`}
+                            allowFullScreen
+                        />
+                    }
                     <div className="mt-5">
                         <form className="">
                             <div className="flex flex-col">
