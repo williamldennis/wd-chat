@@ -13,8 +13,10 @@
 [X] make those exercises have GenUI components
 [X] style the log in and sign up pages
 [X] fix deploy
-[] create intro message
-[] style workout page
+[X] create intro message
+[X] style workout page
+[] fix appostrophes and quotes lol
+[] get auth working in prod
 
 NOT REQUIRED FOR PORTFOLIO
 [] "give me some abs and back exercises" gave me just abs exercises

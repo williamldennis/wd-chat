@@ -108,10 +108,10 @@ export default function Chat({
                                     <div className="text-xl p-5">
                                         You can say things like:
                                         <ul>
-                                            <li>`&quot;`I want a leg day`&quot;`</li>
-                                            <li>`&quot;`Help me improve my posture`&quot;`</li>
-                                            <li>`&quot;`I want to get stronger for tennis`&quot;`</li>
-                                            <li>`&quot;`Make me look better naked`&quot;`</li>
+                                            <li>&quot;I want a leg day&quot;</li>
+                                            <li>&quot;Help me improve my posture&quot;</li>
+                                            <li>&quot;I want to get stronger for tennis&quot;</li>
+                                            <li>&quot;Make me look better naked&quot;</li>
                                         </ul>
                                     </div>
                                 </>
