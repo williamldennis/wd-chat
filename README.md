@@ -15,10 +15,11 @@
 [X] fix deploy
 [X] create intro message
 [X] style workout page
-[] fix appostrophes and quotes lol
+[X] fix appostrophes and quotes lol
 [] get auth working in prod
 
 NOT REQUIRED FOR PORTFOLIO
+[] add reps and weight for exercises
 [] "give me some abs and back exercises" gave me just abs exercises
 [] create summary message for a given workout
 [] fix chevron on history
