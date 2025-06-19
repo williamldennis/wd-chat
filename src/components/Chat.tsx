@@ -4,7 +4,7 @@ import { type Message, useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
@@ -57,14 +57,16 @@ export default function Chat({
             maxSteps: 5,
         });
 
-    const bottomRef = useRef<HTMLDivElement | null>(null);
 
+    //scroll logic for messages
+    const bottomRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         console.log("📩 Messages updated:", messages);
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    //update exercise array
     const handledResultsRef = useRef(new Set<string>());
 
     useEffect(() => {
@@ -76,18 +78,20 @@ export default function Chat({
                     part.toolInvocation.state === "result"
                 ) {
                     const callId = part.toolInvocation.toolCallId
-
                     if (!handledResultsRef.current.has(callId)) {
                         handledResultsRef.current.add(callId)
                         console.log("toll result in useEffect:", part.toolInvocation.result)
                         addExercise(part.toolInvocation.result as Exercise | Exercise[])
                     }
-
                 }
             }
         }
     }, [messages, addExercise])
     console.log("Exercises:", exercises);
+
+
+    //drawer logic for messages
+    const [open, setOpen] = useState(false)
 
     return (
 
@@ -252,9 +256,9 @@ export default function Chat({
                     </div>
                 </div>
                 {/* Chat bot message area */}
-                <div className="z-1000">
-                    <Drawer>
-                        <DrawerContent>
+                <div className="pointer-events-none">
+                    <Drawer open={open} onOpenChange={setOpen}>
+                        <DrawerContent className="pointer-events-auto z-50">
                             <div className="sticky top-0 bg-white justify-items-center p-3" >
                                 <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
                                 <div>Chat with me about your workout goals</div>
@@ -387,15 +391,14 @@ export default function Chat({
 
                                 {/* Input form fixed at bottom */}
                             </ScrollArea>
-                        </DrawerContent>
-                        <div>
-                            <DrawerTrigger asChild>
+                            <div className="">
                                 <form
                                     onSubmit={handleSubmit}
-                                    className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-500"
+                                    className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-[9999]"
                                 >
-                                    <div className="flex w-full">
+                                    <div className="flex w-full z-800">
                                         <Input
+                                            onFocus={() => setOpen(true)}
                                             className="mr-2 flex-1 bg-white"
                                             name="prompt"
                                             value={input}
@@ -405,11 +408,28 @@ export default function Chat({
                                         <Button type="submit">Send</Button>
                                     </div>
                                 </form>
-                            </DrawerTrigger>
-                        </div>
+                            </div>
+                        </DrawerContent>
                     </Drawer>
                 </div>
-
+                <div className="">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-50"
+                    >
+                        <div className="flex w-full z-800">
+                            <Input
+                                onFocus={() => setOpen(true)}
+                                className="mr-2 flex-1 bg-white"
+                                name="prompt"
+                                value={input}
+                                onChange={handleInputChange}
+                                placeholder="Tap here to chat or see messages"
+                            />
+                            <Button onClick={() => setOpen(true)}>Send</Button>
+                        </div>
+                    </form>
+                </div>
 
             </div >
             {/* Message Submit Form */}
