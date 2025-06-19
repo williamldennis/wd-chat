@@ -16,6 +16,8 @@
 [X] create intro message
 [X] style workout page
 [X] fix appostrophes and quotes lol
+[] make the chat less verbose
+[] make it look good on mobile (drawer for chat?)
 [] get auth working in prod
 
 NOT REQUIRED FOR PORTFOLIO
