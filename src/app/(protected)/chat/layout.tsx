@@ -9,7 +9,7 @@ export default function ProtectedLayout({
 }) {
     return (
         <SidebarProvider>
-            <AppSidebar />
+            {/* <AppSidebar /> */}
             {children}
         </SidebarProvider>
     );

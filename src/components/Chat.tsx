@@ -14,8 +14,23 @@ import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
 import type { Exercise } from "@/types/exercise";
 import { ExerciseCard } from "./ExerciseCard";
-
-
+import { MenuBarNav } from "./MenuBarNav";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default function Chat({
     id,
@@ -67,34 +82,77 @@ export default function Chat({
 
 
     return (
+
         <div className="w-full">
+            <div className="absolute z-100 py-8 px-5">
+                <MenuBarNav />
+            </div>
             <div className="flex h-[calc(100vh)] w-full">
                 {/* Exercises message area */}
-                <ScrollArea className="w-2/3 bg-green-100 overflow-y-auto ">
-                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
-                        <h2>Exercises for Today</h2>
+                <ScrollArea className="w-2/3 bg-green-100 overflow-hidden">
+                    <div className="">
+                        {exercises.length != 0 && (
+                            <div className="sticky text-white z-100 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                <h2>{exercises?.length} Exercises for Today</h2>
+                            </div>
+                        )}
+                        <div className="sticky text-white z-100 p-7 justify-items-center text-5xl" >
+                            {exercises.length === 0 && (
+                                <>
+                                    <div className="mt-90" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        Start chatting with
+                                    </div>
+                                    <div className="" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        your personal bodybot
+                                    </div>
+                                    <div className="text-xl p-5">
+                                        You can say things like:
+                                        <ul>
+                                            <li>"I want a leg day"</li>
+                                            <li>"Help me improve my posture"</li>
+                                            <li>"I want to get stronger for tennis"</li>
+                                            <li>"Make me look better naked"</li>
+                                        </ul>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
+                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                        <div className="relative w-full h-full">
+                            <Image
+                                src="/splash/polygon-bg.gif"
+                                alt="Image of muscle group"
+                                className="w-full h-full object-cover"
+                                width="500"
+                                height="500"
+                            />
+                            <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
+                        </div>
+                    </div>
+
                     <div className="justify-items-center">
-                        <Accordion
-                            type="single" collapsible
-                            className="mt-4"
-                        >
+                        {exercises.length != 0 && (
+                            <Carousel
+                                className="w-5/6 z-10 mt-10"
+                                plugins={[
+                                    Autoplay({
+                                        delay: 2000,
+                                    }),
+                                ]}
+                            >
+                                <CarouselContent className="">
 
-                            {exercises.map((exercise, index) => (
-                                <AccordionItem
-                                    key={exercise.id}
-                                    value={`item-${index}`}
-                                    className="mt-2"
-                                >
-
-                                    <Card className="">
-                                        <div className="">
-                                            <AccordionTrigger
-                                                className="w-210">
+                                    {exercises.map((exercise, index) => (
+                                        <CarouselItem
+                                            key={exercise.id}
+                                            className="mt-2 basis-1/3"
+                                        >
+                                            <div className="">
                                                 <CardHeader>
-                                                    <div className="flex flex-row items-center">
+                                                    <div className="items-center">
                                                         {/*image here */}
-                                                        <div className="w-30 h-60 overflow-hidden mr-6">
+                                                        <div className="w-70 h-140 overflow-hidden mr-6 items-center">
                                                             <Image
                                                                 src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                 alt="Image of muscle group"
@@ -103,41 +161,53 @@ export default function Chat({
                                                                 height="500"
                                                             />
                                                         </div>
-                                                        <div className="">
-                                                            <CardTitle
-                                                                className="text-lg w-full"
-                                                            >
-                                                                {exercise.name}
-                                                            </CardTitle>
+                                                        <div className="flex flex-col items-center pr-5">
+                                                            <div>
+                                                                <CardTitle
+                                                                    className="text-lg w-full"
+                                                                >
+                                                                    {exercise.name}
+                                                                </CardTitle>
+                                                            </div>
+
                                                             <CardDescription
-                                                                className="w-100"
+                                                                className="text-white"
                                                             >
                                                                 Target: {exercise.muscleGroup}
                                                             </CardDescription>
+                                                            <Dialog>
+                                                                <DialogTrigger>
+                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                        Start Exercise
+                                                                    </Button>
+                                                                </DialogTrigger>
+                                                                <DialogContent className="max-w-[calc(100%-50rem)]">
+                                                                    <div className=" justify-items-center">
+                                                                        <ExerciseCard
+                                                                            key={exercise.id} {...exercise} />
+                                                                    </div>
+                                                                </DialogContent>
+                                                            </Dialog>
                                                         </div>
                                                     </div>
                                                 </CardHeader>
-                                            </AccordionTrigger>
 
-                                        </div>
-
-                                        <AccordionContent>
-                                            <div className=" justify-items-center">
-                                                <ExerciseCard
-                                                    key={exercise.id} {...exercise} />
                                             </div>
-                                        </AccordionContent>
-                                    </Card>
-                                </AccordionItem>
 
-                            ))}
-                        </Accordion>
 
+                                        </CarouselItem>
+
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious />
+                                <CarouselNext />
+                            </Carousel>
+                        )}
                     </div>
                 </ScrollArea>
                 {/* Messages message area */}
-                <ScrollArea className="w-1/3 rounded-md overflow-y-auto ">
-                    <div className="sticky top-0 bg-white p-2 border-b justify-items-center font-bold">
+                <ScrollArea className="w-1/3 rounded-md overflow-y-auto">
+                    <div className="sticky top-0 bg-white p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                         <h2>Your Personal BodyBot</h2>
                     </div>
                     {/* Scrollable message area */}

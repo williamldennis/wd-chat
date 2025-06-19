@@ -12,7 +12,7 @@
 [X] return exercises in UI
 [X] make those exercises have GenUI components
 [X] style the log in and sign up pages
-[] fix deploy
+[X] fix deploy
 [] create intro message
 [] style workout page
 
