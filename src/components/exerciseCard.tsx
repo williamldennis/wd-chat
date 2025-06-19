@@ -35,11 +35,11 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
 
     return (
         <>
-            <div className="flex p-4 pb-6">
+            {/* <div className="flex p-4 pb-6">
                 <div className="flex flex-col">
                     {youtubeShort &&
                         <iframe
-                            className="w-120 h-full pb-4 rounded-lg aspect-video"
+                            className="w-full h-full pb-4 rounded-lg aspect-video"
                             src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
                             title={`Exercise video for ${name}`}
                             allowFullScreen
@@ -128,12 +128,10 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
 
                 </div>
 
-            </div>
+            </div> */}
 
 
 
-
-            {/* 
             < Card className="w-full" >
 
                 <CardHeader>
@@ -236,7 +234,7 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
                         Log Set
                     </Button>
                 </CardFooter>
-            </Card > */}
+            </Card > 
         </>
     )
 }

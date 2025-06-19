@@ -31,6 +31,16 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
 
 export default function Chat({
     id,
@@ -78,8 +88,6 @@ export default function Chat({
         }
     }, [messages, addExercise])
     console.log("Exercises:", exercises);
-
-
 
     return (
 
@@ -170,7 +178,7 @@ export default function Chat({
                                     {exercises.map((exercise, index) => (
                                         <CarouselItem
                                             key={exercise.id}
-                                            className="mt-2 basis-1/3"
+                                            className="mt-2"
                                         >
                                             <div className="">
                                                 <CardHeader>
@@ -199,7 +207,7 @@ export default function Chat({
                                                             >
                                                                 Target: {exercise.muscleGroup}
                                                             </CardDescription>
-                                                            <Dialog>
+                                                            {/* <Dialog>
                                                                 <DialogTrigger>
                                                                     <Button className="m-4 bg-black/60 backdrop-blur-md">
                                                                         Start Exercise
@@ -211,7 +219,21 @@ export default function Chat({
                                                                             key={exercise.id} {...exercise} />
                                                                     </div>
                                                                 </DialogContent>
-                                                            </Dialog>
+                                                            </Dialog> */}
+
+                                                            <Drawer>
+                                                                <DrawerTrigger>
+                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                        Start Exercise
+                                                                    </Button>
+                                                                </DrawerTrigger>
+                                                                <DrawerContent>
+                                                                    <div className=" justify-items-center">
+                                                                        <ExerciseCard
+                                                                            key={exercise.id} {...exercise} />
+                                                                    </div>
+                                                                </DrawerContent>
+                                                            </Drawer>
                                                         </div>
                                                     </div>
                                                 </CardHeader>
@@ -382,6 +404,4 @@ export default function Chat({
         </div >
     );
 }
-
-
 
