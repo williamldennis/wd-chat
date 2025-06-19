@@ -22,7 +22,7 @@ export default function LoginPage() {
               SuperBod
             </div>
             <div className="text-white">
-              Exercise like you're a superhero
+              Exercise like you`&apos`re a superhero
             </div>
             <LoginForm />
           </div>
