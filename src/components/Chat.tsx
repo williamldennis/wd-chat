@@ -149,7 +149,7 @@ export default function Chat({
                                     <div className="relative w-full flex items-center justify-center">
 
 
-                                        <div className="relative z-100 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-50">
+                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-50">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -388,30 +388,47 @@ export default function Chat({
                                 </div>
 
                                 {/* Input form fixed at bottom */}
+                                <div className="">
+                                    {!exerciseDrawerIsOpen && (
+                                        <form
+                                            onSubmit={handleSubmit}
+                                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                                        >
+                                            <div className="flex w-full z-800">
+                                                <Input
+                                                    onFocus={() => setOpen(true)}
+                                                    className="mr-2 flex-1 bg-white"
+                                                    name="prompt"
+                                                    value={input}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Tap here to get absolutely swoll"
+                                                />
+                                                <Button onClick={() => setOpen(true)}>Send</Button>
+                                            </div>
+                                        </form>
+                                    )}
+                                </div>
                             </ScrollArea>
                         </DrawerContent>
+
                     </Drawer>
                 </div>
-                <div className="">
-                    {!exerciseDrawerIsOpen && (
-                        <form
-                            onSubmit={handleSubmit}
-                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
-                        >
-                            <div className="flex w-full z-800">
-                                <Input
-                                    onFocus={() => setOpen(true)}
-                                    className="mr-2 flex-1 bg-white"
-                                    name="prompt"
-                                    value={input}
-                                    onChange={handleInputChange}
-                                    placeholder="Tap here to get absolutely swoll"
-                                />
-                                <Button onClick={() => setOpen(true)}>Send</Button>
-                            </div>
-                        </form>
-                    )}
-                </div>
+                <form
+                    onSubmit={handleSubmit}
+                    className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                >
+                    <div className="flex w-full z-800">
+                        <Input
+                            onFocus={() => setOpen(true)}
+                            className="mr-2 flex-1 bg-white"
+                            name="prompt"
+                            value={input}
+                            onChange={handleInputChange}
+                            placeholder="Tap here to get absolutely swoll"
+                        />
+                        <Button onClick={() => setOpen(true)}>Send</Button>
+                    </div>
+                </form>
 
             </div >
             {/* Message Submit Form */}
