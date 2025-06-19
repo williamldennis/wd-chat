@@ -127,19 +127,25 @@ export default function Chat({
                         <div className="text-white z-100" >
                             {exercises.length === 0 && (
                                 <>
+                                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                                        <div className="relative w-full h-full">
+                                            <video
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                                className="absolute inset-0 w-full h-full object-cover z-0"
+                                            >
+                                                <source src="/splash/posing.mp4" type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            <div className="absolute inset-0 bg-white/10 z-10" />
+                                        </div>
+                                    </div>
                                     <div className="relative w-full min-h-screen flex items-center justify-center">
-                                        <video
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            className="absolute inset-0 w-full h-full object-cover z-0"
-                                        >
-                                            <source src="/splash/posing.mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <div className="absolute inset-0 bg-white/50 z-10 " />
-                                        <div className="relative z-20 bg-black/50 rounded-3xl p-10 backdrop-blur-md">
+
+
+                                        <div className="relative z-100 bg-black/50 rounded-3xl p-10 backdrop-blur-md mb-60">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -212,20 +218,6 @@ export default function Chat({
                                                             >
                                                                 Target: {exercise.muscleGroup}
                                                             </CardDescription>
-                                                            {/* <Dialog>
-                                                                <DialogTrigger>
-                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
-                                                                        Start Exercise
-                                                                    </Button>
-                                                                </DialogTrigger>
-                                                                <DialogContent className="max-w-[calc(100%-50rem)]">
-                                                                    <div className=" justify-items-center">
-                                                                        <ExerciseCard
-                                                                            key={exercise.id} {...exercise} />
-                                                                    </div>
-                                                                </DialogContent>
-                                                            </Dialog> */}
-
                                                             <Drawer>
                                                                 <DrawerTrigger>
                                                                     <Button className="m-4 bg-black/60 backdrop-blur-md">
