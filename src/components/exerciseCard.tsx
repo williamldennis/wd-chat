@@ -132,11 +132,11 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
 
 
 
-            < Card className="w-full" >
+            < Card className="w-full mt-5" >
 
                 <CardHeader>
                     <iframe
-                        className="w-full pb-4 rounded-md"
+                        className="w-full aspect-video pb-4 rounded-md"
                         src={youtubeShort ? toEmbedUrl(youtubeShort) : ""}
                         title={`Exercise video for ${name}`}
                         allowFullScreen

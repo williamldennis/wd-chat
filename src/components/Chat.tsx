@@ -168,11 +168,11 @@ export default function Chat({
                         {exercises.length != 0 && (
                             <Carousel
                                 className="w-3/4 z-10 mt-20"
-                                // plugins={[
-                                //     Autoplay({
-                                //         delay: 2000,
-                                //     }),
-                                // ]}
+                            // plugins={[
+                            //     Autoplay({
+                            //         delay: 2000,
+                            //     }),
+                            // ]}
                             >
                                 <CarouselContent className="">
 
@@ -228,11 +228,10 @@ export default function Chat({
                                                                         Start Exercise
                                                                     </Button>
                                                                 </DrawerTrigger>
-                                                                <DrawerContent>
-                                                                    <div className=" justify-items-center">
-                                                                        <ExerciseCard
-                                                                            key={exercise.id} {...exercise} />
-                                                                    </div>
+                                                                <DrawerContent className="p-3 mb-30 bg-black/60 backdrop-blur-md">
+                                                                    <ExerciseCard
+                                                                        key={exercise.id} {...exercise}
+                                                                    />
                                                                 </DrawerContent>
                                                             </Drawer>
                                                         </div>
@@ -393,7 +392,7 @@ export default function Chat({
                             <DrawerTrigger asChild>
                                 <form
                                     onSubmit={handleSubmit}
-                                    className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-50"
+                                    className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-500"
                                 >
                                     <div className="flex w-full">
                                         <Input
