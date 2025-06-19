@@ -18,17 +18,6 @@ import {
 import { useState } from "react";
 import { ChevronsUpDown } from "lucide-react";
 import type { Exercise } from "@/types/exercise";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import { DialogClose } from "@radix-ui/react-dialog";
-
 
 export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
     const [isOpen, setIsOpen] = useState(true)

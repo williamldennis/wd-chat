@@ -7,8 +7,7 @@ import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { CardDescription, CardHeader, CardTitle } from "./ui/card";
 import ReactMarkdown from "react-markdown"
 import { getMuscleGroupImage } from "@/lib/dictionary";
 import Image from 'next/image'
@@ -24,24 +23,10 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import {
     Drawer,
-    DrawerClose,
     DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { user } from "auth-schema";
 
 export default function Chat({
     id,
