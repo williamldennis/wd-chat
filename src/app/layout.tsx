@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Bod by Bot",
+  title: "superbod",
   description: "Build your body for strength, injusry prevention, or a great butt. Whatever you want, bot is here to help.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };

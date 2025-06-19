@@ -121,6 +121,7 @@ export default function Chat({
                                             className="w-full h-full object-cover"
                                             width="500"
                                             height="500"
+                                            unoptimized
                                         />
                                         <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
                                     </div>
@@ -131,7 +132,7 @@ export default function Chat({
                         <div className="text-white z-100" >
                             {exercises.length === 0 && (
                                 <>
-                                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                                    <div className="w-full h-screen overflow-hidden absolute inset-0">
                                         <div className="relative w-full h-full">
                                             <video
                                                 autoPlay
@@ -146,10 +147,10 @@ export default function Chat({
                                             <div className="absolute inset-0 bg-white/10 z-10" />
                                         </div>
                                     </div>
-                                    <div className="relative w-full min-h-screen flex items-center justify-center">
+                                    <div className="relative w-full flex items-center justify-center">
 
 
-                                        <div className="relative z-100 bg-black/50 rounded-3xl p-10 backdrop-blur-md mb-60">
+                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-50">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -208,7 +209,7 @@ export default function Chat({
                                                                 height="500"
                                                             />
                                                         </div>
-                                                        <div className="flex flex-col items-center pr-5">
+                                                        <div className="flex flex-col items-center">
                                                             <div>
                                                                 <CardTitle
                                                                     className="text-lg w-full"
@@ -230,10 +231,13 @@ export default function Chat({
                                                                         Start Exercise
                                                                     </Button>
                                                                 </DrawerTrigger>
-                                                                <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md">
-                                                                    <ExerciseCard
-                                                                        key={exercise.id} {...exercise}
-                                                                    />
+                                                                <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
+                                                                    <div className="z-100">
+                                                                        <ExerciseCard
+                                                                            key={exercise.id} {...exercise}
+                                                                        />
+                                                                    </div>
+
                                                                 </DrawerContent>
                                                             </Drawer>
                                                         </div>
@@ -278,7 +282,7 @@ export default function Chat({
                                                 switch (part.type) {
                                                     case "text":
                                                         return <div
-                                                            className=""
+                                                            className="pt-5 text-md"
                                                             key={part.text}
                                                         >
                                                             <ReactMarkdown>
@@ -369,8 +373,15 @@ export default function Chat({
                                                                     case "call":
                                                                         return <div key={callId}>Loading workout...</div>;
                                                                     case "result":
-                                                                        return <div key={callId}>Exercise Added!</div>;
-
+                                                                        return <div key={callId} className="flex flex-col justify-between">
+                                                                            <div className="mt-4 self-end">
+                                                                                <Button
+                                                                                    onClick={() => setOpen(false)}
+                                                                                    className="w-100"
+                                                                                >
+                                                                                    Show me the exercises</Button>
+                                                                            </div>
+                                                                        </div>;
 
                                                                 }
                                                                 break;
@@ -388,31 +399,49 @@ export default function Chat({
                                 </div>
 
                                 {/* Input form fixed at bottom */}
+                                <div className="">
+                                    {!exerciseDrawerIsOpen && (
+                                        <form
+                                            onSubmit={handleSubmit}
+                                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                                        >
+                                            <div className="flex w-full z-800">
+                                                <Input
+                                                    onFocus={() => setOpen(true)}
+                                                    className="mr-2 flex-1 bg-white"
+                                                    name="prompt"
+                                                    value={input}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Tap here to get absolutely swoll"
+                                                />
+                                                <Button onClick={() => setOpen(true)}>Send</Button>
+                                            </div>
+                                        </form>
+                                    )}
+                                </div>
                             </ScrollArea>
                         </DrawerContent>
+
                     </Drawer>
                 </div>
-                <div className="">
-                    {!exerciseDrawerIsOpen && (
-                        <form
-                            onSubmit={handleSubmit}
-                            className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
-                        >
-                            <div className="flex w-full z-800">
-                                <Input
-                                    onFocus={() => setOpen(true)}
-                                    className="mr-2 flex-1 bg-white"
-                                    name="prompt"
-                                    value={input}
-                                    onChange={handleInputChange}
-                                    placeholder="Tap here to chat or see messages"
-                                />
-                                <Button onClick={() => setOpen(true)}>Send</Button>
-                            </div>
-                        </form>
-                    )}
-                </div>
-
+                {!exerciseDrawerIsOpen && (
+                    <form
+                        onSubmit={handleSubmit}
+                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                    >
+                        <div className="flex w-full z-800">
+                            <Input
+                                onFocus={() => setOpen(true)}
+                                className="mr-2 flex-1 bg-white"
+                                name="prompt"
+                                value={input}
+                                onChange={handleInputChange}
+                                placeholder="Chat here to get absolutely swoll"
+                            />
+                            <Button onClick={() => setOpen(true)}>Send</Button>
+                        </div>
+                    </form>
+                )}
             </div >
             {/* Message Submit Form */}
 
