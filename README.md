@@ -18,7 +18,8 @@
 [X] fix appostrophes and quotes lol
 [] make the chat less verbose
 [X] make it look good on mobile (drawer for chat?)
-[x] fix sign out
+[] fix sign out button hover
+[] add a 'workout progress' tracker - exercises completed / exercises remaining 
 [] get auth working in prod
 [] improve input handling for chat submission
 [] make target muscle tag bg match muscle image color
