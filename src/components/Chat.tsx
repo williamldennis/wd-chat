@@ -4,7 +4,7 @@ import { type Message, useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Weather } from "@/components/ui/weather";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
@@ -31,6 +31,16 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
 
 export default function Chat({
     id,
@@ -47,14 +57,16 @@ export default function Chat({
             maxSteps: 5,
         });
 
-    const bottomRef = useRef<HTMLDivElement | null>(null);
 
+    //scroll logic for messages
+    const bottomRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         console.log("📩 Messages updated:", messages);
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    //update exercise array
     const handledResultsRef = useRef(new Set<string>());
 
     useEffect(() => {
@@ -66,13 +78,11 @@ export default function Chat({
                     part.toolInvocation.state === "result"
                 ) {
                     const callId = part.toolInvocation.toolCallId
-
                     if (!handledResultsRef.current.has(callId)) {
                         handledResultsRef.current.add(callId)
                         console.log("toll result in useEffect:", part.toolInvocation.result)
                         addExercise(part.toolInvocation.result as Exercise | Exercise[])
                     }
-
                 }
             }
         }
@@ -80,20 +90,23 @@ export default function Chat({
     console.log("Exercises:", exercises);
 
 
+    //drawer logic for messages
+    const [open, setOpen] = useState(false)
 
     return (
 
         <div className="w-full">
-            <div className="absolute z-110 py-8 px-5">
-                <MenuBarNav />
-            </div>
-            <div className="flex h-[calc(100vh)] w-full">
-                {/* Exercises message area */}
-                <ScrollArea className="w-2/3 bg-green-100 overflow-hidden">
+
+            <div className="flex flex-col items-center h-[calc(100vh)] w-full">
+                <div className="max-w-xs z-110 py-8 px-5">
+                    <MenuBarNav />
+                </div>
+                {/* Exercises area */}
+                <div className="w-full flex flex-col">
                     <div className="">
                         {exercises.length != 0 && (
                             <>
-                                <div className="sticky text-white z-50 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                     <h2>{exercises?.length} Exercises for Today</h2>
                                 </div>
                                 <div className="w-screen h-screen overflow-hidden absolute inset-0">
@@ -155,28 +168,28 @@ export default function Chat({
                     </div>
 
 
-                    <div className="justify-items-center">
+                    <div className="justify-center flex w-full relative">
                         {exercises.length != 0 && (
                             <Carousel
-                                className="w-5/6 z-10 mt-10"
-                                plugins={[
-                                    Autoplay({
-                                        delay: 2000,
-                                    }),
-                                ]}
+                                className="w-3/4 z-10 mt-20"
+                            // plugins={[
+                            //     Autoplay({
+                            //         delay: 2000,
+                            //     }),
+                            // ]}
                             >
                                 <CarouselContent className="">
 
                                     {exercises.map((exercise, index) => (
                                         <CarouselItem
                                             key={exercise.id}
-                                            className="mt-2 basis-1/3"
+                                            className="mt-2 basis-1/1"
                                         >
                                             <div className="">
                                                 <CardHeader>
-                                                    <div className="items-center">
+                                                    <div className="justify-items-center">
                                                         {/*image here */}
-                                                        <div className="w-70 h-140 overflow-hidden mr-6 items-center">
+                                                        <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
                                                             <Image
                                                                 src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                 alt="Image of muscle group"
@@ -199,7 +212,7 @@ export default function Chat({
                                                             >
                                                                 Target: {exercise.muscleGroup}
                                                             </CardDescription>
-                                                            <Dialog>
+                                                            {/* <Dialog>
                                                                 <DialogTrigger>
                                                                     <Button className="m-4 bg-black/60 backdrop-blur-md">
                                                                         Start Exercise
@@ -211,7 +224,20 @@ export default function Chat({
                                                                             key={exercise.id} {...exercise} />
                                                                     </div>
                                                                 </DialogContent>
-                                                            </Dialog>
+                                                            </Dialog> */}
+
+                                                            <Drawer>
+                                                                <DrawerTrigger>
+                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                        Start Exercise
+                                                                    </Button>
+                                                                </DrawerTrigger>
+                                                                <DrawerContent className="p-3 mb-30 bg-black/60 backdrop-blur-md">
+                                                                    <ExerciseCard
+                                                                        key={exercise.id} {...exercise}
+                                                                    />
+                                                                </DrawerContent>
+                                                            </Drawer>
                                                         </div>
                                                     </div>
                                                 </CardHeader>
@@ -228,160 +254,172 @@ export default function Chat({
                             </Carousel>
                         )}
                     </div>
-                </ScrollArea>
-                {/* Messages message area */}
-                <ScrollArea className="w-1/3 rounded-md overflow-y-auto">
-                    <div className="sticky top-0 bg-white p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                        <h2>Your Personal BodyBot</h2>
-                    </div>
-                    {/* Scrollable message area */}
-                    <div className="p-2">
+                </div>
+                {/* Chat bot message area */}
+                <div className="pointer-events-none">
+                    <Drawer open={open} onOpenChange={setOpen}>
+                        <DrawerContent className="pointer-events-auto z-50">
+                            <div className="sticky top-0 bg-white justify-items-center p-3" >
+                                <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
+                                <div>Chat with me about your workout goals</div>
+                            </div>
+                            <ScrollArea className="rounded-md overflow-y-auto pb-[90px]">
 
-                        {messages.map((message) => (
-                            <div
-                                className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4"
-                                key={message.id}
-                            >
-                                <div className="font-bold pb-4">
-                                    {message.role === "user" ? "User" : "BodyBot"}
+                                {/* Scrollable message area */}
+                                <div className="p-2">
+
+                                    {messages.map((message) => (
+                                        <div
+                                            className="mx-auto my-2 w-full max-w-md rounded-xl bg-blue-100 p-4"
+                                            key={message.id}
+                                        >
+                                            <div className="font-bold">
+                                                {message.role === "user" ? "User" : "BodyBot"}
+                                            </div>
+                                            {message.parts.map((part) => {
+                                                switch (part.type) {
+                                                    case "text":
+                                                        return <div
+                                                            className=""
+                                                            key={part.text}
+                                                        >
+                                                            <ReactMarkdown>
+                                                                {part.text}
+                                                            </ReactMarkdown>
+                                                        </div>;
+
+                                                    case "tool-invocation": {
+                                                        const callId = part.toolInvocation.toolCallId;
+
+                                                        switch (part.toolInvocation.toolName) {
+                                                            case "askForConfirmation": {
+                                                                const args = part.toolInvocation.args as {
+                                                                    message: string;
+                                                                };
+                                                                switch (part.toolInvocation.state) {
+                                                                    case "call":
+                                                                        return (
+                                                                            <div key={callId}>
+                                                                                {args.message}
+                                                                                <div className="mt-2">
+                                                                                    <Button
+                                                                                        className="mr-2 bg-green-400"
+                                                                                        onClick={() =>
+                                                                                            addToolResult({
+                                                                                                toolCallId: callId,
+                                                                                                result: "Yes, confirmed",
+                                                                                            })
+                                                                                        }
+                                                                                    >
+                                                                                        Yes
+                                                                                    </Button>
+                                                                                    <Button
+                                                                                        className="bg-gray-400"
+                                                                                        onClick={() =>
+                                                                                            addToolResult({
+                                                                                                toolCallId: callId,
+                                                                                                result: "No, denied",
+                                                                                            })
+                                                                                        }
+                                                                                    >
+                                                                                        No
+                                                                                    </Button>
+                                                                                </div>
+                                                                            </div>
+                                                                        );
+                                                                    case "result":
+                                                                        return (
+                                                                            <div key={callId}>
+                                                                                Location access allowed:{" "}
+                                                                                {part.toolInvocation.result}
+                                                                            </div>
+                                                                        );
+                                                                }
+                                                                break;
+                                                            }
+
+                                                            case "getLocation": {
+                                                                switch (part.toolInvocation.state) {
+                                                                    case "call":
+                                                                        return <div key={callId}>Getting location...</div>;
+                                                                    case "result":
+                                                                        return (
+                                                                            <div key={callId}>
+                                                                                Location: {part.toolInvocation.result}
+                                                                            </div>
+                                                                        );
+                                                                }
+                                                                break;
+                                                            }
+
+                                                            case "displayWeather": {
+                                                                switch (part.toolInvocation.state) {
+                                                                    case "call":
+                                                                        return <div key={callId}>Loading weather...</div>;
+                                                                    case "result":
+                                                                        return (
+                                                                            <div key={callId}>
+                                                                                <Weather {...part.toolInvocation.result} />
+                                                                            </div>
+                                                                        );
+                                                                }
+                                                                break;
+                                                            }
+
+                                                            case "giveWorkout": {
+                                                                switch (part.toolInvocation.state) {
+                                                                    case "call":
+                                                                        return <div key={callId}>Loading workout...</div>;
+                                                                    case "result":
+                                                                        return <div key={callId}>Exercise Added!</div>;
+
+
+                                                                }
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            })}
+                                        </div>
+                                    ))}
+
+                                    {/* Invisible ref to scroll to */}
+                                    <div ref={bottomRef} />
+
                                 </div>
-                                {message.parts.map((part) => {
-                                    switch (part.type) {
-                                        case "text":
-                                            return <div
-                                                className="text-lg/8"
-                                                key={part.text}
-                                            >
-                                                <ReactMarkdown>
-                                                    {part.text}
-                                                </ReactMarkdown>
-                                            </div>;
 
-                                        case "tool-invocation": {
-                                            const callId = part.toolInvocation.toolCallId;
+                                {/* Input form fixed at bottom */}
+                            </ScrollArea>
+                        </DrawerContent>
+                    </Drawer>
+                </div>
+                <div className="">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
+                    >
+                        <div className="flex w-full z-800">
+                            <Input
+                                autoFocus
+                                onFocus={() => setOpen(true)}
+                                className="mr-2 flex-1 bg-white"
+                                name="prompt"
+                                value={input}
+                                onChange={handleInputChange}
+                                placeholder="Tap here to chat or see messages"
+                            />
+                            <Button onClick={() => setOpen(true)}>Send</Button>
+                        </div>
+                    </form>
+                </div>
 
-                                            switch (part.toolInvocation.toolName) {
-                                                case "askForConfirmation": {
-                                                    const args = part.toolInvocation.args as {
-                                                        message: string;
-                                                    };
-                                                    switch (part.toolInvocation.state) {
-                                                        case "call":
-                                                            return (
-                                                                <div key={callId}>
-                                                                    {args.message}
-                                                                    <div className="mt-2">
-                                                                        <Button
-                                                                            className="mr-2 bg-green-400"
-                                                                            onClick={() =>
-                                                                                addToolResult({
-                                                                                    toolCallId: callId,
-                                                                                    result: "Yes, confirmed",
-                                                                                })
-                                                                            }
-                                                                        >
-                                                                            Yes
-                                                                        </Button>
-                                                                        <Button
-                                                                            className="bg-gray-400"
-                                                                            onClick={() =>
-                                                                                addToolResult({
-                                                                                    toolCallId: callId,
-                                                                                    result: "No, denied",
-                                                                                })
-                                                                            }
-                                                                        >
-                                                                            No
-                                                                        </Button>
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        case "result":
-                                                            return (
-                                                                <div key={callId}>
-                                                                    Location access allowed:{" "}
-                                                                    {part.toolInvocation.result}
-                                                                </div>
-                                                            );
-                                                    }
-                                                    break;
-                                                }
-
-                                                case "getLocation": {
-                                                    switch (part.toolInvocation.state) {
-                                                        case "call":
-                                                            return <div key={callId}>Getting location...</div>;
-                                                        case "result":
-                                                            return (
-                                                                <div key={callId}>
-                                                                    Location: {part.toolInvocation.result}
-                                                                </div>
-                                                            );
-                                                    }
-                                                    break;
-                                                }
-
-                                                case "displayWeather": {
-                                                    switch (part.toolInvocation.state) {
-                                                        case "call":
-                                                            return <div key={callId}>Loading weather...</div>;
-                                                        case "result":
-                                                            return (
-                                                                <div key={callId}>
-                                                                    <Weather {...part.toolInvocation.result} />
-                                                                </div>
-                                                            );
-                                                    }
-                                                    break;
-                                                }
-
-                                                case "giveWorkout": {
-                                                    switch (part.toolInvocation.state) {
-                                                        case "call":
-                                                            return <div key={callId}>Loading workout...</div>;
-                                                        case "result":
-                                                            return <div key={callId}>Exercise Added!</div>;
-
-
-                                                    }
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                })}
-                            </div>
-                        ))}
-
-                        {/* Invisible ref to scroll to */}
-                        <div ref={bottomRef} />
-                        <form
-                            onSubmit={handleSubmit}
-                            className="sticky bottom-0 flex p-8 w-full"
-                        >
-                            <div className="flex w-full">
-                                <Input
-                                    className="mr-2 flex-1 bg-white"
-                                    name="prompt"
-                                    value={input}
-                                    onChange={handleInputChange}
-                                />
-                                <Button type="submit">Submit</Button>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* Input form fixed at bottom */}
-
-
-                </ScrollArea>
             </div >
+            {/* Message Submit Form */}
 
 
 
         </div >
     );
 }
-
-
 

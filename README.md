@@ -19,6 +19,8 @@
 [] make the chat less verbose
 [] make it look good on mobile (drawer for chat?)
 [] get auth working in prod
+[] improve input handling for chat submission
+[] make target muscle tag bg match muscle image color
 
 NOT REQUIRED FOR PORTFOLIO
 [] add reps and weight for exercises
