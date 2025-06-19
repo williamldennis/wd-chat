@@ -132,7 +132,7 @@ export function ExerciseCard({ name, youtubeShort, description }: Exercise) {
 
 
 
-            < Card className="w-full mt-5" >
+            < Card className="w-full mt-5 z-200" >
 
                 <CardHeader>
                     <iframe
