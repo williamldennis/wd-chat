@@ -47,7 +47,7 @@ export function MenuBarNav() {
     if (isLoggedIn === false) return null
 
     return (
-        <Menubar>
+        <Menubar className="bg-white/40 backdrop-blur-lg border">
             <MenubarMenu>
                 <MenubarTrigger>Profile</MenubarTrigger>
                 <MenubarContent>

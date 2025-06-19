@@ -131,7 +131,7 @@ export default function Chat({
                         <div className="text-white z-100" >
                             {exercises.length === 0 && (
                                 <>
-                                    <div className="w-full h-full overflow-hidden absolute inset-0">
+                                    <div className="w-full h-screen overflow-hidden absolute inset-0">
                                         <div className="relative w-full h-full">
                                             <video
                                                 autoPlay
@@ -146,10 +146,10 @@ export default function Chat({
                                             <div className="absolute inset-0 bg-white/10 z-10" />
                                         </div>
                                     </div>
-                                    <div className="relative w-full min-h-screen flex items-center justify-center">
+                                    <div className="relative w-full flex items-center justify-center">
 
 
-                                        <div className="relative z-100 bg-black/50 rounded-3xl p-10 backdrop-blur-md mb-60">
+                                        <div className="relative z-100 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-50">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -396,7 +396,7 @@ export default function Chat({
                     {!exerciseDrawerIsOpen && (
                         <form
                             onSubmit={handleSubmit}
-                            className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
+                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
                         >
                             <div className="flex w-full z-800">
                                 <Input
@@ -405,7 +405,7 @@ export default function Chat({
                                     name="prompt"
                                     value={input}
                                     onChange={handleInputChange}
-                                    placeholder="Tap here to chat or see messages"
+                                    placeholder="Tap here to get absolutely swoll"
                                 />
                                 <Button onClick={() => setOpen(true)}>Send</Button>
                             </div>
