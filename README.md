@@ -13,10 +13,15 @@
 [X] make those exercises have GenUI components
 [X] style the log in and sign up pages
 [X] fix deploy
-[] create intro message
-[] style workout page
+[X] create intro message
+[X] style workout page
+[X] fix appostrophes and quotes lol
+[] make the chat less verbose
+[] make it look good on mobile (drawer for chat?)
+[] get auth working in prod
 
 NOT REQUIRED FOR PORTFOLIO
+[] add reps and weight for exercises
 [] "give me some abs and back exercises" gave me just abs exercises
 [] create summary message for a given workout
 [] fix chevron on history

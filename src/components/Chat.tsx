@@ -84,7 +84,7 @@ export default function Chat({
     return (
 
         <div className="w-full">
-            <div className="absolute z-100 py-8 px-5">
+            <div className="absolute z-110 py-8 px-5">
                 <MenuBarNav />
             </div>
             <div className="flex h-[calc(100vh)] w-full">
@@ -92,44 +92,68 @@ export default function Chat({
                 <ScrollArea className="w-2/3 bg-green-100 overflow-hidden">
                     <div className="">
                         {exercises.length != 0 && (
-                            <div className="sticky text-white z-100 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                <h2>{exercises?.length} Exercises for Today</h2>
-                            </div>
+                            <>
+                                <div className="sticky text-white z-50 p-7 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                    <h2>{exercises?.length} Exercises for Today</h2>
+                                </div>
+                                <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src="/splash/polygon-bg.gif"
+                                            alt="Image of muscle group"
+                                            className="w-full h-full object-cover"
+                                            width="500"
+                                            height="500"
+                                        />
+                                        <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
+                                    </div>
+                                </div>
+                            </>
+
                         )}
-                        <div className="sticky text-white z-100 p-7 justify-items-center text-5xl" >
+                        <div className="text-white z-100" >
                             {exercises.length === 0 && (
                                 <>
-                                    <div className="mt-90" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                        Start chatting with
+                                    <div className="relative w-full min-h-screen flex items-center justify-center">
+                                        <video
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            className="absolute inset-0 w-full h-full object-cover z-0"
+                                        >
+                                            <source src="/splash/posing.mp4" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div className="absolute inset-0 bg-white/50 z-10 " />
+                                        <div className="relative z-20 bg-black/50 rounded-3xl p-10 backdrop-blur-md">
+                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                Start chatting with
+                                            </div>
+                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                your personal bodybot
+                                            </div>
+                                            <div className="text-xl p-3">
+
+                                                <ul className="flex flex-col gap-4 p-2">
+                                                    <div className="text-xl font-bold py-2">
+                                                        Say things like:
+                                                    </div>
+                                                    <li>&quot;I want a leg day&quot;</li>
+                                                    <li>&quot;Help me improve my posture&quot;</li>
+                                                    <li>&quot;I want to get stronger for tennis&quot;</li>
+                                                    <li>&quot;Make me look better naked&quot;</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div className="" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                        your personal bodybot
-                                    </div>
-                                    <div className="text-xl p-5">
-                                        You can say things like:
-                                        <ul>
-                                            <li>`&quot;`I want a leg day`&quot;`</li>
-                                            <li>`&quot;`Help me improve my posture`&quot;`</li>
-                                            <li>`&quot;`I want to get stronger for tennis`&quot;`</li>
-                                            <li>`&quot;`Make me look better naked`&quot;`</li>
-                                        </ul>
-                                    </div>
+
                                 </>
                             )}
                         </div>
                     </div>
-                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
-                        <div className="relative w-full h-full">
-                            <Image
-                                src="/splash/polygon-bg.gif"
-                                alt="Image of muscle group"
-                                className="w-full h-full object-cover"
-                                width="500"
-                                height="500"
-                            />
-                            <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
-                        </div>
-                    </div>
+
 
                     <div className="justify-items-center">
                         {exercises.length != 0 && (
@@ -358,3 +382,6 @@ export default function Chat({
         </div >
     );
 }
+
+
+
