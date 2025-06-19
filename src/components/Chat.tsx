@@ -391,34 +391,17 @@ export default function Chat({
 
                                 {/* Input form fixed at bottom */}
                             </ScrollArea>
-                            <div className="">
-                                <form
-                                    onSubmit={handleSubmit}
-                                    className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-[9999]"
-                                >
-                                    <div className="flex w-full z-800">
-                                        <Input
-                                            onFocus={() => setOpen(true)}
-                                            className="mr-2 flex-1 bg-white"
-                                            name="prompt"
-                                            value={input}
-                                            onChange={handleInputChange}
-                                            placeholder="Tap here to chat or see messages"
-                                        />
-                                        <Button type="submit">Send</Button>
-                                    </div>
-                                </form>
-                            </div>
                         </DrawerContent>
                     </Drawer>
                 </div>
                 <div className="">
                     <form
                         onSubmit={handleSubmit}
-                        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-50"
+                        className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-900"
                     >
                         <div className="flex w-full z-800">
                             <Input
+                                autoFocus
                                 onFocus={() => setOpen(true)}
                                 className="mr-2 flex-1 bg-white"
                                 name="prompt"
