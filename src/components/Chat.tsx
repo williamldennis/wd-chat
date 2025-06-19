@@ -131,7 +131,7 @@ export default function Chat({
                         <div className="text-white z-100" >
                             {exercises.length === 0 && (
                                 <>
-                                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                                    <div className="w-full h-full overflow-hidden absolute inset-0">
                                         <div className="relative w-full h-full">
                                             <video
                                                 autoPlay
