@@ -19,6 +19,10 @@
 [X] hide form when exercise card is open
 [] make the chat less verbose
 [X] make it look good on mobile (drawer for chat?)
+[] adjust carousel for short height
+[] adjust card for short height
+[] fix exercise drawer close making chat drawer open
+[] menu bar is missing
 [] fix sign out button hover
 [] get auth working in prod
 [] improve input handling for chat submission

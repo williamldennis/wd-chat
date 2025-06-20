@@ -87,36 +87,120 @@ export default function Chat({
         <div className="w-full">
 
             <div className="flex flex-col items-center h-[calc(100vh)] w-full">
-                <div className="max-w-xs z-110 py-8 px-5">
+                <div className="max-w-xs z-1000 py-8 px-5">
                     <MenuBarNav />
                 </div>
                 {/* Exercises area */}
-                <div className="w-full flex flex-col">
-                    <div className="">
-                        {exercises.length != 0 && (
-                            <>
-                                <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                    <h2>{exercises?.length} Exercises for Today</h2>
-                                </div>
-                                <div className="w-screen h-screen overflow-hidden absolute inset-0">
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src="/splash/polygon-bg.gif"
-                                            alt="Image of muscle group"
-                                            className="w-full h-full object-cover"
-                                            width="500"
-                                            height="500"
-                                            unoptimized
-                                        />
-                                        <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
-                                    </div>
-                                </div>
-                            </>
 
-                        )}
-                        <div className="text-white z-100" >
-                            {exercises.length === 0 && (
+                <div className="w-full flex flex-col">
+                    {/* With exercises */}
+                    {exercises.length != 0 && (
+                        <>
+                            <div className="">
                                 <>
+                                    <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        <h2>{exercises?.length} Exercises for Today</h2>
+                                    </div>
+                                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src="/splash/polygon-bg.gif"
+                                                alt="Image of muscle group"
+                                                className="w-full h-full object-cover"
+                                                width="500"
+                                                height="500"
+                                                unoptimized
+                                            />
+                                            <div className="absolute inset-0 bg-white/50 backdrop-blur-xl" />
+                                        </div>
+                                    </div>
+                                </>
+                            </div>
+
+
+                            <div className="justify-center flex w-full relative">
+                                <Carousel
+                                    className="w-3/4 z-10 mt-20"
+                                    plugins={[
+                                        Autoplay({
+                                            delay: 2000,
+                                        }),
+                                    ]}
+                                >
+                                    <CarouselContent className="">
+                                        {exercises.map((exercise, index) => (
+                                            <CarouselItem
+                                                key={exercise.id}
+                                                className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
+                                            >
+                                                <div className="">
+                                                    <CardHeader>
+                                                        <div className="justify-items-center">
+                                                            {/*image here */}
+                                                            <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
+                                                                <Image
+                                                                    src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
+                                                                    alt="Image of muscle group"
+                                                                    className="w-full h-full object-cover"
+                                                                    width="500"
+                                                                    height="500"
+                                                                />
+                                                            </div>
+                                                            <div className="flex flex-col items-center">
+                                                                <div>
+                                                                    <CardTitle
+                                                                        className="text-lg w-full"
+                                                                    >
+                                                                        {exercise.name}
+                                                                    </CardTitle>
+                                                                </div>
+
+                                                                <CardDescription
+                                                                    className="text-white"
+                                                                >
+                                                                    Target: {exercise.muscleGroup}
+                                                                </CardDescription>
+                                                                <Drawer
+                                                                    onOpenChange={(isOpen) => setExerciseDrawerIsOpen(isOpen)}
+                                                                >
+                                                                    <DrawerTrigger>
+                                                                        <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                            Start Exercise
+                                                                        </Button>
+                                                                    </DrawerTrigger>
+                                                                    <DrawerContent className="max-h-[80vh] p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
+                                                                        <div className="z-50">
+                                                                            <ExerciseCard
+                                                                                key={exercise.id} {...exercise}
+                                                                            />
+                                                                        </div>
+
+                                                                    </DrawerContent>
+                                                                </Drawer>
+                                                            </div>
+                                                        </div>
+                                                    </CardHeader>
+
+                                                </div>
+
+
+                                            </CarouselItem>
+
+                                        ))}
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+
+                            </div>
+                        </>
+
+                    )}
+                    <div className="text-white" >
+                        {/* NO exercises */}
+                        {exercises.length === 0 && (
+                            <>
+                                <div className="flex flex-col items-between justify-center">
                                     <div className="w-full h-screen overflow-hidden absolute inset-0">
                                         <div className="relative w-full h-full">
                                             <video
@@ -129,13 +213,11 @@ export default function Chat({
                                                 <source src="/splash/posing.mp4" type="video/mp4" />
                                                 Your browser does not support the video tag.
                                             </video>
-                                            <div className="absolute inset-0 bg-white/10 z-10" />
+                                            <div className="absolute inset-0 bg-white/10" />
                                         </div>
                                     </div>
-                                    <div className="relative w-full flex items-center justify-center">
-
-
-                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-40">
+                                    <div className="w-full flex flex-col items-center mt-25 ">
+                                        <div className="z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md flex flex-col items-center">
                                             <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                                 Start chatting with
                                             </div>
@@ -157,100 +239,22 @@ export default function Chat({
                                         </div>
 
                                     </div>
-
-                                </>
-                            )}
-                        </div>
-                    </div>
+                                </div>
 
 
-                    <div className="justify-center flex w-full relative">
-                        {exercises.length != 0 && (
-                            <Carousel
-                                className="w-3/4 z-10 mt-20"
-                                plugins={[
-                                    Autoplay({
-                                        delay: 2000,
-                                    }),
-                                ]}
-                            >
-                                <CarouselContent className="">
-
-                                    {exercises.map((exercise, index) => (
-                                        <CarouselItem
-                                            key={exercise.id}
-                                            className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
-                                        >
-                                            <div className="">
-                                                <CardHeader>
-                                                    <div className="justify-items-center">
-                                                        {/*image here */}
-                                                        <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
-                                                            <Image
-                                                                src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
-                                                                alt="Image of muscle group"
-                                                                className="w-full h-full object-cover"
-                                                                width="500"
-                                                                height="500"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col items-center">
-                                                            <div>
-                                                                <CardTitle
-                                                                    className="text-lg w-full"
-                                                                >
-                                                                    {exercise.name}
-                                                                </CardTitle>
-                                                            </div>
-
-                                                            <CardDescription
-                                                                className="text-white"
-                                                            >
-                                                                Target: {exercise.muscleGroup}
-                                                            </CardDescription>
-                                                            <Drawer
-                                                                onOpenChange={(isOpen) => setExerciseDrawerIsOpen(isOpen)}
-                                                            >
-                                                                <DrawerTrigger>
-                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
-                                                                        Start Exercise
-                                                                    </Button>
-                                                                </DrawerTrigger>
-                                                                <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
-                                                                    <div className="z-100">
-                                                                        <ExerciseCard
-                                                                            key={exercise.id} {...exercise}
-                                                                        />
-                                                                    </div>
-
-                                                                </DrawerContent>
-                                                            </Drawer>
-                                                        </div>
-                                                    </div>
-                                                </CardHeader>
-
-                                            </div>
-
-
-                                        </CarouselItem>
-
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel>
+                            </>
                         )}
                     </div>
                 </div>
                 {/* Chat bot message area */}
-                <div className="pointer-events-none">
+                <div className="">
                     <Drawer open={open} onOpenChange={setOpen}>
-                        <DrawerContent className="pointer-events-auto z-50 bg-white/30 backdrop-blur-2xl">
+                        <DrawerContent className="bg-white/30 backdrop-blur-2xl z-60 pb-[100px]">
                             <div className="sticky top-0 justify-items-center p-3 my-5 z-10">
                                 <div className="text-5xl text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
                                 <div className="text-white">Chat with me about your workout goals</div>
                             </div>
-                            <ScrollArea className="rounded-md overflow-y-auto pb-[90px]">
+                            <ScrollArea className="max-h-[80vh] rounded-md overflow-y-auto pb-[90px]">
 
                                 {/* Scrollable message area */}
                                 <div className="p-2">
@@ -279,80 +283,6 @@ export default function Chat({
                                                         const callId = part.toolInvocation.toolCallId;
 
                                                         switch (part.toolInvocation.toolName) {
-                                                            case "askForConfirmation": {
-                                                                const args = part.toolInvocation.args as {
-                                                                    message: string;
-                                                                };
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                {args.message}
-                                                                                <div className="mt-2">
-                                                                                    <Button
-                                                                                        className="mr-2 bg-green-400"
-                                                                                        onClick={() =>
-                                                                                            addToolResult({
-                                                                                                toolCallId: callId,
-                                                                                                result: "Yes, confirmed",
-                                                                                            })
-                                                                                        }
-                                                                                    >
-                                                                                        Yes
-                                                                                    </Button>
-                                                                                    <Button
-                                                                                        className="bg-gray-400"
-                                                                                        onClick={() =>
-                                                                                            addToolResult({
-                                                                                                toolCallId: callId,
-                                                                                                result: "No, denied",
-                                                                                            })
-                                                                                        }
-                                                                                    >
-                                                                                        No
-                                                                                    </Button>
-                                                                                </div>
-                                                                            </div>
-                                                                        );
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                Location access allowed:{" "}
-                                                                                {part.toolInvocation.result}
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
-                                                            case "getLocation": {
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return <div key={callId}>Getting location...</div>;
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                Location: {part.toolInvocation.result}
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
-                                                            case "displayWeather": {
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return <div key={callId}>Loading weather...</div>;
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                <Weather {...part.toolInvocation.result} />
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
                                                             case "giveWorkout": {
                                                                 switch (part.toolInvocation.state) {
                                                                     case "call":
@@ -382,28 +312,6 @@ export default function Chat({
                                     <div ref={bottomRef} />
 
                                 </div>
-
-                                {/* Input form fixed at bottom */}
-                                <div className="">
-                                    {!exerciseDrawerIsOpen && (
-                                        <form
-                                            onSubmit={handleSubmit}
-                                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
-                                        >
-                                            <div className="flex w-full z-800">
-                                                <Input
-                                                    onFocus={() => setOpen(true)}
-                                                    className="mr-2 flex-1 bg-white"
-                                                    name="prompt"
-                                                    value={input}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Tap here to get absolutely swoll"
-                                                />
-                                                <Button onClick={() => setOpen(true)}>Send</Button>
-                                            </div>
-                                        </form>
-                                    )}
-                                </div>
                             </ScrollArea>
                         </DrawerContent>
 
@@ -412,7 +320,7 @@ export default function Chat({
                 {!exerciseDrawerIsOpen && (
                     <form
                         onSubmit={handleSubmit}
-                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-500"
                     >
                         <div className="flex w-full z-800">
                             <Input
@@ -423,7 +331,7 @@ export default function Chat({
                                 onChange={handleInputChange}
                                 placeholder="Chat here to get absolutely swoll"
                             />
-                            <Button onClick={() => setOpen(true)}>Send</Button>
+                            <Button type="submit">Send</Button>
                         </div>
                     </form>
                 )}

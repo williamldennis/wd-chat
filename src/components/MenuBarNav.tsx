@@ -35,8 +35,8 @@ export function MenuBarNav() {
                 },
             },
         });
+        if (isLoggedIn === false) return null
     }
-    if (isLoggedIn === false) return null
 
     return (
         <Menubar className="bg-white/40 backdrop-blur-lg border">
