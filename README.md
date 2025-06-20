@@ -21,8 +21,13 @@
 [X] make it look good on mobile (drawer for chat?)
 [X] menu bar is missing
 [X] get auth working in prod
-
-[] make the chat less verbose
+[x] improve query filtering
+[X] improve scroll
+[X] add loading spinner for query 
+[] image for forearms
+[] filter for no youtube video
+[X] fix chat input bar (sad face) 
+[X] make the chat less verbose
 [] adjust carousel for short height
 [] adjust card for short height
 [] menu bar broken / fix sign out button hover
@@ -32,9 +37,9 @@
 NOT REQUIRED FOR PORTFOLIO
 [] add a 'workout progress' tracker - exercises completed / exercises remaining b
 [] add reps and weight for exercises
-[] "give me some abs and back exercises" gave me just abs exercises
+[X] "give me some abs and back exercises" gave me just abs exercises
 [] create summary message for a given workout
-[] fix chevron on history
+[X] fix chevron on history
 [] turn chats into daily workout sessions
 [] have sessions contain exercises
 [] track exercise completion to history 
