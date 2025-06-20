@@ -3,7 +3,6 @@
 import { type Message, useChat } from "@ai-sdk/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Weather } from "@/components/ui/weather";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useWorkoutStore } from "@/hooks/useWorkoutStore";
@@ -128,7 +127,7 @@ export default function Chat({
                                     ]}
                                 >
                                     <CarouselContent className="">
-                                        {exercises.map((exercise, index) => (
+                                        {exercises.map((exercise) => (
                                             <CarouselItem
                                                 key={exercise.id}
                                                 className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
