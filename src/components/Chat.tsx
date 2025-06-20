@@ -91,154 +91,155 @@ export default function Chat({
                     <MenuBarNav />
                 </div>
                 {/* Exercises area */}
+
                 <div className="w-full flex flex-col">
-                    <div className="">
-                        {exercises.length != 0 && (
-                            <>
-                                <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                    <h2>{exercises?.length} Exercises for Today</h2>
-                                </div>
-                                <div className="w-screen h-screen overflow-hidden absolute inset-0">
-                                    <div className="relative w-full h-full">
-                                        <Image
-                                            src="/splash/polygon-bg.gif"
-                                            alt="Image of muscle group"
-                                            className="w-full h-full object-cover"
-                                            width="500"
-                                            height="500"
-                                            unoptimized
-                                        />
-                                        <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
-                                    </div>
-                                </div>
-                            </>
-
-                        )}
-                        <div className="text-white z-100" >
-                            {exercises.length === 0 && (
+                    {exercises.length != 0 && (
+                        <>
+                            <div className="">
                                 <>
-                                    <div className="w-full h-screen overflow-hidden absolute inset-0">
+                                    <div className="sticky text-white z-50 justify-items-center text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        <h2>{exercises?.length} Exercises for Today</h2>
+                                    </div>
+                                    <div className="w-screen h-screen overflow-hidden absolute inset-0">
                                         <div className="relative w-full h-full">
-                                            <video
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                                className="absolute inset-0 w-full h-full object-cover z-0"
-                                            >
-                                                <source src="/splash/posing.mp4" type="video/mp4" />
-                                                Your browser does not support the video tag.
-                                            </video>
-                                            <div className="absolute inset-0 bg-white/10 z-10" />
+                                            <Image
+                                                src="/splash/polygon-bg.gif"
+                                                alt="Image of muscle group"
+                                                className="w-full h-full object-cover"
+                                                width="500"
+                                                height="500"
+                                                unoptimized
+                                            />
+                                            <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
                                         </div>
                                     </div>
-                                    <div className="relative w-full flex items-center justify-center">
-
-
-                                        <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-40">
-                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                                Start chatting with
-                                            </div>
-                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                                your personal bodybot
-                                            </div>
-                                            <div className="text-xl p-3">
-
-                                                <ul className="flex flex-col gap-4 p-2">
-                                                    <div className="text-xl font-bold py-2">
-                                                        Say things like:
-                                                    </div>
-                                                    <li>&quot;I want a leg day&quot;</li>
-                                                    <li>&quot;Help me improve my posture&quot;</li>
-                                                    <li>&quot;I want to get stronger for tennis&quot;</li>
-                                                    <li>&quot;Make me look better naked&quot;</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                 </>
-                            )}
-                        </div>
-                    </div>
+                            </div>
 
 
-                    <div className="justify-center flex w-full relative">
-                        {exercises.length != 0 && (
-                            <Carousel
-                                className="w-3/4 z-10 mt-20"
-                                plugins={[
-                                    Autoplay({
-                                        delay: 2000,
-                                    }),
-                                ]}
-                            >
-                                <CarouselContent className="">
-
-                                    {exercises.map((exercise, index) => (
-                                        <CarouselItem
-                                            key={exercise.id}
-                                            className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
-                                        >
-                                            <div className="">
-                                                <CardHeader>
-                                                    <div className="justify-items-center">
-                                                        {/*image here */}
-                                                        <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
-                                                            <Image
-                                                                src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
-                                                                alt="Image of muscle group"
-                                                                className="w-full h-full object-cover"
-                                                                width="500"
-                                                                height="500"
-                                                            />
-                                                        </div>
-                                                        <div className="flex flex-col items-center">
-                                                            <div>
-                                                                <CardTitle
-                                                                    className="text-lg w-full"
-                                                                >
-                                                                    {exercise.name}
-                                                                </CardTitle>
+                            <div className="justify-center flex w-full relative">
+                                <Carousel
+                                    className="w-3/4 z-10 mt-20"
+                                    plugins={[
+                                        Autoplay({
+                                            delay: 2000,
+                                        }),
+                                    ]}
+                                >
+                                    <CarouselContent className="">
+                                        {exercises.map((exercise, index) => (
+                                            <CarouselItem
+                                                key={exercise.id}
+                                                className="mt-2 basis-1/1 md:basis-1/2 lg:basis-1/3"
+                                            >
+                                                <div className="">
+                                                    <CardHeader>
+                                                        <div className="justify-items-center">
+                                                            {/*image here */}
+                                                            <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
+                                                                <Image
+                                                                    src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
+                                                                    alt="Image of muscle group"
+                                                                    className="w-full h-full object-cover"
+                                                                    width="500"
+                                                                    height="500"
+                                                                />
                                                             </div>
+                                                            <div className="flex flex-col items-center">
+                                                                <div>
+                                                                    <CardTitle
+                                                                        className="text-lg w-full"
+                                                                    >
+                                                                        {exercise.name}
+                                                                    </CardTitle>
+                                                                </div>
 
-                                                            <CardDescription
-                                                                className="text-white"
-                                                            >
-                                                                Target: {exercise.muscleGroup}
-                                                            </CardDescription>
-                                                            <Drawer
-                                                                onOpenChange={(isOpen) => setExerciseDrawerIsOpen(isOpen)}
-                                                            >
-                                                                <DrawerTrigger>
-                                                                    <Button className="m-4 bg-black/60 backdrop-blur-md">
-                                                                        Start Exercise
-                                                                    </Button>
-                                                                </DrawerTrigger>
-                                                                <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
-                                                                    <div className="z-100">
-                                                                        <ExerciseCard
-                                                                            key={exercise.id} {...exercise}
-                                                                        />
-                                                                    </div>
+                                                                <CardDescription
+                                                                    className="text-white"
+                                                                >
+                                                                    Target: {exercise.muscleGroup}
+                                                                </CardDescription>
+                                                                <Drawer
+                                                                    onOpenChange={(isOpen) => setExerciseDrawerIsOpen(isOpen)}
+                                                                >
+                                                                    <DrawerTrigger>
+                                                                        <Button className="m-4 bg-black/60 backdrop-blur-md">
+                                                                            Start Exercise
+                                                                        </Button>
+                                                                    </DrawerTrigger>
+                                                                    <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
+                                                                        <div className="z-100">
+                                                                            <ExerciseCard
+                                                                                key={exercise.id} {...exercise}
+                                                                            />
+                                                                        </div>
 
-                                                                </DrawerContent>
-                                                            </Drawer>
+                                                                    </DrawerContent>
+                                                                </Drawer>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </CardHeader>
+                                                    </CardHeader>
 
-                                            </div>
+                                                </div>
 
 
-                                        </CarouselItem>
+                                            </CarouselItem>
 
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel>
+                                        ))}
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+
+                            </div>
+                        </>
+
+                    )}
+                    <div className="text-white z-100" >
+                        {exercises.length === 0 && (
+                            <>
+                                <div className="w-full h-screen overflow-hidden absolute inset-0">
+                                    <div className="relative w-full h-full">
+                                        <video
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            className="absolute inset-0 w-full h-full object-cover z-0"
+                                        >
+                                            <source src="/splash/posing.mp4" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div className="absolute inset-0 bg-white/10 z-10" />
+                                    </div>
+                                </div>
+                                <div className="relative w-full flex items-center justify-center">
+
+
+                                    <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-40">
+                                        <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                            Start chatting with
+                                        </div>
+                                        <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                            your personal bodybot
+                                        </div>
+                                        <div className="text-xl p-3">
+
+                                            <ul className="flex flex-col gap-4 p-2">
+                                                <div className="text-xl font-bold py-2">
+                                                    Say things like:
+                                                </div>
+                                                <li>&quot;I want a leg day&quot;</li>
+                                                <li>&quot;Help me improve my posture&quot;</li>
+                                                <li>&quot;I want to get stronger for tennis&quot;</li>
+                                                <li>&quot;Make me look better naked&quot;</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </>
                         )}
                     </div>
                 </div>
@@ -279,80 +280,6 @@ export default function Chat({
                                                         const callId = part.toolInvocation.toolCallId;
 
                                                         switch (part.toolInvocation.toolName) {
-                                                            case "askForConfirmation": {
-                                                                const args = part.toolInvocation.args as {
-                                                                    message: string;
-                                                                };
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                {args.message}
-                                                                                <div className="mt-2">
-                                                                                    <Button
-                                                                                        className="mr-2 bg-green-400"
-                                                                                        onClick={() =>
-                                                                                            addToolResult({
-                                                                                                toolCallId: callId,
-                                                                                                result: "Yes, confirmed",
-                                                                                            })
-                                                                                        }
-                                                                                    >
-                                                                                        Yes
-                                                                                    </Button>
-                                                                                    <Button
-                                                                                        className="bg-gray-400"
-                                                                                        onClick={() =>
-                                                                                            addToolResult({
-                                                                                                toolCallId: callId,
-                                                                                                result: "No, denied",
-                                                                                            })
-                                                                                        }
-                                                                                    >
-                                                                                        No
-                                                                                    </Button>
-                                                                                </div>
-                                                                            </div>
-                                                                        );
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                Location access allowed:{" "}
-                                                                                {part.toolInvocation.result}
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
-                                                            case "getLocation": {
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return <div key={callId}>Getting location...</div>;
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                Location: {part.toolInvocation.result}
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
-                                                            case "displayWeather": {
-                                                                switch (part.toolInvocation.state) {
-                                                                    case "call":
-                                                                        return <div key={callId}>Loading weather...</div>;
-                                                                    case "result":
-                                                                        return (
-                                                                            <div key={callId}>
-                                                                                <Weather {...part.toolInvocation.result} />
-                                                                            </div>
-                                                                        );
-                                                                }
-                                                                break;
-                                                            }
-
                                                             case "giveWorkout": {
                                                                 switch (part.toolInvocation.state) {
                                                                     case "call":
