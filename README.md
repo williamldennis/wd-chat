@@ -17,14 +17,15 @@
 [X] style workout page
 [X] fix appostrophes and quotes lol
 [X] hide form when exercise card is open
-[] make the chat less verbose
+[X] fix exercise drawer close making chat drawer open
 [X] make it look good on mobile (drawer for chat?)
+[X] menu bar is missing
+[X] get auth working in prod
+
+[] make the chat less verbose
 [] adjust carousel for short height
 [] adjust card for short height
-[] fix exercise drawer close making chat drawer open
-[] menu bar is missing
-[] fix sign out button hover
-[] get auth working in prod
+[] menu bar broken / fix sign out button hover
 [] improve input handling for chat submission
 [] make target muscle tag bg match muscle image color
 
