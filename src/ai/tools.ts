@@ -57,7 +57,7 @@ export const refineQueryTool = createTool({
 })
 
 export const exerciseTool = createTool({
-  description: "Retrieve exercises based on  Provide the query results only.",
+  description: "Retrieve exercises based on the refined query you receive.",
   parameters: z.object({
     refinedQuery: z.string(),
     limit: z.number().optional().default(5),
@@ -81,21 +81,39 @@ export const exerciseTool = createTool({
     // Format queryVector as a SQL array
     const vectorArray = `ARRAY[${queryVector.join(",")}]::vector`
 
-    const whereParts: any[] = []
+    //user vector array to query with filters
+    const normalizedIncludes = muscleGroupsToInclude?.map(m => m.toLowerCase())
+    const normalizedExcludes = muscleGroupsToExclude?.map(m => m.toLowerCase())
 
-    if (muscleGroupsToInclude?.length) {
-      whereParts.push(sql`"target_muscle_group" = ANY(${sql.raw(`'{${muscleGroupsToInclude.join(",")}}'`)})`);
+    const whereParts: any[] = [];
+
+    if (normalizedIncludes?.length) {
+      whereParts.push(sql`
+        LOWER("target_muscle_group") = ANY(
+          ARRAY[${sql.join(normalizedIncludes.map(i => sql`${i}`), sql`, `)}]
+        )
+      `);
     }
 
-    if (muscleGroupsToExclude?.length) {
-      whereParts.push(sql`LOWER("target_muscle_group") != ALL(${sql.raw(`ARRAY[${muscleGroupsToExclude.map(m => `'${m.toLowerCase()}'`).join(",")}]`)})`);
+    if (normalizedExcludes?.length) {
+      whereParts.push(sql`
+        LOWER("target_muscle_group") != ALL(
+          ARRAY[${sql.join(normalizedExcludes.map(e => sql`${e}`), sql`, `)}]
+        )
+      `);
     }
+
 
     const whereClause = whereParts.length > 0 ? sql`WHERE ${sql.join(whereParts, sql` AND `)}` : sql``
 
     try {
       console.log(`Vector Array Slice:`, vectorArray.slice(0, 5), vectorArray.length)
 
+      console.log(`about to query the db for exercises`, {
+        refinedQuery,
+        normalizedIncludes,
+        normalizedExcludes,
+      });
       const retrievedExercises = await db.execute(sql`
             SELECT 
               ${exercises.id}, 
