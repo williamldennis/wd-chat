@@ -67,6 +67,7 @@ export default function Chat({
                         handledResultsRef.current.add(callId)
                         console.log("toll result in useEffect:", part.toolInvocation.result)
                         addExercise(part.toolInvocation.result as Exercise | Exercise[])
+                        setOpen(false); // ✅ Close the drawer here
                     }
                 }
             }
@@ -104,7 +105,7 @@ export default function Chat({
                                         <div className="relative w-full h-full">
                                             <Image
                                                 src="/splash/polygon-bg.gif"
-                                                alt="Image of muscle group"
+                                                alt="Background Splash"
                                                 className="w-full h-full object-cover"
                                                 width="500"
                                                 height="500"
@@ -136,7 +137,7 @@ export default function Chat({
                                                     <CardHeader>
                                                         <div className="justify-items-center">
                                                             {/*image here */}
-                                                            <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center">
+                                                            <div className="h-120 lg:h-120 lg:w-60 lg:overflow-hidden items-center ml-12">
                                                                 <Image
                                                                     src={getMuscleGroupImage(exercise.muscleGroup ?? "default")}
                                                                     alt="Image of muscle group"
@@ -253,7 +254,7 @@ export default function Chat({
                                 <div className="text-5xl text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
                                 <div className="text-white">Chat with me about your workout goals</div>
                             </div>
-                            <ScrollArea className="max-h-[80vh] rounded-md overflow-y-auto pb-[90px]">
+                            <ScrollArea className="max-h-[80vh] rounded-md overflow-y-auto">
 
                                 {/* Scrollable message area */}
                                 <div className="p-2">
@@ -283,17 +284,15 @@ export default function Chat({
 
                                                         switch (part.toolInvocation.toolName) {
                                                             case "giveWorkout": {
+                                                                console.log("State:", part.toolInvocation.state);
                                                                 switch (part.toolInvocation.state) {
+
                                                                     case "call":
                                                                         return <div key={callId}>Loading workout...</div>;
                                                                     case "result":
                                                                         return <div key={callId} className="flex flex-col justify-between">
-                                                                            <div className="mt-4 self-end">
-                                                                                {/* <Button
-                                                                                    onClick={() => setOpen(false)}
-                                                                                    className="w-100"
-                                                                                >
-                                                                                    Show me the exercises</Button> */}
+                                                                            <div className="mt-4">
+                                                                                Found you some great ones.
                                                                             </div>
                                                                         </div>;
 
@@ -312,31 +311,44 @@ export default function Chat({
 
                                 </div>
                             </ScrollArea>
+                            <form
+                                onSubmit={handleSubmit}
+                                className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-500"
+                            >
+                                <div className="flex w-full z-800">
+                                    <Input
+                                        onFocus={() => setOpen(true)}
+                                        className="mr-2 flex-1 bg-white"
+                                        name="prompt"
+                                        value={input}
+                                        onChange={handleInputChange}
+                                        placeholder="Chat here to get absolutely swoll"
+                                    />
+                                    <Button type="submit">Send</Button>
+                                </div>
+                            </form>
                         </DrawerContent>
 
                     </Drawer>
                 </div>
-                {!exerciseDrawerIsOpen && (
-                    <form
-                        onSubmit={handleSubmit}
-                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-500"
-                    >
-                        <div className="flex w-full z-800">
-                            <Input
-                                onFocus={() => setOpen(true)}
-                                className="mr-2 flex-1 bg-white"
-                                name="prompt"
-                                value={input}
-                                onChange={handleInputChange}
-                                placeholder="Chat here to get absolutely swoll"
-                            />
-                            <Button type="submit">Send</Button>
-                        </div>
-                    </form>
-                )}
             </div >
             {/* Message Submit Form */}
-
+            <form
+                onSubmit={handleSubmit}
+                className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-500"
+            >
+                <div className="flex w-full z-800">
+                    <Input
+                        onFocus={() => setOpen(true)}
+                        className="mr-2 flex-1 bg-white"
+                        name="prompt"
+                        value={input}
+                        onChange={handleInputChange}
+                        placeholder="Chat here to get absolutely swoll"
+                    />
+                    <Button type="submit">Send</Button>
+                </div>
+            </form>
 
 
         </div >

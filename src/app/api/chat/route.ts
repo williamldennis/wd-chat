@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { appendResponseMessages, streamText } from "ai";
+import { appendResponseMessages, smoothStream, streamText } from "ai";
 import { saveChat } from "@/tools/chat-store";
 import { tools } from "@/ai/tools";
 
@@ -20,10 +20,11 @@ export async function POST(req: Request) {
 
     const result = streamText<typeof tools>({
       model: openai("gpt-4-turbo"),
-      system: "You are a fitness assistant. Always start with 'refineQueryTool' to interpret and structure the user's request. Then call 'exerciseTool' with the refinedQueryForEmbedding.",
+      system: "You are a fitness assistant. Be extremely concise. When a user asks for workouts or exercises use 'refineQueryTool' to interpret and structure the user's request. Then call 'exerciseTool' with the refinedQueryForEmbedding. After you use exerciseTool, do not send another message until prompted by the user.",
       messages,
       maxSteps: 5,
       tools,
+      experimental_transform: smoothStream(),
       async onFinish({ response }) {
         await saveChat({
           id,
@@ -34,8 +35,9 @@ export async function POST(req: Request) {
         });
       },
     });
-    console.log("🛠️ Tool used api/chat/route");
+    console.log("🛠️ Tool used api/chat/route", result);
     return result.toDataStreamResponse();
+
   } catch (err: unknown) {
     const error = err as Error
 

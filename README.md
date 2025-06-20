@@ -22,7 +22,10 @@
 [X] menu bar is missing
 [X] get auth working in prod
 [x] improve query filtering
+[] improve scroll
 [] add loading spinner for query 
+[] image for forearms
+[] filter for no youtube video
 [] fix chat input bar (sad face) 
 [] make the chat less verbose
 [] adjust carousel for short height
