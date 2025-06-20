@@ -168,7 +168,7 @@ export default function Chat({
                                                                             Start Exercise
                                                                         </Button>
                                                                     </DrawerTrigger>
-                                                                    <DrawerContent className="max-h-[80vh] p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
+                                                                    <DrawerContent className="max-h-[90vh] p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
                                                                         <div className="z-50">
                                                                             <ExerciseCard
                                                                                 key={exercise.id} {...exercise}

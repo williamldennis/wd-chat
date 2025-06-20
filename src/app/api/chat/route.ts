@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       model: openai("gpt-4-turbo"),
       system: "You are a fitness assistant. Be extremely concise. When a user asks for workouts or exercises use 'refineQueryTool' to interpret and structure the user's request. Then call 'exerciseTool' with the refinedQueryForEmbedding. After you use exerciseTool, do not send another message until prompted by the user.",
       messages,
-      maxSteps: 5,
+      maxSteps: 1,
       tools,
       experimental_transform: smoothStream(),
       async onFinish({ response }) {
