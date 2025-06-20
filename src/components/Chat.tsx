@@ -93,6 +93,7 @@ export default function Chat({
                 {/* Exercises area */}
 
                 <div className="w-full flex flex-col">
+                    {/* With exercises */}
                     {exercises.length != 0 && (
                         <>
                             <div className="">
@@ -196,48 +197,50 @@ export default function Chat({
 
                     )}
                     <div className="text-white z-100" >
+                        {/* NO exercises */}
                         {exercises.length === 0 && (
                             <>
-                                <div className="w-full h-screen overflow-hidden absolute inset-0">
-                                    <div className="relative w-full h-full">
-                                        <video
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            className="absolute inset-0 w-full h-full object-cover z-0"
-                                        >
-                                            <source src="/splash/posing.mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <div className="absolute inset-0 bg-white/10 z-10" />
-                                    </div>
-                                </div>
-                                <div className="relative w-full flex items-center justify-center">
-
-
-                                    <div className="relative z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md mt-40">
-                                        <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                            Start chatting with
-                                        </div>
-                                        <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                            your personal bodybot
-                                        </div>
-                                        <div className="text-xl p-3">
-
-                                            <ul className="flex flex-col gap-4 p-2">
-                                                <div className="text-xl font-bold py-2">
-                                                    Say things like:
-                                                </div>
-                                                <li>&quot;I want a leg day&quot;</li>
-                                                <li>&quot;Help me improve my posture&quot;</li>
-                                                <li>&quot;I want to get stronger for tennis&quot;</li>
-                                                <li>&quot;Make me look better naked&quot;</li>
-                                            </ul>
+                                <div className="flex flex-col items-between justify-center">
+                                    <div className="w-full h-screen overflow-hidden absolute inset-0">
+                                        <div className="relative w-full h-full">
+                                            <video
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                                className="absolute inset-0 w-full h-full object-cover z-0"
+                                            >
+                                                <source src="/splash/posing.mp4" type="video/mp4" />
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            <div className="absolute inset-0 bg-white/10 z-10" />
                                         </div>
                                     </div>
+                                    <div className="w-full flex flex-col items-center mt-25 ">
+                                        <div className="z-10 bg-black/50 rounded-3xl p-10 backdrop-blur-md flex flex-col items-center">
+                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                Start chatting with
+                                            </div>
+                                            <div className="text-5xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                your personal bodybot
+                                            </div>
+                                            <div className="text-xl p-3">
 
+                                                <ul className="flex flex-col gap-4 p-2">
+                                                    <div className="text-xl font-bold py-2">
+                                                        Say things like:
+                                                    </div>
+                                                    <li>&quot;I want a leg day&quot;</li>
+                                                    <li>&quot;Help me improve my posture&quot;</li>
+                                                    <li>&quot;I want to get stronger for tennis&quot;</li>
+                                                    <li>&quot;Make me look better naked&quot;</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
+
 
                             </>
                         )}
