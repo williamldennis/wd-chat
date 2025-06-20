@@ -87,7 +87,7 @@ export default function Chat({
         <div className="w-full">
 
             <div className="flex flex-col items-center h-[calc(100vh)] w-full">
-                <div className="max-w-xs z-110 py-8 px-5">
+                <div className="max-w-xs z-1000 py-8 px-5">
                     <MenuBarNav />
                 </div>
                 {/* Exercises area */}
@@ -111,7 +111,7 @@ export default function Chat({
                                                 height="500"
                                                 unoptimized
                                             />
-                                            <div className="absolute inset-0 bg-white/50 z-10 backdrop-blur-xl" />
+                                            <div className="absolute inset-0 bg-white/50 backdrop-blur-xl" />
                                         </div>
                                     </div>
                                 </>
@@ -168,8 +168,8 @@ export default function Chat({
                                                                             Start Exercise
                                                                         </Button>
                                                                     </DrawerTrigger>
-                                                                    <DrawerContent className="p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
-                                                                        <div className="z-100">
+                                                                    <DrawerContent className="max-h-[80vh] p-3 mb-20 bg-black/60 backdrop-blur-md flex items-center z-50">
+                                                                        <div className="z-50">
                                                                             <ExerciseCard
                                                                                 key={exercise.id} {...exercise}
                                                                             />
@@ -196,7 +196,7 @@ export default function Chat({
                         </>
 
                     )}
-                    <div className="text-white z-100" >
+                    <div className="text-white" >
                         {/* NO exercises */}
                         {exercises.length === 0 && (
                             <>
@@ -213,7 +213,7 @@ export default function Chat({
                                                 <source src="/splash/posing.mp4" type="video/mp4" />
                                                 Your browser does not support the video tag.
                                             </video>
-                                            <div className="absolute inset-0 bg-white/10 z-10" />
+                                            <div className="absolute inset-0 bg-white/10" />
                                         </div>
                                     </div>
                                     <div className="w-full flex flex-col items-center mt-25 ">
@@ -247,14 +247,14 @@ export default function Chat({
                     </div>
                 </div>
                 {/* Chat bot message area */}
-                <div className="pointer-events-none">
+                <div className="">
                     <Drawer open={open} onOpenChange={setOpen}>
-                        <DrawerContent className="pointer-events-auto z-50 bg-white/30 backdrop-blur-2xl">
+                        <DrawerContent className="bg-white/30 backdrop-blur-2xl z-60 pb-[100px]">
                             <div className="sticky top-0 justify-items-center p-3 my-5 z-10">
                                 <div className="text-5xl text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Your Personal BodyBot</div>
                                 <div className="text-white">Chat with me about your workout goals</div>
                             </div>
-                            <ScrollArea className="rounded-md overflow-y-auto pb-[90px]">
+                            <ScrollArea className="max-h-[80vh] rounded-md overflow-y-auto pb-[90px]">
 
                                 {/* Scrollable message area */}
                                 <div className="p-2">
@@ -312,28 +312,6 @@ export default function Chat({
                                     <div ref={bottomRef} />
 
                                 </div>
-
-                                {/* Input form fixed at bottom */}
-                                <div className="">
-                                    {!exerciseDrawerIsOpen && (
-                                        <form
-                                            onSubmit={handleSubmit}
-                                            className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
-                                        >
-                                            <div className="flex w-full z-800">
-                                                <Input
-                                                    onFocus={() => setOpen(true)}
-                                                    className="mr-2 flex-1 bg-white"
-                                                    name="prompt"
-                                                    value={input}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Tap here to get absolutely swoll"
-                                                />
-                                                <Button onClick={() => setOpen(true)}>Send</Button>
-                                            </div>
-                                        </form>
-                                    )}
-                                </div>
                             </ScrollArea>
                         </DrawerContent>
 
@@ -342,7 +320,7 @@ export default function Chat({
                 {!exerciseDrawerIsOpen && (
                     <form
                         onSubmit={handleSubmit}
-                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-900"
+                        className="fixed bottom-0 left-0 w-full bg-white/40 backdrop-blur-lg  border-gray-200 p-4 z-500"
                     >
                         <div className="flex w-full z-800">
                             <Input
@@ -353,7 +331,7 @@ export default function Chat({
                                 onChange={handleInputChange}
                                 placeholder="Chat here to get absolutely swoll"
                             />
-                            <Button onClick={() => setOpen(true)}>Send</Button>
+                            <Button type="submit">Send</Button>
                         </div>
                     </form>
                 )}
