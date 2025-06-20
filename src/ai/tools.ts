@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import { exercises } from "@/server/db/schema";
 import { sql } from "drizzle-orm";
 import { db } from "@/server/db";
-import { create } from "domain";
+import type { SQLChunk } from "drizzle-orm/sql";
 
 type GetExercisesInput = {
   refinedQuery: string;
@@ -14,6 +14,14 @@ type GetExercisesInput = {
   muscleGroupsToExclude?: string[];
 
 }
+
+type RefinedQuery = {
+  refinedQueryForEmbedding: string;
+  muscleGroupsToInclude?: string[];
+  muscleGroupsToExclude?: string[];
+  purpose?: string;
+  exerciseClassification?: string;
+};
 
 const openai = new OpenAI();
 
@@ -50,7 +58,7 @@ export const refineQueryTool = createTool({
       ],
     });
 
-    const parsed = JSON.parse(result.choices[0]?.message.content || "{}")
+    const parsed = JSON.parse(result.choices[0]?.message.content ?? "{}") as RefinedQuery
 
     return parsed
   }
@@ -85,7 +93,7 @@ export const exerciseTool = createTool({
     const normalizedIncludes = muscleGroupsToInclude?.map(m => m.toLowerCase())
     const normalizedExcludes = muscleGroupsToExclude?.map(m => m.toLowerCase())
 
-    const whereParts: any[] = [];
+    const whereParts: SQLChunk[] = [];
 
     if (normalizedIncludes?.length) {
       whereParts.push(sql`
